@@ -100,7 +100,7 @@
                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
                         <circle cx="12" cy="12" r="3" fill="currentColor"/>
                     </svg>
-                    Καλό Ταξίδי • מסע משפחות שקד ובן זקן
+                    Καλό Ταξίδι • מסע משפחות שקד ובן זקן
                 </div>
                 <h1 class="text-4xl md:text-6xl font-black tracking-tight font-sans text-white drop-shadow-md">חופשת הקיץ ביוון 2026</h1>
                 <p class="text-cyan-100 text-lg md:text-2xl mt-3 font-light max-w-2xl drop-shadow">חבל חלקידיקי וסלוניקי – שילוב חלומי של חופי טורקיז צלולים, קולינריה מעולה, וכפרים היסטוריים פסטורליים</p>
@@ -138,8 +138,8 @@
         </div>
     </header>
 
-    <!-- NAVIGATION TABS -->
-    <nav class="sticky top-0 bg-white/95 backdrop-blur shadow-md z-40 border-b border-greeceTurquoise-100">
+    <!-- NAVIGATION TABS - FIXED/STICKY TOP -->
+    <nav class="sticky top-0 bg-white/95 backdrop-blur-md shadow-md z-50 border-b border-greeceTurquoise-100">
         <div class="max-w-6xl mx-auto px-4">
             <div class="flex items-center justify-between">
                 <div class="flex overflow-x-auto custom-scrollbar whitespace-nowrap py-2 gap-2 w-full justify-start md:justify-center">
@@ -153,7 +153,7 @@
                         🏝️ מדריכי עומק אזוריים
                     </button>
                     <button onclick="switchTab('checklist')" id="tab-checklist" class="tab-btn px-5 py-3 border-b-2 border-transparent font-bold text-sm transition-all duration-200 text-slate-600 hover:text-greeceTurquoise-600 flex items-center gap-2">
-                        📋 משימות ורשימת ציוד
+                        📋 טיפים כלליים, ציוד ומשימות
                     </button>
                 </div>
             </div>
@@ -180,7 +180,7 @@
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <!-- Outbound flight -->
-                            <div class="p-4 bg-greekBlue-50 rounded-2xl border border-greekBlue-100">
+                            <div class="p-4 bg-greekBlue-50 rounded-2xl border border-greekBlue-100 text-right">
                                 <div class="flex justify-between items-center mb-3">
                                     <span class="text-xs font-black text-white bg-greeceTurquoise-500 px-3 py-1 rounded-full">טיסת הלוך ✈️</span>
                                     <span class="text-xs font-bold text-slate-500">01/07/2026</span>
@@ -193,7 +193,7 @@
                                 </div>
                             </div>
                             <!-- Return info -->
-                            <div class="p-4 bg-greekBlue-50 rounded-2xl border border-greekBlue-100">
+                            <div class="p-4 bg-greekBlue-50 rounded-2xl border border-greekBlue-100 text-right">
                                 <div class="flex justify-between items-center mb-3">
                                     <span class="text-xs font-black text-white bg-greekBlue-600 px-3 py-1 rounded-full">טיסת חזור ✈️</span>
                                     <span class="text-xs font-bold text-slate-500">09/07/2026</span>
@@ -214,7 +214,7 @@
                             <h2 class="text-xl font-bold font-sans">השכרת רכב ואנשי קשר חשובים</h2>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="p-4 bg-emerald-50/50 rounded-2xl border border-emerald-100 flex flex-col justify-between">
+                            <div class="p-4 bg-emerald-50/50 rounded-2xl border border-emerald-100 flex flex-col justify-between text-right">
                                 <div>
                                     <h3 class="font-bold text-sm text-emerald-800 mb-1 flex items-center gap-1.5">
                                         🚗 השכרת רכב מומלצת - Chalkidiki Cars
@@ -228,7 +228,7 @@
                                     🟢 לחצו כאן לשליחת הודעת וואטסאפ לתומר ➔
                                 </a>
                             </div>
-                            <div class="p-4 bg-cyan-50/50 rounded-2xl border border-cyan-100">
+                            <div class="p-4 bg-cyan-50/50 rounded-2xl border border-cyan-100 text-right">
                                 <h3 class="font-bold text-sm text-cyan-800 mb-1 flex items-center gap-1.5">
                                     📱 תקשורת וניווט בדרכים
                                 </h3>
@@ -250,7 +250,7 @@
                         </div>
                         <div class="space-y-5">
                             <!-- Domes Noruz Kassandra -->
-                            <div class="flex flex-col md:flex-row items-center gap-5 p-4 bg-cyan-50/50 rounded-2xl border border-cyan-100 hover:border-greeceTurquoise-400 transition-all">
+                            <div class="flex flex-col md:flex-row items-center gap-5 p-4 bg-cyan-50/50 rounded-2xl border border-cyan-100 hover:border-greeceTurquoise-400 transition-all text-right">
                                 <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=200&h=130&q=80" alt="Domes Noruz Kassandra" class="w-full md:w-40 h-28 object-cover rounded-xl" onerror="this.src='https://placehold.co/200x130?text=Domes+Noruz'">
                                 <div class="flex-1 text-center md:text-right">
                                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-2">
@@ -266,7 +266,7 @@
                                 </div>
                             </div>
                             <!-- Thessaloniki Hotel (S Hotel Boutique) -->
-                            <div class="flex flex-col md:flex-row items-center gap-5 p-4 bg-cyan-50/50 rounded-2xl border border-cyan-100 hover:border-greeceTurquoise-400 transition-all">
+                            <div class="flex flex-col md:flex-row items-center gap-5 p-4 bg-cyan-50/50 rounded-2xl border border-cyan-100 hover:border-greeceTurquoise-400 transition-all text-right">
                                 <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=200&h=130&q=80" alt="S Hotel Boutique Thessaloniki" class="w-full md:w-40 h-28 object-cover rounded-xl" onerror="this.src='https://placehold.co/200x130?text=S-HOTEL'">
                                 <div class="flex-1 text-center md:text-right">
                                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-2">
@@ -294,13 +294,13 @@
                             ☀️ אקלים וטמפרטורות ביולי
                         </h3>
                         <div class="flex justify-between items-center mb-4">
-                            <div>
+                            <div class="text-right">
                                 <p class="text-4xl font-extrabold font-serif">32°C</p>
                                 <p class="text-xs text-cyan-50 font-bold">קיץ חלומי, שמיים בהירים ונקיים</p>
                             </div>
                             <svg class="w-14 h-14 text-yellow-300 animate-spin" style="animation-duration: 20s" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464a1 1 0 10-1.414 1.414l.707.707a1 1 0 001.414-1.414l-.707-.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 100 2h1z"/></svg>
                         </div>
-                        <div class="border-t border-white/20 pt-3 text-xs space-y-1.5 text-cyan-100">
+                        <div class="border-t border-white/20 pt-3 text-xs space-y-1.5 text-cyan-100 text-right">
                             <p>🌀 בריזה מלטפת מהים האגאי בערב</p>
                             <p>💧 טמפרטורת המים בחופים: <strong class="text-white">26°C</strong></p>
                             <p>🌅 שקיעות סביב השעה: <strong class="text-white">21:00</strong></p>
@@ -340,9 +340,9 @@
         <section id="content-itinerary" class="content-section">
             <div class="bg-white p-6 rounded-3xl shadow-sm border border-greeceTurquoise-100 mb-6">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
-                    <div>
+                    <div class="text-right">
                         <h2 class="text-2xl font-bold text-slate-800 font-sans">תוכנית הטיול היומית שלכם</h2>
-                        <p class="text-slate-500 text-sm mt-1">תוכנית מסונכרנת ומדויקת מול קובץ התכנון שלכם!</p>
+                        <p class="text-slate-500 text-sm mt-1">תוכנית מסונכרנת ומדויקת מול קובץ התכנון המקורי שלכם!</p>
                     </div>
                     <button onclick="sharePlan()" class="bg-greeceTurquoise-50 hover:bg-greeceTurquoise-100 text-greeceTurquoise-700 text-xs font-bold px-4 py-2.5 rounded-xl transition-all flex items-center gap-2 border border-greeceTurquoise-200">
                         🔗 העתקת קישור מהיר
@@ -363,11 +363,11 @@
 
         <!-- ==================== REGIONAL GUIDES ==================== -->
         <section id="content-guides" class="content-section hidden">
-            <div class="mb-6 text-center md:text-right relative">
+            <div class="mb-6 text-right relative">
                 <!-- Cool mataki decorative badge -->
                 <div class="absolute -top-12 left-0 text-4xl hidden md:block">🧿</div>
                 <h2 class="text-3xl font-extrabold text-greekBlue-900 font-sans">מדריכי עומק אזוריים מלאים</h2>
-                <p class="text-slate-500 text-sm mt-2">כל חופי הטורקיז, כפרי האבן, הווילות ההיסטוריות, הטברנות האותנטיות והטיפים השימושיים לדרך!</p>
+                <p class="text-slate-500 text-sm mt-2">כל חופי הטורקיז, כפרי האבן, הווילות ההיסטוריות והטברנות האותנטיות ללא קיצורים!</p>
             </div>
 
             <!-- Region selector -->
@@ -391,7 +391,7 @@
                         <span class="absolute inset-y-0 right-3.5 flex items-center text-slate-400">
                             🔍
                         </span>
-                        <input type="text" id="guide-search-input" oninput="filterLocations()" placeholder="חפש חוף, טברנה, כפר או טיפ..." class="w-full pl-3 pr-10 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-greeceTurquoise-500 transition-colors">
+                        <input type="text" id="guide-search-input" oninput="filterLocations()" placeholder="חפש חוף, טברנה, כפר..." class="w-full pl-3 pr-10 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-greeceTurquoise-500 transition-colors text-right">
                     </div>
                     <!-- Categories (Container will be populated dynamically) -->
                     <div id="category-filter-container" class="flex overflow-x-auto custom-scrollbar gap-1.5 w-full py-1">
@@ -408,43 +408,115 @@
             <!-- Empty state -->
             <div id="empty-state" class="hidden text-center py-16 bg-white rounded-3xl border border-dashed border-slate-200">
                 <span class="text-4xl">🏝️</span>
-                <h3 class="font-bold text-slate-700 text-lg mt-3">לא נמצאו מקומות או טיפים תואמים</h3>
+                <h3 class="font-bold text-slate-700 text-lg mt-3">לא נמצאו מקומות תואמים</h3>
                 <p class="text-slate-400 text-sm mt-1">נסו לחפש מילה אחרת או לשנות את הסינון האזורי</p>
             </div>
         </section>
 
-        <!-- ==================== INTERACTIVE CHECKLIST ==================== -->
+        <!-- ==================== INTEGRATED CHECKLIST & TIPS SECTION ==================== -->
         <section id="content-checklist" class="content-section hidden">
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-greeceTurquoise-100">
-                <div class="mb-6 flex items-center justify-between">
-                    <div>
-                        <h2 class="text-2xl font-bold text-slate-800 font-sans">צ'ק-ליסט ומשימות לטיול</h2>
-                        <p class="text-slate-500 text-sm mt-1">סמנו את המשימות שסיימתם להכנה מקסימלית ושלווה של כל המשפחה!</p>
-                    </div>
-                    <div class="text-3xl">🧿</div>
-                </div>
+            <!-- Main Grid: Left Column (Tips), Right Column (Checklists) -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- COLUMN 1 & 2: GENERAL TIPS (💡 טיפים כלליים לדרך) -->
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-greeceTurquoise-100">
+                        <div class="mb-6 flex items-center gap-3 border-b border-slate-100 pb-4">
+                            <span class="p-2.5 bg-greeceTurquoise-50 text-greeceTurquoise-600 rounded-2xl text-xl">💡</span>
+                            <div class="text-right">
+                                <h2 class="text-2xl font-bold text-slate-800 font-sans">טיפים כלליים ומעשיים לדרך</h2>
+                                <p class="text-slate-500 text-sm mt-0.5">כל המידע החיוני, הבטיחות, הנהיגה והטיפים שיחסכו לכם זמן וכסף</p>
+                            </div>
+                        </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="checklist-container">
-                    <!-- Logistics checklist -->
-                    <div class="space-y-4">
-                        <h3 class="font-bold text-greekBlue-800 text-base border-b border-greeceTurquoise-100 pb-2 flex items-center gap-2">
-                            <span>📝</span> לוגיסטיקה וארגונים חשובים
-                        </h3>
-                        <div class="space-y-2.5" id="logistics-list">
-                            <!-- Injected by JS -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Driving Tip -->
+                            <div class="p-5 bg-gradient-to-br from-greekBlue-50/50 to-white rounded-2xl border border-greekBlue-100 relative overflow-hidden text-right">
+                                <span class="absolute -left-3 -bottom-3 text-5xl opacity-10">🚗</span>
+                                <h3 class="font-bold text-greekBlue-900 text-sm mb-1.5">🚗 נהיגה, כבישים ובטיחות בדרכים</h3>
+                                <p class="text-xs text-slate-600 leading-relaxed">
+                                    הנסיעות בקסנדרה נוחות ושטוחות, אך הכבישים בתוך סיטוניה הרריים, מפותלים ומלאים בסיבובים מול מצוקי הים הדרמטיים. הנסיעה מציעה נופים מהפנטים אך דורשת ריכוז ונהיגה רגועה ובטוחה ללא חיפזון. מומלץ לא להשאיר תיקים או חפצי ערך גלויים לעין בתוך הרכבים בחניוני החופים הציבוריים. השתמשו באפליקציות ניווט והורידו מפות אופליין ליתר ביטחון.
+                                </p>
+                            </div>
+
+                            <!-- Cash Tip -->
+                            <div class="p-5 bg-gradient-to-br from-greeceTurquoise-50/50 to-white rounded-2xl border border-greeceTurquoise-100 relative overflow-hidden text-right">
+                                <span class="absolute -left-3 -bottom-3 text-5xl opacity-10">💶</span>
+                                <h3 class="font-bold text-greeceTurquoise-700 text-sm mb-1.5">💶 כסף, תשלומים וגיבוי מזומן</h3>
+                                <p class="text-xs text-slate-600 leading-relaxed">
+                                    כרטיסי אשראי מכובדים כמעט בכל מקום (קסנדרה, סיטוניה וסלוניקי), אך בטברנות קטנות או דוכני דרכים/נמלים מבודדים לפעמים קורא האשראי מאבד קליטה. תמיד מומלץ להחזיק גיבוי מזומן קטן בכיס (כ-100-150 אירו בארנק לשקט נפשי ולפתרון מהיר בכל רגע של בעיית רשת זמנית).
+                                </p>
+                            </div>
+
+                            <!-- Water Shoes Tip -->
+                            <div class="p-5 bg-gradient-to-br from-cyan-50/50 to-white rounded-2xl border border-cyan-100 relative overflow-hidden text-right">
+                                <span class="absolute -left-3 -bottom-3 text-5xl opacity-10">🌊</span>
+                                <h3 class="font-bold text-cyan-800 text-sm mb-1.5">🌊 נעלי מים - פריט חובה לחופים</h3>
+                                <p class="text-xs text-slate-600 leading-relaxed">
+                                    חלק מהחופים היפים והפראיים ביותר כוללים אבני חלוקים קטנות או סלעים בכניסה למים. נעלי מים יאפשרו לכל בני המשפחה כניסה רכה, מהירה ובטוחה למים ללא כאבים או פחד מהחלקה. רכשו מראש נעלי מים פשוטות מגומי או סיליקון לכל אחד מבני המשפחה וקחו אותן איתכם בתיק הים שלכם.
+                                </p>
+                            </div>
+
+                            <!-- Sharing Tip -->
+                            <div class="p-5 bg-gradient-to-br from-sky-50/50 to-white rounded-2xl border border-sky-100 relative overflow-hidden text-right">
+                                <span class="absolute -left-3 -bottom-3 text-5xl opacity-10">🍽️</span>
+                                <h3 class="font-bold text-sky-800 text-sm mb-1.5">🍽️ תרבות ה-Sharing בטברנות</h3>
+                                <p class="text-xs text-slate-600 leading-relaxed">
+                                    החוויה בטברנה יוונית אמיתית מבוססת על הזמנת מספר גדול של מנות ראשונות (Mezedes) וחלוקתן במרכז השולחן. אווירה שמחה, משפחתית, ומאפשרת לטעום שפע של מאכלים מקומיים שונים במקום להזמין מנה עיקרית אישית. הזמינו מגוון רחב של מנות ראשונות כמו סלט יווני, צציקי, קישואים קריספיים וקלמארי, ותיהנו מארוחה משותפת וכיפית!
+                                </p>
+                            </div>
+
+                            <!-- Freddo Coffee Tip -->
+                            <div class="p-5 bg-gradient-to-br from-teal-50/50 to-white rounded-2xl border border-teal-100 relative overflow-hidden text-right">
+                                <span class="absolute -left-3 -bottom-3 text-5xl opacity-10">☕</span>
+                                <h3 class="font-bold text-teal-800 text-sm mb-1.5">☕ Freddo Espresso ופסק זמן יווני</h3>
+                                <p class="text-xs text-slate-600 leading-relaxed">
+                                    המשקאות הלאומיים הקיציים של יוון הם Freddo Espresso (אספרסו כפול מוקצף עם קרח) ו-Freddo Cappuccino (עם קצף חלב קר ואוורירי מעל). חלק בלתי נפרד מחיי היום-יום של המקומיים. הם שותים אותו לאט וברוגע לאורך כל שעות היום.
+                                </p>
+                            </div>
+
+                            <!-- Boat Booking Tip -->
+                            <div class="p-5 bg-gradient-to-br from-emerald-50/50 to-white rounded-2xl border border-emerald-100 relative overflow-hidden text-right">
+                                <span class="absolute -left-3 -bottom-3 text-5xl opacity-10">⛵</span>
+                                <h3 class="font-bold text-emerald-800 text-sm mb-1.5">⛵ שריון שייט מוקדם בוורוורו</h3>
+                                <p class="text-xs text-slate-600 leading-relaxed">
+                                    חודש יולי הוא תקופת השיא (High Season). הביקוש להשכרת סירות עצמאיות בוורוורו גבוה בצורה קיצונית. מנעו אכזבה משפחתית ושמרו את הסירה שלכם מספיק זמן מראש כדי להבטיח את היום הכי כיפי בטיול. מומלץ לפנות לחברת Kraken Boat Rental המצוינת ולשריין את הסירה מראש ליום חמישי (02/07). הביאו צידנית עם פירות קרים ומים!
+                                </p>
+                            </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Packing checklist -->
-                    <div class="space-y-4">
-                        <h3 class="font-bold text-greeceTurquoise-600 text-base border-b border-greeceTurquoise-100 pb-2 flex items-center gap-2">
-                            <span>🎒</span> מה לא לשכוח לארוז
-                        </h3>
-                        <div class="space-y-2.5" id="packing-list">
-                            <!-- Injected by JS -->
+                <!-- COLUMN 3: PACKING & LOGISTICS CHECKLISTS -->
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-greeceTurquoise-100">
+                        <div class="mb-4 flex items-center gap-2 border-b border-slate-50 pb-3">
+                            <span class="text-xl">📝</span>
+                            <h3 class="font-bold text-slate-800 text-base font-sans">צ'ק-ליסט משימות וציוד</h3>
+                        </div>
+
+                        <!-- Logistics Checklist -->
+                        <div class="space-y-4 mb-6">
+                            <h4 class="font-bold text-greekBlue-800 text-xs border-b border-greeceTurquoise-100 pb-1 flex items-center gap-1">
+                                <span>📝</span> לוגיסטיקה וארגונים חשובים
+                            </h4>
+                            <div class="space-y-2" id="logistics-list">
+                                <!-- Injected by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Packing Checklist -->
+                        <div class="space-y-4">
+                            <h4 class="font-bold text-greeceTurquoise-600 text-xs border-b border-greeceTurquoise-100 pb-1 flex items-center gap-1">
+                                <span>🎒</span> מה לא לשכוח לארוז
+                            </h4>
+                            <div class="space-y-2" id="packing-list">
+                                <!-- Injected by JS -->
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </section>
 
@@ -454,8 +526,8 @@
     <footer class="bg-slate-900 text-white py-14 px-6 mt-12 relative border-t-8 border-greeceTurquoise-500">
         <!-- Greek Meander SVG Motif in footer background -->
         <div class="absolute inset-x-0 top-0 h-4 bg-white/5 opacity-40 meander-pattern"></div>
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 relative z-10">
-            <div class="text-center md:text-right">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 relative z-10 text-right">
+            <div>
                 <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
                     <span class="text-2xl">🧿</span>
                     <p class="font-sans text-2xl font-black tracking-wider text-greeceTurquoise-400">שקד & בן זקן - יולי 2026</p>
@@ -512,7 +584,7 @@
             activeTabBtn.classList.add('border-greeceTurquoise-500', 'text-greeceTurquoise-600', 'active-tab', 'bg-greeceTurquoise-50/50');
         }
 
-        // 3. COMPLETE LOCATIONS & INTEGRATED TIPS DATABASE
+        // 3. COMPLETE LOCATIONS DATABASE (Excluding general tips since they are unified now)
         const locationsData = [
             // ==================== KASSANDRA REGION ====================
             {
@@ -561,61 +633,6 @@
             },
             {
                 region: "kassandra",
-                category: "villages",
-                name: "סיבירי (Siviri)",
-                badge: "🏘️ השקיעות המרהיבות והתיאטרון",
-                image: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&q=80",
-                character: "עיירת חוף מקסימה ושלווה הממוקמת בצד המערבי של קסנדרה, הידועה בזכות הטיילת הנהדרת שלה והתיאטרון הפתוח המארח הופעות בקיץ.",
-                vibe: "יוון אותנטי, פשוט ונינוח, מושלם לבילוי רגוע של שעות אחר הצהריים מול השמש השוקעת.",
-                action: "לצפות בשקיעה הכי יפה בחצי האי (השמש נופלת ישר לים), לאכול דגים טריים ומאזטים בטברנות המונחות ממש על החול.",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Siviri+Kassandra+Greece"
-            },
-            {
-                region: "kassandra",
-                category: "villages",
-                name: "ניאה סקיוני (Nea Skioni)",
-                badge: "🏘️ נמל דייגים שקט",
-                image: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=600&q=80",
-                character: "כפר דייגים קטן ושקט הממוקם בחוף הדרום-מערבי של קסנדרה.",
-                vibe: "רגוע לחלוטין, כמעט ללא תיירות המונית. החיים כאן מסתובבים סביב הנמל והדייגים שמביאים את שללם בכל בוקר.",
-                action: "המקום האידיאלי לאכול דגים ופירות ים טריים בטברנה פשוטה על המזח, כשהים נושק לשולחן שלכם.",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Nea+Skioni+Kassandra+Greece"
-            },
-            {
-                region: "kassandra",
-                category: "villages",
-                name: "פוסידי (Possidi)",
-                badge: "🏘️ מגדלור והיסטוריה",
-                image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=600&q=80",
-                character: "נקודה קסומה בצד המערבי של קסנדרה, המפורסמת בזכות 'הלשון' – רצועת חול ארוכה שנכנסת לתוך הים ומשנה את צורתה.",
-                vibe: "פראי, מבודד, פתוח אל הים הפתוח ומשדר רוגע עמוק וחיבור לטבע.",
-                action: "ללכת עד קצה לשון החול, לבקר במגדלור העתיק (שנבנה ב-1864) ולהתרשם משרידי המקדש העתיק של פוסידון (Poseidon Temple).",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Possidi+Kassandra+Greece"
-            },
-            {
-                region: "kassandra",
-                category: "villages",
-                name: "פפקוחורי (Pefkochori)",
-                badge: "🏘️ אורנים וטיילת שוקקת",
-                image: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=600&q=80",
-                character: "כפר נופש תוסס ושמו נגזר מעצי האורן (Pefko) הרבים המקיפים אותו ומגיעים עד לקו המים.",
-                vibe: "ידוע בעיקר בזכות הטיילת הארוכה שלו, שלאורכה פזורים עשרות ברים טרנדיים, חנויות בוטיק ומסעדות דגים.",
-                action: "בחלקו העליון של הכפר ניתן למצוא סמטאות ציוריות עם בתי אבן מסורתיים וגינות פורחות, לצד חיי לילה תוססים בטיילת.",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Pefkochori+Kassandra+Greece"
-            },
-            {
-                region: "kassandra",
-                category: "villages",
-                name: "קליתאה (Kallithea)",
-                badge: "🏘️ מועדוני ענק וחיי לילה",
-                image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=600&q=80",
-                character: "העיירה המרכזית בחוף המזרחי, המהווה את בירת המסיבות של חלקידיקי.",
-                vibe: "מפורסמת בזכות מועדוני הענק הפתוחים שלה (Open Air Clubs) שמארחים דיג'ייז בינלאומיים.",
-                action: "פחות מתאים למי שמחפש שקט ואותנטיות, אך נחמד לדעת שזה קיים במרחק של כ-15 דקות נסיעה מכם.",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Kallithea+Kassandra+Greece"
-            },
-            {
-                region: "kassandra",
                 category: "beaches",
                 name: "לשון החול של פוסידי (Possidi Cape)",
                 badge: "🏖️ טבע פראי ללא מתווכים",
@@ -628,28 +645,6 @@
             {
                 region: "kassandra",
                 category: "beaches",
-                name: "חוף נאבאגוס (Navagos Beach)",
-                badge: "🏖️ בוהו-שיק בקצה הדרום",
-                image: "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=600&q=80",
-                character: "מפרץ קטן וסלעי הממוקם בקצה הדרומי ביותר של קסנדרה (ליד פאליורי), מוקף בצוקי אבן ויער אורנים.",
-                vibe: "בר החוף שפועל כאן מעוצב כולו מחומרים טבעיים (עץ, חבלים, קש) ומשתלב בטבע בצורה מושלמת. אווירת 'בוהו-שיק' איכותית ומשוחררת.",
-                action: "המים עמוקים, שקטים מאוד וקרירים. המוזיקה נעימה (לא רועשת), הקהל בוגר, ואין כאן את תגי המחיר המופקעים של החופים ההמוניים.",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Navagos+Beach+Kassandra"
-            },
-            {
-                region: "kassandra",
-                category: "beaches",
-                name: "חוף גלארוקאבוס (Glarokavos Beach)",
-                badge: "🏖️ לגונה טבעית ויער אורנים",
-                image: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=600&q=80",
-                character: "חוף ארוך מאוד הממוקם דרומית לפפקוחורי, המפורסם בזכות לגונה טבעית גדולה המשמשת מעגן לסירות.",
-                vibe: "מאוד מקומית ואותנטית. החוף מוקף ביער אורנים רחב שמגיע כמעט עד המים ומעניק צל טבעי משגע. המים חמימים, שטוחים וחוליים.",
-                action: "יש כאן ברים קטנים ופשוטים (כמו Faros) לצד מרחבים עצומים ופראיים לחלוטין שבהם אפשר לפרוס מגבת ברוגע תחת עץ אורן.",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Glarokavos+Beach+Kassandra"
-            },
-            {
-                region: "kassandra",
-                category: "beaches",
                 name: "חוף אפיטוס / ליוסי (Afitos / Liosi Beach)",
                 badge: "🏖️ טורקיז מתחת לצוק",
                 image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=600&q=80",
@@ -657,17 +652,6 @@
                 vibe: "מים בצבע טורקיז מהפנט עם קרקעית חולית נקייה ורכה, שקטה ורומנטית מאוד. הצוקים הגבוהים מעניקים נוף דרמטי.",
                 action: "שחיית בוקר רגועה וישיבה לאחר מכן באחת מטברנות הדגים הקטנות שבהן יושבים ממש על קו המים.",
                 mapsUrl: "https://www.google.com/maps/search/?api=1&query=Liosi+Beach+Afytos"
-            },
-            {
-                region: "kassandra",
-                category: "beaches",
-                name: "חוף קליתאה (Kallithea Beach)",
-                badge: "🏖️ הבריכה הטבעית הענקית",
-                image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
-                character: "רצועת חוף רחבה להפליא הממוקמת מתחת לעיירה קליתאה.",
-                vibe: "חול זהוב דק ורך במיוחד עם מים צלולים ורדודים שנראים כמו בריכה ענקית. המים נשארים רדודים לאורך מרחק רב מהחוף.",
-                action: "מושלם לרביצה ארוכה ושחייה בטוחה. שימו לב שהחוף מוסדר ותוסס מאוד ביולי.",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Kallithea+Beach+Kassandra"
             },
             {
                 region: "kassandra",
@@ -702,58 +686,13 @@
                 action: "מה להזמין: קרפים ענקיים וטעימים במיוחד במגוון מילויים ותוספות של שוקולד, גבינות, פירות וגלידות.",
                 mapsUrl: "https://www.google.com/maps/search/?api=1&query=Don+Crepadore+Skala+Fourkas"
             },
-            // Kassandra Tips
-            {
-                region: "kassandra",
-                category: "tips",
-                name: "🚗 נהיגה, כבישים ובטיחות בדרכים",
-                badge: "💡 טיפ נהיגה פנימי",
-                image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=600&q=80",
-                character: "הנסיעות בקסנדרה נוחות ושטוחות, אך תמיד מומלץ לנהוג בזהירות ובמהירות סבירה.",
-                vibe: "הדרכים בטוחות, אך מומלץ לא להשאיר תיקים או חפצי ערך גלויים לעין בתוך הרכבים בחניוני החופים הציבוריים.",
-                action: "השתמשו באפליקציות ניווט והורידו מפות אופליין ליתר ביטחון למניעת מצבים של חוסר קליטה רגעית בדרכים.",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Hanioti+Kassandra+Greece"
-            },
-            {
-                region: "kassandra",
-                category: "tips",
-                name: "💶 כסף, תשלומים וגיבוי מזומן",
-                badge: "💡 טיפ פיננסי פנימי",
-                image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80",
-                character: "כרטיסי אשראי מכובדים כמעט בכל מקום בקסנדרה, אך בטברנות קטנות או דוכני דרכים לפעמים קורא האשראי מאבד קליטה.",
-                vibe: "תמיד מומלץ להחזיק גיבוי מזומן קטן בכיס לשקט נפשי ולנוחות מרבית.",
-                action: "החזיקו איתכם כ-100-150 אירו במזומן לכל צורך או מקרה של קשיי קליטה זמניים במכשירי ה-POS.",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Hanioti+Kassandra+Greece"
-            },
-            {
-                region: "kassandra",
-                category: "tips",
-                name: "🌊 נעלי מים - פריט חובה לחופים",
-                badge: "💡 פריט חובה במזוודה",
-                image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
-                character: "חלק מהחופים היפים והפראיים ביותר כוללים אבני חלוקים קטנות או סלעים בכניסה למים.",
-                vibe: "שומר על כפות הרגליים ומאפשר כניסה רגועה, בטוחה וללא חשש מהחלקה.",
-                action: "הצטיידו מראש לכל אחד מבני המשפחה בנעלי מים פשוטות מגומי או סיליקון שתוכלו לקחת איתכם בתיק הים.",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Hanioti+Kassandra+Greece"
-            },
-            {
-                region: "kassandra",
-                category: "tips",
-                name: "🍽️ תרבות ה-Sharing בטברנות",
-                badge: "💡 טיפ קולינרי פנימי",
-                image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80",
-                character: "החוויה בטברנה יוונית אמיתית מבוססת על הזמנת מספר גדול של מנות ראשונות (Mezedes) וחלוקתן במרכז השולחן.",
-                vibe: "אווירה שמחה, משפחתית, ומאפשרת לטעום שפע של מאכלים מקומיים שונים במקום להזמין מנה עיקרית אישית.",
-                action: "הזמינו מגוון רחב של מנות ראשונות כמו סלט יווני, צציקי, קישואים קריספיים וקלמארי, ותיהנו מארוחה משותפת וכיפית!",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Hanioti+Kassandra+Greece"
-            },
 
             // ==================== SITHONIA REGION ====================
             {
                 region: "sithonia",
                 category: "villages",
                 name: "פרתנונאס (Parthenonas)",
-                badge: "💡 כפר הררי משומר",
+                badge: "⛰️ כפר הררי משומר",
                 image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=600&q=80",
                 character: "כפר הררי עתיק ומשוחזר הממוקם בגובה 350 מטרים מעל פני הים, על צלע הר איתמוס. בשנות ה-70 הכפר ננטש לחלוטין מתושביו, אך בעשורים האחרונים הוא שוחזר בקפידה תחת חוקי שימור קשוחים.",
                 vibe: "סמטאות צרות ומרוצפות אבן, בתי אבן מקדוניים קלאסיים, חצרות פורחות בשלל צבעים ושקט פנטסטי.",
@@ -891,51 +830,6 @@
                 vibe: "ללא מוזיקה רועשת, ללא גינונים – רק אוכל מעולה וטרי, רעש גלי הפיורד העדינים ברקע.",
                 action: "מה להזמין: דגים טריים שנשקלים לפי קילו ומוכנים על הגריל במקום עם שמן זית ולימון, סקורדליה (ממרח שום ותפוחי אדמה יווני) משגע, וירקות מקומיים מבושלים (Horta).",
                 mapsUrl: "https://www.google.com/maps/search/?api=1&query=Taverna+Porto+Koufo+Sithonia"
-            },
-            // Sithonia Tips
-            {
-                region: "sithonia",
-                category: "tips",
-                name: "🚗 נהיגה, כבישים ובטיחות בסיטוניה",
-                badge: "💡 טיפ נהיגה פנימי",
-                image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=600&q=80",
-                character: "הכבישים בתוך סיטוניה הרריים, מפותלים ומלאים בסיבובים מול מצוקי הים הדרמטיים.",
-                vibe: "הנסיעה מציעה נופים מהפנטים אך דורשת ריכוז ונהיגה רגועה ובטוחה ללא חיפזון.",
-                action: "מומלץ להוריד מראש מפות אופליין ב-Google Maps כדי לא לאבד את נתיב הניווט באזורים הרריים נטולי קליטה.",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Vourvourou+Sithonia+Greece"
-            },
-            {
-                region: "sithonia",
-                category: "tips",
-                name: "⛵ שריון שייט מוקדם בוורוורו (Vourvourou)",
-                badge: "💡 טיפ שייט קריטי",
-                image: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=600&q=80",
-                character: "חודש יולי הוא תקופת השיא (High Season). הביקוש להשכרת סירות עצמאיות בוורוורו גבוה בצורה קיצונית.",
-                vibe: "מנעו אכזבה משפחתית ושמרו את הסירה שלכם מספיק זמן מראש כדי להבטיח את היום הכי כיפי בטיול.",
-                action: "מומלץ לפנות לחברת Kraken Boat Rental המצוינת ולשריין את הסירה מראש ליום חמישי (02/07). הביאו צידנית עם פירות קרים ומים!",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Vourvourou+Sithonia+Greece"
-            },
-            {
-                region: "sithonia",
-                category: "tips",
-                name: "💶 כסף, תשלומים וגיבוי מזומן",
-                badge: "💡 טיפ פיננסי פנימי",
-                image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80",
-                character: "בטברנות דייגים קטנות בנמלים מבודדים (כמו פורטו קופו) או בכפרים הרריים (פרתנונאס) קליטת ה-POS לעיתים משובשת.",
-                vibe: "תמיד כדאי להחזיק גיבוי מזומן קטן בכיס כדי להימנע מאי נעימויות בארוחה משפחתית.",
-                action: "החזיקו כ-100-150 אירו במזומן לגיבוי לכל צורך במהלך ימי הטיול שלכם בסיטוניה.",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Vourvourou+Sithonia+Greece"
-            },
-            {
-                region: "sithonia",
-                category: "tips",
-                name: "🌊 נעלי מים - פריט חובה לחופים",
-                badge: "💡 פריט חובה במזוודה",
-                image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
-                character: "חלק מהחופים היפים והפראיים ביותר בסיטוניה כוללים אבני חלוקים קטנות או סלעים בכניסה למים.",
-                vibe: "נעלי מים יאפשרו לכל בני המשפחה כניסה רכה, מהירה ובטוחה למים ללא כאבים או פחד מהחלקה.",
-                action: "רכשו מראש נעלי מים פשוטות מגומי או סיליקון לכל אחד מבני המשפחה וקחו אותן איתכם בתיק הים שלכם.",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Vourvourou+Sithonia+Greece"
             },
 
             // ==================== THESSALONIKI REGION ====================
@@ -1112,7 +1006,7 @@
                 image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80",
                 character: "בר ספריץ ואפריטיבו איטלקי קטן ומטריף בלב העיר. המקום מעוצב בסטייל איטלקי נקי.",
                 vibe: "המקומיים מתאספים כאן לעמידה קלה על הרחוב או ישיבה קלה בשעות אחר הצהריים (חוויית 'אפריטיבו' קלאסית).",
-                action: "מה להזמין: מגום עצום של ורמוטים, אפריטיפי וקוקטיילים מבוססי ספריץ, המוגשים עם זיתים ונשנושים קלים לצד המשקה.",
+                action: "מה להזמין: מגוון עצום של ורמוטים, אפריטיפי וקוקטיילים מבוססי ספריץ, המוגשים עם זיתים ונשנושים קלים לצד המשקה.",
                 mapsUrl: "https://www.google.com/maps/search/?api=1&query=Giulietta+Spritzeria+Thessaloniki"
             },
             {
@@ -1133,7 +1027,7 @@
                 badge: "🍹 חצר בלוק נסתרת",
                 image: "https://images.unsplash.com/photo-1464146072230-91cabc968266?auto=format&fit=crop&w=600&q=80",
                 character: "חצר פנימית ואלטרנטיבית המסתתרת בתוך בלוק בניינים בלב העיר.",
-                vibe: "המקום מעוצב בחומרי גלם פשוטים, המון ירוק, ומשדר נינוחות מוחלטת של שכונה יוונית.",
+                vibe: "Mקום מעוצב בחומרי גלם פשוטים, המון ירוק, ומשדר נינוחות מוחלטת של שכונה יוונית.",
                 action: "מקום קליל ולא מחייב לבירה קרה ונשנושים בערב קיץ חם.",
                 mapsUrl: "https://www.google.com/maps/search/?api=1&query=Bar+Ba+Ben+Thessaloniki"
             },
@@ -1378,40 +1272,6 @@
                 vibe: "נוסטלגית, פתוחה לים, מרעננת וזולה.",
                 action: "איך זה עובד: הכניסה לסירה היא ללא תשלום, אך מותנית בהזמנת משקה אחד לפחות מהבר (בירה, יין או קוקטייל). זו דרך נפלאה לתפוס רוח קרירה.",
                 mapsUrl: "https://www.google.com/maps/search/?api=1&query=Klio+Cruise+Bar+White+Tower+Thessaloniki"
-            },
-            // Thessaloniki Tips
-            {
-                region: "thessaloniki",
-                category: "tips",
-                name: "☕ Freddo Espresso ופסק זמן יווני",
-                badge: "💡 טיפ תרבות מקומי",
-                image: "https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=600&q=80",
-                character: "המשקאות הלאומיים הקיציים של יוון הם Freddo Espresso (אספרסו כפול מוקצף עם קרח) ו-Freddo Cappuccino (עם קצף חלב קר ואוורירי מעל).",
-                vibe: "חלק בלתי נפרד מחיי היום-יום של המקומיים. הם שותים אותו לאט וברוגע לאורך כל שעות היום.",
-                action: "הזמינו Espresso Freddo בכל בית קפה בעיר, שבו בחוץ בכיכר ותיהנו מקצב החיים הרגוע.",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Aristotelous+Square+Thessaloniki"
-            },
-            {
-                region: "thessaloniki",
-                category: "tips",
-                name: "🍽️ תרבות ה-Sharing בטברנות",
-                badge: "💡 טיפ קולינרי פנימי",
-                image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80",
-                character: "הזמנה בטברנות סלוניקאיות מבוססת על שיתוף (Sharing). המנות מונחות במרכז השולחן וכולם טועמים מהכל.",
-                vibe: "חוויית ארוחה שמחה, מגבשת ומלאת חיים המאפשרת לטעום מגוון עצום של דגים, סלטים, בשרים ומאזטים.",
-                action: "אל תזמינו מנה עיקרית אישית לכל אדם. הזמינו סלטים, צזיקי, גבינות, בשרים ומאזטים לחלוקה!",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Ladadika+Thessaloniki+Greece"
-            },
-            {
-                region: "thessaloniki",
-                category: "tips",
-                name: "💶 כסף, תשלומים וגיבוי מזומן בעיר",
-                badge: "💡 טיפ פיננסי פנימי",
-                image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80",
-                character: "אשראי מכובד בכל פינה בסלוניקי, אך לעיתים בטברנות אותנטיות וקטנות במיוחד ישנן בעיות קליטה של מכשירי ה-POS.",
-                vibe: "תמיד מומלץ להחזיק איתכם סכום מזומן קטן בכיס ליתר ביטחון.",
-                action: "החזיקו כ-100 אירו במזומן בארנק לשקט נפשי ולפתרון מהיר בכל רגע של בעיית רשת זמנית.",
-                mapsUrl: "https://www.google.com/maps/search/?api=1&query=Aristotelous+Square+Thessaloniki"
             }
         ];
 
@@ -1431,16 +1291,14 @@
                     { id: "all", label: "🌍 הכל" },
                     { id: "villages", label: "🏘️ עיירות וכפרים" },
                     { id: "beaches", label: "🏖️ חופים מומלצים" },
-                    { id: "culinary", label: "🍽️ מסעדות ומתוקים" },
-                    { id: "tips", label: "💡 טיפים לדרך" }
+                    { id: "culinary", label: "🍽️ מסעדות ומתוקים" }
                 ];
             } else if (activeGuideRegion === "sithonia") {
                 categories = [
                     { id: "all", label: "🌍 הכל" },
                     { id: "villages", label: "🏘️ עיירות ונמלים" },
                     { id: "beaches", label: "🌲 חופי טורקיז" },
-                    { id: "culinary", label: "🐙 טברנות ואוכל" },
-                    { id: "tips", label: "💡 טיפים ושייט" }
+                    { id: "culinary", label: "🐙 טברנות ואוכל" }
                 ];
             } else if (activeGuideRegion === "thessaloniki") {
                 categories = [
@@ -1450,8 +1308,7 @@
                     { id: "bars", label: "🍹 ברים ואפריטיבו" },
                     { id: "culinary", label: "🎻 טברנות ומוזיקה" },
                     { id: "history", label: "🏛️ וילות ותרבות" },
-                    { id: "seaside", label: "🌊 ליד הים והפלגות" },
-                    { id: "tips", label: "💡 טיפים ועצות" }
+                    { id: "seaside", label: "🌊 ליד הים והפלגות" }
                 ];
             }
 
@@ -1573,7 +1430,7 @@
             }
         }
 
-        // 4. ITINERARY DATA & INJECTION (STRICT ADHERENCE TO RAW TEXT ONLY)
+        // 4. ITINERARY DATA & INJECTION (STRICT ADHERENCE TO RAW TEXT ONLY FROM CSV/PDF)
         const itineraryData = [
             {
                 day: 1,
@@ -1619,7 +1476,7 @@
                     "נשארים במתחם המלון המפנק.",
                     "רביצה על מיטות שיזוף, שחייה בים השטוח וקריאת ספר באווירה הנהדרת של המלון.",
                     "צהריים: הליכה קצרה של 5 דקות למרכז חניוטי לאכול אוכל רחוב יווני אמיתי וזול (גירוס עסיסי בפיתה חמה).",
-                    "ערב: Kallithea - בארים / מועדונים - לבדוק."
+                    "ערב: Kallithea - בארים / מועדונים - לבדוק"
                 ],
                 notes: "יום חופשי ונינוח להרגיש את הריזורט המפנק וארוחות מקומיות זולות בחניוטי.",
                 maps: "https://maps.google.com/?q=Hanioti+Chalkidiki+Greece"
@@ -1651,7 +1508,7 @@
                 bullets: [
                     "יום שלם המוקדש נטו לפינוקים של הריזורט שלכם (Domes Noruz).",
                     "טיפולי ספא בבוקר, מנוחה בבריכה המרכזית עם הדיג'יי, נשנושים וקוקטיילים על המים.",
-                    "נסיעה של כ-20 דקות ללשון החול של חוף פוסידי (Possidi Cape). מדובר ברצועת חול פראית לחלוטין שנמתחת עמוק לתוך הים. הממים משני הצדדים שטוחים וצלולים כמו בריכה.",
+                    "נסיעה של כ-20 דקות ללשון החול של חוף פוסידי (Possidi Cape). מדובר ברצועת חול פראית לחלוטין שנמתחת עמוק לתוך הים. המים משני הצדדים שטוחים וצלולים כמו בריכה.",
                     "טיפ: אין שם מיטות שיזוף או פיתוח, אז הביאו אתכם שמשייה ומים קרים מהמלון.",
                     "בערב: ארוחת ערב רגועה בטברנה אותנטית מחוץ למלון באזור חניוטי (כמו Taverna Kostas)."
                 ],
@@ -1685,8 +1542,7 @@
                 hotel: "S Hotel Boutique Thessaloniki",
                 color: "from-sky-500 to-greekBlue-600",
                 bullets: [
-                    "צ'ק אאוט מהמלון. נסיעה חזרה לכיוון סלוניקי.",
-                    "החזרת הרכב השכור בשדה התעופה (SKG) ומעבר במונית גדולה/הסעה למלון הבוטיק במרכז העיר.",
+                    "צ'ק אאוט מהמלון. נסיעה חזרה לכיוון סלוניקי. החזרת הרכב השכור בשדה התעופה (SKG) ומעבר במונית גדולה/הסעה למלון הבוטיק במרכז העיר.",
                     "צ'ק-אין ב-S Hotel Boutique.",
                     "אחר הצהריים: הליכה רגועה לאורך הטיילת המפורסמת עד למגדל הלבן (White Tower).",
                     "בערב: ארוחה ראשונה ברובע לדדיקה (Ladadika) התוסס והרומנטי."
@@ -1722,8 +1578,8 @@
                     "ארוחת ערב אחרונה חגיגית בעיר.",
                     "21:30: איסוף המזוודות ונסיעה במונית לשדה התעופה לקראת טיסת הלילה."
                 ],
-                notes: "Capo di Faro הוא מקום מדהים לראות את קו הרקיע של סלוניקי מהצד השני של המפרץ לפני שעולים למטוס.",
-                maps: "https://maps.google.com/?q=Peraia+Thessaloniki+Greece"
+                notes: "נחיתה חזרה בארץ ב-10/07 לפנות בוקר.",
+                maps: "https://maps.google.com/?q=S+Hotel+Boutique+Thessaloniki"
             }
         ];
 
