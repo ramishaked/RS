@@ -1,1198 +1,783 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="he">
+<html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>מדד טק עירוני מורחב — חולון 2026</title>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    :root {
-      /* צבעי המותג הרשמיים של חולון */
-      --primary:   #6a3e9c;
-      --primary-d: #4c2675;
-      --primary-l: #f0e6fa;
-      --accent:    #f47b20;
-      --accent-l:  #fdf0e6;
-      
-      --good:    #10b981;
-      --warn:    #f59e0b;
-      --bad:     #ef4444;
-      --info:    #3b82f6;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>מסע משפחות שקד ובן זקן - יוון 2026 (Mobile App)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts with Greek and Hebrew support -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&family=Rubik:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons (Lightweight icon set for bottom nav) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        appBg: '#f8fafc', // Very light grey for app background
+                        cardBg: '#ffffff',
+                        primary: '#0891b2', // Turquoise 600
+                        primaryLight: '#cffafe', // Turquoise 100
+                        primaryDark: '#0e7490', // Turquoise 700
+                        accent: '#0284c7', // Sky Blue 500
+                        textMain: '#1e293b', // Slate 800
+                        textMuted: '#64748b', // Slate 500
+                    },
+                    fontFamily: {
+                        sans: ['Rubik', 'Assistant', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'nav': '0 -4px 10px rgba(0, 0, 0, 0.03)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Rubik', 'Assistant', sans-serif;
+            background-color: #f8fafc;
+            -webkit-tap-highlight-color: transparent; /* Remove blue tap highlight on mobile */
+            padding-top: 60px; /* Space for Top App Bar */
+            padding-bottom: 80px; /* Space for Bottom Nav Bar */
+            overflow-x: hidden;
+        }
+        
+        /* Top App Bar Glass Effect */
+        .top-app-bar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
 
-      --bg:      #f6f5fa;
-      --card:    #ffffff;
-      --border:  #e6e1f0;
-      --text:    #211830;
-      --muted:   #756a85;
-      --sidebar: #22143b;
-    }
+        /* Bottom Nav Bar Glass Effect */
+        .bottom-nav-bar {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding-bottom: env(safe-area-inset-bottom); /* iPhone notch support */
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+        /* Hide scrollbars but keep functionality */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
 
-    body {
-      font-family: 'Heebo', sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      display: flex;
-      height: 100vh;
-      overflow: hidden;
-      direction: rtl;
-    }
+        /* Active tab indicator in bottom nav */
+        .nav-item.active {
+            color: #0891b2;
+        }
+        .nav-item.active .nav-icon-container {
+            background-color: #cffafe;
+            border-radius: 9999px;
+            padding: 4px 16px;
+        }
+        
+        /* Smooth transitions */
+        .content-section {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    /* Layout Containers */
-    .app-container {
-      display: flex;
-      width: 100%;
-      height: 100%;
-    }
-
-    /* SIDEBAR */
-    .sidebar {
-      width: 280px;
-      background-color: var(--sidebar);
-      color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      flex-shrink: 0;
-      box-shadow: -2px 0 10px rgba(0,0,0,0.1);
-      z-index: 20;
-    }
-
-    .sb-header {
-      padding: 30px 24px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      text-align: center;
-    }
-
-    .sb-header .city-logo {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 10px;
-      border-radius: 50%;
-      margin-bottom: 12px;
-    }
-
-    .sb-header h1 {
-      font-size: 20px;
-      font-weight: 900;
-      color: #ffffff;
-      letter-spacing: -0.5px;
-    }
-
-    .sb-header p {
-      font-size: 13px;
-      color: rgba(255,255,255,0.6);
-      margin-top: 4px;
-    }
-
-    .sb-menu {
-      flex: 1;
-      padding: 20px 0;
-      overflow-y: auto;
-    }
-
-    .sb-item {
-      display: flex;
-      align-items: center;
-      padding: 14px 24px;
-      color: rgba(255,255,255,0.7);
-      text-decoration: none;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      border-right: 4px solid transparent;
-      font-size: 15px;
-    }
-
-    .sb-item:hover {
-      background-color: rgba(255,255,255,0.04);
-      color: #ffffff;
-    }
-
-    .sb-item.active {
-      background-color: rgba(255,255,255,0.08);
-      color: #ffffff;
-      border-right-color: var(--accent);
-      font-weight: 700;
-    }
-
-    .sb-footer {
-      padding: 20px;
-      font-size: 11px;
-      color: rgba(255,255,255,0.4);
-      text-align: center;
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-
-    /* MAIN CONTENT */
-    .main-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .top-bar {
-      height: 75px;
-      background-color: #ffffff;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 40px;
-    }
-
-    .top-title h2 {
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--primary-d);
-    }
-
-    .top-actions {
-      display: flex;
-      gap: 12px;
-    }
-
-    .btn {
-      padding: 10px 18px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      border: 1px solid var(--border);
-      background: #ffffff;
-      font-family: inherit;
-      transition: all 0.2s;
-    }
-
-    .btn:hover {
-      background: #faf9fc;
-      border-color: var(--primary);
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: #ffffff;
-      border-color: var(--primary);
-    }
-
-    .btn-primary:hover {
-      background: var(--primary-d);
-      border-color: var(--primary-d);
-    }
-
-    /* VIEWS */
-    .view-container {
-      flex: 1;
-      padding: 40px;
-      overflow-y: auto;
-    }
-
-    .view {
-      display: none;
-    }
-
-    .view.active {
-      display: block;
-      animation: fadeIn 0.4s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* KPI CARDS */
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-
-    .kpi-card {
-      background: #ffffff;
-      border-radius: 16px;
-      padding: 24px;
-      border: 1px solid var(--border);
-      box-shadow: 0 4px 6px rgba(0,0,0,0.01);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .kpi-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 4px;
-      height: 100%;
-      background: var(--primary);
-    }
-
-    .kpi-card.accent::before {
-      background: var(--accent);
-    }
-
-    .kpi-title {
-      font-size: 14px;
-      color: var(--muted);
-      font-weight: 600;
-    }
-
-    .kpi-value {
-      font-size: 32px;
-      font-weight: 900;
-      margin-top: 10px;
-      color: var(--text);
-    }
-
-    .kpi-footer {
-      font-size: 12px;
-      margin-top: 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--muted);
-    }
-
-    .trend-up { color: var(--good); font-weight: 700; }
-    .trend-down { color: var(--bad); font-weight: 700; }
-
-    /* LAYOUT GRIDS */
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-      gap: 25px;
-      margin-bottom: 30px;
-    }
-
-    .chart-card {
-      background: #ffffff;
-      border-radius: 16px;
-      padding: 28px;
-      border: 1px solid var(--border);
-      box-shadow: 0 4px 6px rgba(0,0,0,0.01);
-      min-height: 400px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .chart-title {
-      font-size: 17px;
-      font-weight: 800;
-      margin-bottom: 24px;
-      color: var(--primary-d);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .chart-container {
-      position: relative;
-      flex: 1;
-      height: 320px;
-      width: 100%;
-    }
-
-    /* SELECT CONTROLS & FILTER BAR */
-    .filter-bar {
-      background: #ffffff;
-      padding: 20px 30px;
-      border-radius: 16px;
-      border: 1px solid var(--border);
-      margin-bottom: 30px;
-      display: flex;
-      gap: 24px;
-      align-items: center;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.01);
-    }
-
-    .filter-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .filter-group label {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--primary-d);
-    }
-
-    select {
-      padding: 10px 16px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      font-family: inherit;
-      font-size: 14px;
-      color: var(--text);
-      outline: none;
-      cursor: pointer;
-      min-width: 200px;
-      background: #fafafc;
-      transition: all 0.2s;
-    }
-
-    select:focus {
-      border-color: var(--primary);
-      background: #ffffff;
-    }
-
-    /* TABLES */
-    .table-wrapper {
-      background: #ffffff;
-      border-radius: 16px;
-      border: 1px solid var(--border);
-      overflow: hidden;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.01);
-      margin-bottom: 30px;
-    }
-
-    .table-header {
-      padding: 20px 30px;
-      background-color: #ffffff;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .table-header h3 {
-      font-size: 17px;
-      font-weight: 800;
-      color: var(--primary-d);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: right;
-    }
-
-    th {
-      background-color: #faf9fc;
-      padding: 16px 24px;
-      font-weight: 700;
-      font-size: 13px;
-      color: var(--muted);
-      border-bottom: 2px solid var(--border);
-    }
-
-    td {
-      padding: 16px 24px;
-      font-size: 14px;
-      border-bottom: 1px solid var(--border);
-      color: var(--text);
-    }
-
-    tr:last-child td {
-      border-bottom: none;
-    }
-
-    tr:hover td {
-      background-color: #faf9fc;
-    }
-
-    /* STATUS BADGES */
-    .badge {
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 700;
-      display: inline-block;
-      text-align: center;
-    }
-
-    .badge-success { background-color: #d1fae5; color: #065f46; }
-    .badge-warning { background-color: #fee2e2; color: #991b1b; }
-    .badge-info { background-color: #e0f2fe; color: #0369a1; }
-    .badge-danger { background-color: #fef3c7; color: #92400e; }
-
-    /* CUSTOM INSIGHTS */
-    .insight-box {
-      background-color: var(--primary-l);
-      border: 1px solid rgba(106, 62, 156, 0.2);
-      border-radius: 12px;
-      padding: 20px;
-      margin-top: 15px;
-      font-size: 14px;
-      line-height: 1.6;
-      color: var(--primary-d);
-    }
-
-    .insight-box strong {
-      font-weight: 700;
-    }
-
-    /* MOBILE ALERT */
-    @media (max-width: 768px) {
-      body {
-        flex-direction: column;
-      }
-      .sidebar {
-        width: 100%;
-        height: auto;
-      }
-      .grid-2 {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+        /* Ticker Animation for Countdown */
+        .ticker-wrap {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .ticker-move {
+            display: inline-block;
+            animation: ticker 25s linear infinite;
+        }
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+    </style>
 </head>
-<body>
+<body class="text-textMain antialiased" dir="rtl">
 
-<div class="app-container">
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="sb-header">
-      <div class="city-logo">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2L2 22H22L12 2Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M12 8V16" stroke="#f47b20" stroke-width="2" stroke-linecap="round"/>
-          <circle cx="12" cy="18" r="1" fill="#f47b20"/>
-        </svg>
-      </div>
-      <h1>מדד טק עירוני</h1>
-      <p>חולון — מערכת ניהול וניבוי פדגוגי</p>
-    </div>
-    <div class="sb-menu">
-      <div class="sb-item active" data-view="overview" onclick="switchView('overview')">📊 תמונת מצב עירונית</div>
-      <div class="sb-item" data-view="schools" onclick="switchView('schools')">🏫 השוואת בתי ספר</div>
-      <div class="sb-item" data-view="journey" onclick="switchView('journey')">📈 מסע התלמיד (נשירה)</div>
-      <div class="sb-item" data-view="prediction" onclick="switchView('prediction')">🔮 מודל פרדיקציה וחיזוי</div>
-    </div>
-    <div class="sb-footer">
-      רמי שקד | עדכון: יוני 2026
-    </div>
-  </aside>
+    <!-- TOP APP BAR (Fixed) -->
+    <header class="top-app-bar fixed top-0 inset-x-0 z-50 h-[60px] border-b border-slate-100 flex items-center justify-between px-4">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-full bg-primaryLight text-primary flex items-center justify-center text-lg shadow-sm">
+                🧿
+            </div>
+            <div class="flex flex-col">
+                <h1 class="font-bold text-sm leading-tight text-slate-800">יוון 2026</h1>
+                <span class="text-[9px] text-textMuted font-mono">Mobile App • v3.0</span>
+            </div>
+        </div>
+        
+        <!-- Hamburger Menu Button -->
+        <button onclick="alert('תפריט צד (Hamburger) יפתח כאן קישורים מהירים, שיתוף והגדרות.')" class="p-2 text-slate-600 focus:outline-none">
+            <i class="ph ph-list text-2xl"></i>
+        </button>
+    </header>
 
-  <!-- MAIN CONTENT -->
-  <main class="main-content">
-    <div class="top-bar">
-      <div class="top-title">
-        <h2 id="page-title">תמונת מצב עירונית</h2>
-      </div>
-      <div class="top-actions">
-        <button class="btn" onclick="window.print()">ייצוא דו״ח PDF</button>
-        <button class="btn btn-primary" onclick="alert('הנתונים מסונכרנים לגרסה העדכנית ביותר (מחצית א׳ תשפ״ו — מרץ 2026)')">סנכרון נתוני אמת</button>
-      </div>
+    <!-- COMPACT COUNTDOWN TICKER (Under Top Bar) -->
+    <div class="fixed top-[60px] inset-x-0 z-40 bg-accent text-white text-xs py-1.5 font-bold shadow-sm ticker-wrap">
+        <div class="ticker-move" id="compact-countdown">
+            <!-- Injected via JS -->
+            ⏳ טוען ספירה לאחור...
+        </div>
     </div>
 
-    <div class="view-container">
-      
-      <!-- VIEW: OVERVIEW -->
-      <section id="view-overview" class="view active">
-        <div class="kpi-grid">
-          <div class="kpi-card">
-            <div class="kpi-title">סה"כ תלמידים בטק עירוני</div>
-            <div class="kpi-value">2,120</div>
-            <div class="kpi-footer"><span class="trend-up">▲ 5.4%</span> מתוך 2,256 תלמידי תיכון בעיר</div>
-          </div>
-          <div class="kpi-card accent">
-            <div class="kpi-title">ממוצע עירוני בגרות טק (חט"ע)</div>
-            <div class="kpi-value">22.2%</div>
-            <div class="kpi-footer">יעד פדגוגי עירוני: <span style="font-weight:700;">30%</span></div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-title">שיעור מצוינות (5 יח"ל מתמ')</div>
-            <div class="kpi-value">44.6%</div>
-            <div class="kpi-footer">יציבות מעבר מחטיבת הביניים</div>
-          </div>
-          <div class="kpi-card accent">
-            <div class="kpi-title">ייצוג מגדרי (בנות בטק)</div>
-            <div class="kpi-value">43.8%</div>
-            <div class="kpi-footer"><span class="trend-up">▲ 2.8%</span> מגמת שיפור רוחבית</div>
-          </div>
-        </div>
+    <!-- MAIN APP CONTENT AREA -->
+    <main class="max-w-md mx-auto px-4 py-8">
 
-        <div class="grid-2">
-          <div class="chart-card">
-            <div class="chart-title">שיעור לומדי/זכאי טק לפי שכבות (ז׳ - י״ב)</div>
-            <div class="chart-container">
-              <canvas id="chart-overview-layers"></canvas>
+        <!-- ==================== TAB 1: ITINERARY (Default) ==================== -->
+        <section id="content-itinerary" class="content-section">
+            <div class="mb-5 flex justify-between items-end">
+                <div>
+                    <h2 class="text-xl font-bold font-sans">תוכנית יומית</h2>
+                    <p class="text-xs text-textMuted mt-0.5">סלוניקי וחלקידיקי, יולי 2026</p>
+                </div>
             </div>
-          </div>
-          <div class="chart-card">
-            <div class="chart-title">התפלגות מקצועות מוגברים בחטיבה העליונה</div>
-            <div class="chart-container">
-              <canvas id="chart-overview-subjects"></canvas>
+
+            <!-- Day select pills (Horizontal scroll) -->
+            <div class="flex overflow-x-auto no-scrollbar gap-2.5 pb-4 mb-2 -mx-4 px-4" id="day-selector">
+                <!-- Dynamic tabs injected here -->
             </div>
-          </div>
-        </div>
 
-        <div class="chart-card" style="margin-bottom: 24px;">
-          <div class="chart-title">דירוג בתי הספר המובילים במדד הטק העירוני (שכבת יב')</div>
-          <div class="chart-container" style="height: 350px;">
-            <canvas id="chart-overview-schools"></canvas>
-          </div>
-        </div>
-      </section>
-
-      <!-- VIEW: SCHOOLS -->
-      <section id="view-schools" class="view">
-        <div class="filter-bar">
-          <div class="filter-group">
-            <label>בחר בית ספר לניתוח עומק</label>
-            <select id="school-selector" onchange="updateSchoolView()">
-              <!-- Dynamic options -->
-            </select>
-          </div>
-          <div class="filter-group">
-            <label>שכבת גיל</label>
-            <select id="grade-selector" onchange="updateSchoolView()">
-              <option value="ALL">כל שכבות הגיל</option>
-              <option value="ז">שכבה ז'</option>
-              <option value="ח">שכבה ח'</option>
-              <option value="ט">שכבה ט'</option>
-              <option value="י">שכבה י'</option>
-              <option value="יא">שכבה י"א</option>
-              <option value="יב">שכבה י"ב</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="kpi-grid">
-          <div class="kpi-card">
-            <div class="kpi-title">מדד מצוינות מתמטיקה (5 יח"ל)</div>
-            <div class="kpi-value" id="school-kpi-m5">--%</div>
-            <div class="kpi-footer">מתוך סך תלמידי השכבה</div>
-          </div>
-          <div class="kpi-card accent">
-            <div class="kpi-title">אחוז זכאי טק במוסד</div>
-            <div class="kpi-value" id="school-kpi-tech">--%</div>
-            <div class="kpi-footer">שילוב פיסיקה/מחשבים/טק</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-title">בנים במגמות טק</div>
-            <div class="kpi-value" id="school-kpi-boys">--</div>
-            <div class="kpi-footer">כמות תלמידים רשומה</div>
-          </div>
-          <div class="kpi-card accent">
-            <div class="kpi-title">בנות במגמות טק</div>
-            <div class="kpi-value" id="school-kpi-girls">--</div>
-            <div class="kpi-footer">ייצוג מגדרי יציב</div>
-          </div>
-        </div>
-
-        <div class="grid-2">
-          <div class="chart-card">
-            <div class="chart-title">פילוח תלמידים לפי מקצועות מוגברים</div>
-            <div class="chart-container">
-              <canvas id="chart-school-subjects"></canvas>
+            <!-- Day Details Card -->
+            <div id="day-detail-box">
+                <!-- Dynamic day content loaded here -->
             </div>
-          </div>
-          <div class="chart-card">
-            <div class="chart-title">השוואה מול הממוצע העירוני (שכבת יב')</div>
-            <div class="chart-container">
-              <canvas id="chart-school-compare"></canvas>
+        </section>
+
+        <!-- ==================== TAB 2: GUIDES ==================== -->
+        <section id="content-guides" class="content-section hidden">
+            <div class="mb-5">
+                <h2 class="text-xl font-bold font-sans">מדריכי עומק אזוריים</h2>
+                <p class="text-xs text-textMuted mt-0.5">גלו את המקומות המיוחדים של יוון</p>
             </div>
-          </div>
-        </div>
-      </section>
 
-      <!-- VIEW: JOURNEY -->
-      <section id="view-journey" class="view">
-        <div class="filter-bar">
-          <div class="filter-group">
-            <label>בחר בית ספר לניתוח מסע השימור</label>
-            <select id="journey-school-selector" onchange="updateJourneyView()">
-              <!-- Dynamic options -->
-            </select>
-          </div>
-        </div>
-
-        <div class="grid-2">
-          <div class="chart-card">
-            <div class="chart-title">מסלול שימור תלמידים לאורך השנים (ז'-י"ב)</div>
-            <div class="chart-container">
-              <canvas id="chart-journey-line"></canvas>
+            <!-- Region selector (Pills) -->
+            <div class="flex overflow-x-auto no-scrollbar gap-2 pb-3 mb-3 -mx-4 px-4">
+                <button onclick="selectGuideRegion('kassandra')" id="guide-reg-btn-kassandra" class="guide-region-tab flex-shrink-0 px-4 py-2 text-sm font-bold rounded-full transition-all border border-slate-200 bg-white text-slate-600">
+                    📍 קסנדרה
+                </button>
+                <button onclick="selectGuideRegion('sithonia')" id="guide-reg-btn-sithonia" class="guide-region-tab flex-shrink-0 px-4 py-2 text-sm font-bold rounded-full transition-all border border-slate-200 bg-white text-slate-600">
+                    🌲 סיטוניה
+                </button>
+                <button onclick="selectGuideRegion('thessaloniki')" id="guide-reg-btn-thessaloniki" class="guide-region-tab flex-shrink-0 px-4 py-2 text-sm font-bold rounded-full transition-all border border-slate-200 bg-white text-slate-600">
+                    🏛️ סלוניקי
+                </button>
             </div>
-          </div>
-          <div class="chart-card">
-            <div class="chart-title">מדד שחיקה ונשירה (Drop-off Rate)</div>
-            <div style="display:flex; flex-direction:column; justify-content:center; flex:1;">
-              <h3 style="font-size:24px; font-weight:800; color:var(--primary-d); margin-bottom:10px;" id="journey-drop-label">--%</h3>
-              <p style="color:var(--muted); margin-bottom:20px;">נשירה כוללת במעבר בין שכבות הביניים (ט') לשכבת סיום התיכון (י"ב).</p>
-              
-              <div style="height:12px; background:#e5e7eb; border-radius:6px; overflow:hidden; width:100%;">
-                <div id="journey-drop-bar" style="height:100%; width: 0%; background:var(--accent); transition: width 0.5s ease;"></div>
-              </div>
-              
-              <div class="insight-box" id="journey-insight">
-                אנא בחר מוסד כדי לנתח את המלצות השימור והיעדים שלו.
-              </div>
+
+            <!-- Search & Filters -->
+            <div class="mb-5 space-y-3">
+                <!-- Search Bar -->
+                <div class="relative w-full">
+                    <span class="absolute inset-y-0 right-3.5 flex items-center text-slate-400">
+                        <i class="ph ph-magnifying-glass text-lg"></i>
+                    </span>
+                    <input type="text" id="guide-search-input" oninput="filterLocations()" placeholder="חפש חוף, טברנה, קניות..." class="w-full pl-3 pr-10 py-3 text-sm bg-white shadow-soft border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primaryLight transition-all">
+                </div>
+                <!-- Categories -->
+                <div id="category-filter-container" class="flex overflow-x-auto no-scrollbar gap-2 w-full py-1 -mx-4 px-4">
+                    <!-- Dynamic sub-categories buttons here -->
+                </div>
             </div>
-          </div>
-        </div>
 
-        <div class="table-wrapper">
-          <div class="table-header">
-            <h3>טבלת מעקב רב-שנתית: אחוזי שימור תלמידים במסלול הטק</h3>
-          </div>
-          <table>
-            <thead>
-              <tr>
-                <th>שם בית הספר</th>
-                <th>שכבה ז׳</th>
-                <th>שכבה ח׳</th>
-                <th>שכבה ט׳</th>
-                <th>שכבה י׳</th>
-                <th>שכבה יא׳</th>
-                <th>שכבה יב׳</th>
-                <th>מדד חוסן מסלול</th>
-              </tr>
-            </thead>
-            <tbody id="cohort-table-body">
-              <!-- Dynamic table content -->
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- VIEW: PREDICTION -->
-      <section id="view-prediction" class="view">
-        <div class="filter-bar" style="background:var(--accent-l); border-color:var(--accent);">
-          <div style="font-size:28px;">🔮</div>
-          <div>
-            <div style="font-weight:900; color:var(--primary-d); font-size:16px;">מודל פרדיקציה לחיזוי אחוזי הזכאות - מחזור תשפ"ו-תשפ"ז</div>
-            <div style="font-size:13px; color:var(--muted); margin-top:4px;">מנוע הניבוי מבוסס על אחוזי המעבר ההיסטוריים, ציוני מחצית א' של י'-יא' והמשכיות במקצועות 5 יח"ל.</div>
-          </div>
-        </div>
-
-        <div class="grid-2">
-          <div class="chart-card">
-            <div class="chart-title">צפי זכאות לבגרות טק עירונית (השוואת מחזורים)</div>
-            <div class="chart-container">
-              <canvas id="chart-pred-cohorts"></canvas>
+            <!-- Locations Dynamic Grid (Mobile Stack) -->
+            <div id="locations-grid" class="space-y-4">
+                <!-- Cards dynamically loaded here -->
             </div>
-          </div>
-          <div class="chart-card">
-            <div class="chart-title">דירוג סיכון מוסדי לאובדן תלמידים במסלול</div>
-            <div class="chart-container">
-              <canvas id="chart-pred-risk"></canvas>
+            
+            <!-- Empty state -->
+            <div id="empty-state" class="hidden text-center py-12 bg-white rounded-3xl border border-dashed border-slate-200 mt-4">
+                <i class="ph ph-compass text-4xl text-slate-300"></i>
+                <h3 class="font-bold text-slate-700 text-sm mt-3">לא נמצאו מקומות</h3>
+                <p class="text-slate-400 text-xs mt-1">נסו מילת חיפוש אחרת</p>
             </div>
-          </div>
+        </section>
+
+        <!-- ==================== TAB 3: DASHBOARD (Info) ==================== -->
+        <section id="content-dashboard" class="content-section hidden">
+            <div class="mb-5">
+                <h2 class="text-xl font-bold font-sans">מידע כללי וטיסות</h2>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Booked Car Rental Card -->
+                <div class="bg-cardBg p-5 rounded-3xl shadow-soft border border-slate-100">
+                    <div class="flex items-center gap-2 mb-3 border-b border-slate-50 pb-2">
+                        <i class="ph-fill ph-car-profile text-xl text-primary"></i>
+                        <h3 class="font-bold text-sm">השכרת רכב (Budget)</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="bg-slate-50 p-3 rounded-2xl">
+                            <span class="text-[10px] font-bold text-primary uppercase block mb-1">Pick-up</span>
+                            <p class="text-xs font-bold">01/07/2026 בשעה 08:30</p>
+                            <p class="text-[11px] text-textMuted">שדה תעופה סלוניקי, טרמינל 2/1.</p>
+                        </div>
+                        <div class="bg-red-50 p-3 rounded-2xl border border-red-100">
+                            <span class="text-[10px] font-bold text-red-600 uppercase block mb-1">Drop-off (שים לב למיקום!)</span>
+                            <p class="text-xs font-bold text-red-900">07/07/2026 בשעה 19:00</p>
+                            <p class="text-[11px] text-red-800">נמל סלוניקי (Port - Gate Parking 6).</p>
+                        </div>
+                        <p class="text-[10px] bg-amber-50 p-2 rounded-xl text-amber-800 border border-amber-200">
+                            ⚠️ חובה להציג רישיון נהיגה פלסטיק ישראלי + רישיון נהיגה בינלאומי.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Flights Card -->
+                <div class="bg-cardBg p-5 rounded-3xl shadow-soft border border-slate-100">
+                    <div class="flex items-center gap-2 mb-3 border-b border-slate-50 pb-2">
+                        <i class="ph-fill ph-airplane-tilt text-xl text-accent"></i>
+                        <h3 class="font-bold text-sm">טיסות סאן דור</h3>
+                    </div>
+                    <div class="flex justify-between items-center text-xs">
+                        <div class="text-right">
+                            <p class="text-[10px] text-textMuted">הלוך (01/07)</p>
+                            <p class="font-bold">LY5245</p>
+                            <p class="font-bold text-primary">05:15</p>
+                        </div>
+                        <div class="flex-1 px-4 flex items-center">
+                            <div class="h-px bg-slate-200 w-full relative">
+                                <i class="ph-fill ph-airplane-tilt absolute left-1/2 -top-2 text-slate-300 transform -translate-x-1/2"></i>
+                            </div>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-[10px] text-textMuted">חזור (09/07)</p>
+                            <p class="font-bold">סלוניקי ➔</p>
+                            <p class="font-bold text-primary">ערב/לילה</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weather Card -->
+                <div class="bg-gradient-to-br from-primary to-primaryDark text-white p-5 rounded-3xl shadow-soft">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-3xl font-bold font-sans">32°C</p>
+                            <p class="text-xs text-primaryLight mt-1">יולי בחלקידיקי - בהיר ושמשי</p>
+                        </div>
+                        <i class="ph-fill ph-sun text-4xl text-yellow-300 animate-pulse"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 4: CHECKLIST ==================== -->
+        <section id="content-checklist" class="content-section hidden">
+            <div class="mb-5">
+                <h2 class="text-xl font-bold font-sans">משימות וציוד</h2>
+                <p class="text-xs text-textMuted mt-0.5">צ'ק-ליסט להתארגנות קלה</p>
+            </div>
+
+            <div class="space-y-5">
+                <div class="bg-cardBg p-5 rounded-3xl shadow-soft border border-slate-100">
+                    <h3 class="font-bold text-sm mb-3 flex items-center gap-2 border-b border-slate-50 pb-2">
+                        <i class="ph-fill ph-briefcase text-primary"></i> לוגיסטיקה
+                    </h3>
+                    <div class="space-y-2" id="logistics-list"></div>
+                </div>
+
+                <div class="bg-cardBg p-5 rounded-3xl shadow-soft border border-slate-100">
+                    <h3 class="font-bold text-sm mb-3 flex items-center gap-2 border-b border-slate-50 pb-2">
+                        <i class="ph-fill ph-backpack text-accent"></i> ציוד אישי
+                    </h3>
+                    <div class="space-y-2" id="packing-list"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- BOTTOM NAVIGATION BAR (App-like) -->
+    <nav class="bottom-nav-bar fixed bottom-0 inset-x-0 z-50 border-t border-slate-200 shadow-nav">
+        <div class="flex justify-around items-center h-[70px] px-2 max-w-md mx-auto">
+            
+            <button onclick="switchTab('itinerary')" id="nav-itinerary" class="nav-item active flex flex-col items-center justify-center w-full h-full text-slate-400 transition-colors">
+                <div class="nav-icon-container transition-all duration-300">
+                    <i class="ph ph-calendar-check text-2xl mb-0.5"></i>
+                </div>
+                <span class="text-[10px] font-semibold mt-1">תוכנית</span>
+            </button>
+
+            <button onclick="switchTab('guides')" id="nav-guides" class="nav-item flex flex-col items-center justify-center w-full h-full text-slate-400 transition-colors">
+                <div class="nav-icon-container transition-all duration-300">
+                    <i class="ph ph-map-trifold text-2xl mb-0.5"></i>
+                </div>
+                <span class="text-[10px] font-semibold mt-1">מדריך</span>
+            </button>
+
+            <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-item flex flex-col items-center justify-center w-full h-full text-slate-400 transition-colors">
+                <div class="nav-icon-container transition-all duration-300">
+                    <i class="ph ph-info text-2xl mb-0.5"></i>
+                </div>
+                <span class="text-[10px] font-semibold mt-1">מידע</span>
+            </button>
+
+            <button onclick="switchTab('checklist')" id="nav-checklist" class="nav-item flex flex-col items-center justify-center w-full h-full text-slate-400 transition-colors">
+                <div class="nav-icon-container transition-all duration-300">
+                    <i class="ph ph-check-square text-2xl mb-0.5"></i>
+                </div>
+                <span class="text-[10px] font-semibold mt-1">משימות</span>
+            </button>
+
         </div>
+    </nav>
 
-        <div class="table-wrapper">
-          <div class="table-header">
-            <h3>המלצות ותוכניות פעולה לגישור על פערים ושימור מצוינות</h3>
-          </div>
-          <table>
-            <thead>
-              <tr>
-                <th>בית ספר</th>
-                <th>מצב נוכחי (יא')</th>
-                <th>צפי זכאות (יב')</th>
-                <th>פער יעד (תלמידים)</th>
-                <th>סטטוס סיכון</th>
-                <th>תוכנית פעולה מומלצת ממוקדת</th>
-              </tr>
-            </thead>
-            <tbody id="prediction-table-body">
-              <!-- Dynamic prediction actions -->
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-    </div>
-  </main>
-</div>
-
-<script>
-  // נתוני האמת של בתי הספר בחולון לחודש מרץ 2026
-  // המבנה: [סה"כ תלמידים, לומדי מחשבים, לומדי פיסיקה, סה"כ זכאי טק, אחוז טק, אחוז מתמטיקה 5]
-  const SCHOOL_DATA = {
-    "אורט חולון": {
-      "ז": [199, 144, 144, 144, 72.4, 72.4],
-      "ח": [203, 145, 145, 145, 71.4, 71.4],
-      "ט": [242, 144, 144, 144, 59.5, 59.5],
-      "י": [239, 38, 116, 116, 48.5, 60.7],
-      "יא": [272, 55, 91, 102, 37.5, 53.3],
-      "יב": [289, 51, 64, 77, 26.6, 42.6]
-    },
-    "אילון": {
-      "ז": [181, 96, 98, 96, 53.0, 50.8],
-      "ח": [178, 80, 80, 80, 44.9, 50.0],
-      "ט": [150, 98, 98, 98, 65.3, 66.0],
-      "י": [182, 33, 53, 56, 30.8, 53.3],
-      "יא": [209, 28, 40, 45, 21.5, 33.5],
-      "יב": [228, 31, 32, 47, 20.6, 32.9]
-    },
-    "קוגל": {
-      "ז": [193, 30, 66, 66, 34.2, 34.2],
-      "ח": [227, 96, 62, 129, 56.8, 56.8],
-      "ט": [216, 92, 72, 131, 60.6, 60.6],
-      "י": [203, 57, 49, 64, 31.5, 48.3],
-      "יא": [250, 57, 43, 63, 25.2, 33.6],
-      "יב": [282, 49, 42, 55, 19.5, 24.5]
-    },
-    "קציר": {
-      "ז": [222, 66, 66, 66, 29.7, 29.7],
-      "ח": [262, 72, 72, 72, 27.5, 27.1],
-      "ט": [273, 66, 96, 96, 35.2, 68.9],
-      "י": [261, 35, 97, 88, 33.7, 39.8],
-      "יא": [232, 38, 78, 72, 31.0, 37.9],
-      "יב": [237, 24, 66, 47, 19.8, 27.0]
-    },
-    "עתידים": {
-      "ז": [193, 35, 55, 55, 28.5, 100.0],
-      "ח": [150, 33, 112, 112, 74.7, 60.0],
-      "ט": [165, 84, 116, 116, 70.3, 52.7],
-      "י": [178, 42, 32, 45, 25.3, 46.6],
-      "יא": [165, 21, 35, 35, 21.2, 29.1],
-      "יב": [173, 13, 23, 21, 12.1, 21.4]
-    },
-    "הראל": {
-      "ז": [68, 50, 42, 42, 61.8, 100.0],
-      "ח": [70, 44, 58, 58, 82.9, 62.9],
-      "ט": [79, 52, 41, 41, 51.9, 51.9],
-      "י": [75, 23, 17, 20, 26.7, 28.0],
-      "יא": [70, 17, 11, 17, 24.3, 27.1],
-      "יב": [75, 17, 11, 17, 22.7, 25.3]
-    },
-    "נבון": {
-      "ז": [193, 7, 64, 64, 33.2, 33.2],
-      "ח": [196, 4, 72, 72, 36.7, 34.2],
-      "ט": [169, 27, 72, 72, 42.6, 42.6],
-      "י": [176, 20, 31, 35, 19.9, 44.3],
-      "יא": [168, 17, 20, 28, 16.6, 26.6],
-      "יב": [189, 15, 23, 24, 12.7, 14.3]
-    },
-    "קרית שרת": {
-      "ז": [210, 0, 0, 0, 0.0, 0.0],
-      "ח": [220, 0, 0, 0, 0.0, 0.0],
-      "ט": [230, 0, 0, 0, 0.0, 0.0],
-      "י": [351, 70, 41, 72, 20.5, 43.0],
-      "יא": [342, 33, 25, 41, 12.0, 24.9],
-      "יב": [351, 33, 21, 30, 8.5, 18.5]
-    },
-    "הרצוג": {
-      "ז": [135, 24, 24, 24, 17.8, 17.8],
-      "ח": [163, 30, 30, 30, 18.4, 18.4],
-      "ט": [139, 30, 53, 53, 38.1, 46.0],
-      "י": [145, 21, 22, 22, 15.2, 26.2],
-      "יא": [143, 18, 22, 18, 12.6, 14.0],
-      "יב": [149, 16, 16, 15, 10.1, 15.4]
-    }
-  };
-
-  const CITY_AVERAGES = {
-    "ז": 38.2,
-    "ח": 44.9,
-    "ט": 49.3,
-    "י": 28.6,
-    "יא": 22.3,
-    "יב": 16.3
-  };
-
-  let activeCharts = {};
-
-  // SWITCH VIEWS
-  function switchView(viewId) {
-    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-    document.querySelectorAll('.sb-item').forEach(i => i.classList.remove('active'));
-    
-    document.getElementById('view-' + viewId).classList.add('active');
-    document.querySelector(`.sb-item[data-view="${viewId}"]`).classList.add('active');
-    
-    // Update header title
-    const titles = {
-      'overview': 'תמונת מצב עירונית',
-      'schools': 'ניתוח והשוואת בתי ספר',
-      'journey': 'מסע התלמיד (נשירה)',
-      'prediction': 'מודל פרדיקציה וחיזוי'
-    };
-    document.getElementById('page-title').innerText = titles[viewId];
-
-    // Resize charts if needed
-    if (viewId === 'overview') initOverviewCharts();
-    if (viewId === 'schools') updateSchoolView();
-    if (viewId === 'journey') {
-      initJourneyDropdown();
-      updateJourneyView();
-      renderCohortTable();
-    }
-    if (viewId === 'prediction') {
-      initPredictionCharts();
-      renderPredictionTable();
-    }
-  }
-
-  // 1. OVERVIEW VIEW CHARTS
-  function initOverviewCharts() {
-    // Grade Progression Chart
-    if (activeCharts.overviewLayers) activeCharts.overviewLayers.destroy();
-    const ctxLayers = document.getElementById('chart-overview-layers').getContext('2d');
-    activeCharts.overviewLayers = new Chart(ctxLayers, {
-      type: 'line',
-      data: {
-        labels: ["שכבה ז'", "שכבה ח'", "שכבה ט'", "שכבה י'", "שכבה י\"א", "שכבה י\"ב"],
-        datasets: [{
-          label: 'ממוצע אחוז טק עירוני (%)',
-          data: Object.values(CITY_AVERAGES),
-          borderColor: '#6a3e9c',
-          backgroundColor: 'rgba(106, 62, 152, 0.1)',
-          borderWidth: 4,
-          tension: 0.3,
-          fill: true
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false }
-        },
-        scales: {
-          y: { beginAtZero: true, max: 100 }
+    <!-- JAVASCRIPT FOR MOBILE APP LOGIC -->
+    <script>
+        // 1. COMPACT COUNTDOWN TICKER
+        function startCompactCountdown() {
+            const targetDate = new Date("July 1, 2026 05:15:00").getTime();
+            const tickerEl = document.getElementById("compact-countdown");
+            
+            setInterval(() => {
+                const now = new Date().getTime();
+                const difference = targetDate - now;
+                
+                if (difference < 0) {
+                    tickerEl.innerHTML = "✈️ הטיול התחיל! חופשה נעימה ומהממת ביוון! 🇬🇷";
+                    return;
+                }
+                
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                
+                // Duplicate text to create continuous ticker effect
+                const msg = `⏱️ עוד ${days} ימים ו-${hours} שעות לטיסת סאן דור ליוון! ✈️`;
+                tickerEl.innerHTML = `${msg} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${msg} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${msg}`;
+            }, 1000);
         }
-      }
-    });
 
-    // Subject Breakdown Chart
-    if (activeCharts.overviewSubjects) activeCharts.overviewSubjects.destroy();
-    const ctxSubjects = document.getElementById('chart-overview-subjects').getContext('2d');
-    activeCharts.overviewSubjects = new Chart(ctxSubjects, {
-      type: 'bar',
-      data: {
-        labels: ['מדעי המחשב 5 יח"ל', 'פיסיקה 5 יח"ל', 'בגרות טק מתוכננת'],
-        datasets: [{
-          label: 'סה"כ תלמידים',
-          data: [276, 332, 587],
-          backgroundColor: ['#f47b20', '#6a3e9c', '#10b981'],
-          borderRadius: 6
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false }
+        // 2. BOTTOM NAV SWITCHER
+        function switchTab(tabId) {
+            // Hide all content
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            // Show selected content
+            document.getElementById(`content-${tabId}`).classList.remove('hidden');
+            
+            // Update Nav styling
+            document.querySelectorAll('.nav-item').forEach(btn => {
+                btn.classList.remove('active');
+                // Switch icon to outlined version when inactive
+                const icon = btn.querySelector('i');
+                icon.className = icon.className.replace('ph-fill', 'ph');
+            });
+            
+            const activeNavBtn = document.getElementById(`nav-${tabId}`);
+            activeNavBtn.classList.add('active');
+            // Switch icon to filled version when active
+            const activeIcon = activeNavBtn.querySelector('i');
+            activeIcon.className = activeIcon.className.replace('ph', 'ph-fill');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
         }
-      }
-    });
 
-    // School Ranking Chart (Grade 12 Tech %)
-    if (activeCharts.overviewSchools) activeCharts.overviewSchools.destroy();
-    const ctxSchools = document.getElementById('chart-overview-schools').getContext('2d');
-    
-    const sortedSchools = Object.keys(SCHOOL_DATA).sort((a, b) => SCHOOL_DATA[b]["יב"][4] - SCHOOL_DATA[a]["יב"][4]);
-    const sortedLabels = sortedSchools;
-    const sortedValues = sortedSchools.map(s => SCHOOL_DATA[s]["יב"][4]);
+        // 3. UPDATED LOCATIONS DATA (Including Shopping!)
+        const locationsData = [
+            // ... (Kassandra & Sithonia data remains identical to your v2.10)
+            { region: "kassandra", category: "villages", name: "אפיטוס (Afytos)", badge: "🏘️ הכפר היפה ביותר", image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=600&q=80", character: "כפר אבן היסטורי המשמר ארכיטקטורה מקדונית מסורתית.", vibe: "סמטאות צרות ומרוצפות אבן, בתי קפה קטנים, וטברנות מעל הים.", action: "הכפר שומר על קסם יווני אמיתי. שוטטו כאן בנחת.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Afytos+Kassandra" },
+            { region: "kassandra", category: "villages", name: "חניוטי (Hanioti)", badge: "🏘️ בסיס הטיול", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80", character: "עיירת חוף נעימה ותוססת - בה ממוקם המלון שלכם.", vibe: "כיכר מרכזית ירוקה, טברנות אותנטיות ודוכני אוכל רחוב.", action: "העיירה מישורית ונעימה מאוד להליכה ברגל ישירות מהמלון.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Hanioti" },
+            { region: "kassandra", category: "culinary", name: "טברנה בוגיאטה (Bogiata)", badge: "🍽️ טברנה אותנטית", image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80", character: "טברנה מקומית ויוונית להפליא באפיטוס.", vibe: "שולחנות עץ כחולים, שירות חם ואוכל מעולה.", action: "מומלץ להזמין: מנות בשרים על הגריל ומאזטים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Bogiata+Taverna" },
+            { region: "kassandra", category: "beaches", name: "חוף פוסידי (Possidi Cape)", badge: "🏖️ טבע פראי", image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80", character: "רצועת חול ארוכה שנמתחת לתוך הים האגאי.", vibe: "פראית ומבודדת. אין מיטות שיזוף או ברים.", action: "מומלץ להגיע באחה\"צ עם שמשייה לשקיעה.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Possidi+Cape" },
+            
+            { region: "sithonia", category: "beaches", name: "אלמה ביץ' (Alma Beach Bar)", badge: "🏖️ חוף חובה מתוכנן", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80", character: "חוף מרהיב, מתוכנן ומפנק המציע חול זהוב.", vibe: "יווני קיצי מושלם עם שירות מעולה.", action: "עצירת חובה ביום שבת (04/07).", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Alma+Beach+Bar" },
+            { region: "sithonia", category: "villages", name: "פורטו קופו (Porto Koufo)", badge: "⚓ מעגן הפיורד", image: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=600&q=80", character: "נמל הדייגים העמוק ביותר ביוון.", vibe: "פראי, דרמטי ושקט מאוד.", action: "שבו לארוחת דגים פנומנלית על קו המים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Porto+Koufo" },
+            { region: "sithonia", category: "tips", name: "⛵ שריון שייט בוורוורו", badge: "💡 טיפ שייט", image: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=600&q=80", character: "ביולי הביקוש לסירות גבוה במיוחד.", vibe: "מנעו אכזבה ושריינו סירה מראש לחמישי.", action: "פנו ל-Kraken Boat Rental.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Vourvourou" },
+            
+            // Thessaloniki Data
+            { region: "thessaloniki", category: "culinary", name: "טברנת פאלאטי (Palati)", badge: "🎉 חגיגת יום הולדת", image: "https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?auto=format&fit=crop&w=600&q=80", character: "טברנה מפורסמת ברובע לדדיקה עם אוכל ומוזיקה חיה.", vibe: "סוחפת, חמה ותוססת מאוד.", action: "כאן תחגגו ביום שלישי! מומלץ לשריין מקום.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Palati+Taverna" },
+            { region: "thessaloniki", category: "culinary", name: "Hatzi Bachtse", badge: "🎻 רמבטיקו חי", image: "https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?auto=format&fit=crop&w=600&q=80", character: "טברנה מדהימה ואותנטית לימי הרמבטיקו של שנות ה-30.", vibe: "האנרגיה מחשמלת ללא הגברה. הקהל שר יחד.", action: "להזמין מאזטים פשוטים וציפורו.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Hatzi+Bachtse" },
+            { region: "thessaloniki", category: "culinary", name: "סולנטו (Solento)", badge: "🍕 גן עדן לבצקים", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80", character: "מסעדה איטלקית נהדרת המתמחה בפיצות נאפוליטניות.", vibe: "חמימה ואותנטית לחובבי אוכל איטלקי.", action: "מנת חובה: 'כריך פיצה' ייחודי.", mapsUrl: "https://maps.app.goo.gl/qnSnfh7hycdRog169" },
+            
+            // *NEW* Shopping Categories added per your request
+            { region: "thessaloniki", category: "shopping", name: "כלבו נוטוס (notos)", badge: "🛍️ שופינג בסטייל", image: "https://images.unsplash.com/photo-1560243563-062bff001d68?auto=format&fit=crop&w=600&q=80", character: "כלבו גדול ומפואר בפינת הרחובות הכי מרכזיים.", vibe: "חוויית קנייה אלגנטית, נוחה וממוזגת.", action: "קומת קרקע לקוסמטיקה, וקומות עליונות לאופנה.", mapsUrl: "https://maps.app.goo.gl/eXKUkNdzsvo5sBsAA" },
+            { region: "thessaloniki", category: "shopping", name: "רחוב צימיסקי (Tsimiski)", badge: "🛍️ שדרת הקניות הראשית", image: "https://images.unsplash.com/photo-1484755560695-a4c740285a15?auto=format&fit=crop&w=600&q=80", character: "רחוב הקניות הגדול והארוך ביותר של סלוניקי.", vibe: "סואן, מלא במותגים בינלאומיים כמו זארה, M&S ועוד.", action: "הקדישו לזה כמה שעות בצהרי יום רביעי.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Tsimiski+Street+Thessaloniki" },
+            { region: "thessaloniki", category: "shopping", name: "שוק מודיאנו (Modiano)", badge: "🛍️ גסטרונומיה מקורה", image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80", character: "השוק המקורה ההיסטורי ששופץ למתחם קולינרי מודרני.", vibe: "מעוצב, נקי, תוסס ומעורר תיאבון.", action: "קנו גבינות, תבלינים, ושבו לקפה איכותי.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Modiano+Market" }
+        ];
 
-    activeCharts.overviewSchools = new Chart(ctxSchools, {
-      type: 'bar',
-      data: {
-        labels: sortedLabels,
-        datasets: [{
-          label: 'אחוז זכאות טק (%)',
-          data: sortedValues,
-          backgroundColor: '#6a3e9c',
-          hoverBackgroundColor: '#f47b20',
-          borderRadius: 8
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false }
-        },
-        scales: {
-          y: { beginAtZero: true, max: 50 }
+        // State for guides UI
+        let activeGuideRegion = "kassandra";
+        let activeGuideCategory = "all";
+
+        function populateCategoryFilters() {
+            const container = document.getElementById("category-filter-container");
+            container.innerHTML = "";
+
+            let categories = [];
+            if (activeGuideRegion === "kassandra") {
+                categories = [
+                    { id: "all", label: "🌍 הכל" },
+                    { id: "villages", label: "🏘️ עיירות" },
+                    { id: "beaches", label: "🏖️ חופים" },
+                    { id: "culinary", label: "🍽️ מסעדות" },
+                    { id: "shopping", label: "🛍️ קניות" } // Added Shopping
+                ];
+            } else if (activeGuideRegion === "sithonia") {
+                categories = [
+                    { id: "all", label: "🌍 הכל" },
+                    { id: "villages", label: "🏘️ כפרים ונמלים" },
+                    { id: "beaches", label: "🌲 חופים" },
+                    { id: "culinary", label: "🐙 טברנות" },
+                    { id: "tips", label: "💡 טיפים" }
+                ];
+            } else if (activeGuideRegion === "thessaloniki") {
+                categories = [
+                    { id: "all", label: "🌍 הכל" },
+                    { id: "shopping", label: "🛍️ קניות ושופינג" }, // Added Shopping
+                    { id: "culinary", label: "🍽️ מסעדות" },
+                    { id: "bars", label: "🍹 ברים וגגות" },
+                    { id: "history", label: "🏛️ תרבות" }
+                ];
+            }
+
+            categories.forEach(cat => {
+                const button = document.createElement("button");
+                button.onclick = () => selectGuideCategory(cat.id);
+                button.id = `cat-btn-${cat.id}`;
+                // App-like filter pills
+                button.className = "flex-shrink-0 px-4 py-1.5 text-xs font-semibold rounded-full transition-all border " +
+                    (activeGuideCategory === cat.id 
+                        ? "bg-textMain border-textMain text-white" 
+                        : "bg-white border-slate-200 text-slate-600");
+                button.innerText = cat.label;
+                container.appendChild(button);
+            });
         }
-      }
-    });
-  }
 
-  // 2. SCHOOL DEEP DIVE VIEW
-  function initSchoolSelector() {
-    const selector = document.getElementById('school-selector');
-    selector.innerHTML = '';
-    Object.keys(SCHOOL_DATA).forEach(s => {
-      const opt = document.createElement('option');
-      opt.value = s;
-      opt.innerText = s;
-      selector.appendChild(opt);
-    });
-  }
+        function selectGuideRegion(regionId) {
+            activeGuideRegion = regionId;
+            activeGuideCategory = "all";
+            
+            document.querySelectorAll(".guide-region-tab").forEach(btn => {
+                btn.classList.remove('bg-primaryLight', 'text-primaryDark', 'border-primaryLight');
+                btn.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
+            });
+            const activeBtn = document.getElementById(`guide-reg-btn-${regionId}`);
+            activeBtn.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
+            activeBtn.classList.add('bg-primaryLight', 'text-primaryDark', 'border-primaryLight');
 
-  function updateSchoolView() {
-    const school = document.getElementById('school-selector').value;
-    const grade = document.getElementById('grade-selector').value;
-    const sData = SCHOOL_DATA[school];
-
-    let m5 = 0, tech = 0, cs = 0, phy = 0, tot = 0;
-
-    if (grade === 'ALL') {
-      // Average across all available grades
-      let availableGrades = Object.keys(sData);
-      let m5_sum = 0, tech_sum = 0, cs_sum = 0, phy_sum = 0, tot_sum = 0;
-      availableGrades.forEach(g => {
-        tot_sum += sData[g][0];
-        cs_sum += sData[g][1];
-        phy_sum += sData[g][2];
-        m5_sum += sData[g][5];
-        tech_sum += sData[g][4];
-      });
-      tot = Math.round(tot_sum / availableGrades.length);
-      cs = Math.round(cs_sum / availableGrades.length);
-      phy = Math.round(phy_sum / availableGrades.length);
-      m5 = (m5_sum / availableGrades.length).toFixed(1);
-      tech = (tech_sum / availableGrades.length).toFixed(1);
-    } else {
-      tot = sData[grade][0];
-      cs = sData[grade][1];
-      phy = sData[grade][2];
-      m5 = sData[grade][5].toFixed(1);
-      tech = sData[grade][4].toFixed(1);
-    }
-
-    document.getElementById('school-kpi-m5').innerText = m5 + '%';
-    document.getElementById('school-kpi-tech').innerText = tech + '%';
-    document.getElementById('school-kpi-boys').innerText = cs;
-    document.getElementById('school-kpi-girls').innerText = phy;
-
-    // School subjects chart
-    if (activeCharts.schoolSubjects) activeCharts.schoolSubjects.destroy();
-    const ctxSub = document.getElementById('chart-school-subjects').getContext('2d');
-    activeCharts.schoolSubjects = new Chart(ctxSub, {
-      type: 'doughnut',
-      data: {
-        labels: ['לומדי מחשבים', 'לומדי פיסיקה', 'זכאי טק כולל'],
-        datasets: [{
-          data: [cs, phy, Math.round(tot * (tech/100))],
-          backgroundColor: ['#f47b20', '#6a3e9c', '#10b981']
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false
-      }
-    });
-
-    // School Comparison Radar
-    if (activeCharts.schoolCompare) activeCharts.schoolCompare.destroy();
-    const ctxCompare = document.getElementById('chart-school-compare').getContext('2d');
-    activeCharts.schoolCompare = new Chart(ctxCompare, {
-      type: 'radar',
-      data: {
-        labels: ['מצוינות מתמטיקה', 'אחוז זכאות טק', 'שיעור המשכיות'],
-        datasets: [{
-          label: school,
-          data: [parseFloat(m5), parseFloat(tech), 85],
-          borderColor: '#f47b20',
-          backgroundColor: 'rgba(244, 123, 32, 0.2)'
-        }, {
-          label: 'ממוצע עירוני (יב)',
-          data: [44.6, 22.2, 70],
-          borderColor: '#6a3e9c',
-          backgroundColor: 'rgba(106, 62, 152, 0.1)'
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false
-      }
-    });
-  }
-
-  // 3. JOURNEY & RETENTION
-  function initJourneyDropdown() {
-    const selector = document.getElementById('journey-school-selector');
-    if (selector.children.length === 0) {
-      Object.keys(SCHOOL_DATA).forEach(s => {
-        const opt = document.createElement('option');
-        opt.value = s;
-        opt.innerText = s;
-        selector.appendChild(opt);
-      });
-    }
-  }
-
-  function updateJourneyView() {
-    const school = document.getElementById('journey-school-selector').value;
-    const sData = SCHOOL_DATA[school];
-    const grades = ['ז', 'ח', 'ט', 'י', 'יא', 'יב'];
-    const pcts = grades.map(g => sData[g] ? sData[g][4] : 0);
-
-    if (activeCharts.journeyLine) activeCharts.journeyLine.destroy();
-    const ctxLine = document.getElementById('chart-journey-line').getContext('2d');
-    activeCharts.journeyLine = new Chart(ctxLine, {
-      type: 'line',
-      data: {
-        labels: ["ז'", "ח'", "ט'", "י'", "יא'", "יב'"],
-        datasets: [{
-          label: school,
-          data: pcts,
-          borderColor: '#f47b20',
-          borderWidth: 4,
-          tension: 0.2,
-          fill: false
-        }, {
-          label: 'ממוצע עירוני',
-          data: Object.values(CITY_AVERAGES),
-          borderColor: '#6a3e9c',
-          borderDash: [6, 4],
-          fill: false
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          y: { beginAtZero: true, max: 100 }
+            populateCategoryFilters();
+            filterLocations();
         }
-      }
-    });
 
-    // Drop-off calculation
-    const startPct = sData['ט'] ? sData['ט'][4] : sData['ז'][4];
-    const endPct = sData['יב'][4];
-    const dropPct = startPct > 0 ? (((startPct - endPct) / startPct) * 100).toFixed(1) : 0;
+        function selectGuideCategory(catId) {
+            activeGuideCategory = catId;
+            
+            document.querySelectorAll("#category-filter-container button").forEach(btn => {
+                btn.className = "flex-shrink-0 px-4 py-1.5 text-xs font-semibold rounded-full transition-all border bg-white border-slate-200 text-slate-600";
+            });
+            const activeBtn = document.getElementById(`cat-btn-${catId}`);
+            if (activeBtn) {
+                activeBtn.className = "flex-shrink-0 px-4 py-1.5 text-xs font-semibold rounded-full transition-all border bg-textMain border-textMain text-white";
+            }
+            filterLocations();
+        }
 
-    document.getElementById('journey-drop-label').innerText = dropPct + '% נשירה';
-    const bar = document.getElementById('journey-drop-bar');
-    bar.style.width = Math.min(dropPct, 100) + '%';
-    
-    if (dropPct > 50) {
-      bar.style.backgroundColor = 'var(--bad)';
-      document.getElementById('journey-insight').innerHTML = `
-        <strong>⚠️ נשירה קריטית בבי"ס ${school}:</strong> מנוהלת כאן שחיקה של מעל ל-50% בקרב הלומדים המצטיינים במעבר לחטיבה העליונה. מומלץ לבצע בחינה של תהליכי ההכוון המקצועיים בכיתה ט'.
-      `;
-    } else if (dropPct > 30) {
-      bar.style.backgroundColor = 'var(--warn)';
-      document.getElementById('journey-insight').innerHTML = `
-        <strong>⚠️ שחיקה בינונית בבי"ס ${school}:</strong> נרשמת זליגה משמעותית בשלב בחירת המגמות בכיתה י'. תוכנית ליווי אישית ומנטורינג יכולים לצמצם את המעבר ל-4 יחידות.
-      `;
-    } else {
-      bar.style.backgroundColor = 'var(--good)';
-      document.getElementById('journey-insight').innerHTML = `
-        <strong>✅ שימור פדגוגי מצוין בבי"ס ${school}:</strong> בית הספר מצליח לשמר את רוב הלומדים האיכותיים בכיתות ההמשך ז'-י"ב ללא שחיקה מהותית.
-      `;
-    }
-  }
+        function filterLocations() {
+            const searchVal = document.getElementById("guide-search-input").value.trim().toLowerCase();
+            const grid = document.getElementById("locations-grid");
+            const emptyState = document.getElementById("empty-state");
+            grid.innerHTML = "";
 
-  function renderCohortTable() {
-    const body = document.getElementById('cohort-table-body');
-    body.innerHTML = '';
-    
-    Object.keys(SCHOOL_DATA).forEach(s => {
-      const sData = SCHOOL_DATA[s];
-      const start = sData['ז'][4];
-      const end = sData['יב'][4];
-      const resilience = start > 0 ? (100 - (((start - end) / start) * 100)).toFixed(0) + '%' : '100%';
+            const filtered = locationsData.filter(loc => {
+                const matchesRegion = loc.region === activeGuideRegion;
+                const matchesCategory = activeGuideCategory === "all" || loc.category === activeGuideCategory;
+                const searchString = `${loc.name} ${loc.character} ${loc.vibe} ${loc.action}`.toLowerCase();
+                const matchesSearch = !searchVal || searchString.includes(searchVal);
+                return matchesRegion && matchesCategory && matchesSearch;
+            });
 
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td><strong>${s}</strong></td>
-        <td>${sData['ז'][4]}%</td>
-        <td>${sData['ח'][4]}%</td>
-        <td>${sData['ט'][4]}%</td>
-        <td>${sData['י'][4]}%</td>
-        <td>${sData['יא'][4]}%</td>
-        <td>${sData['יב'][4]}%</td>
-        <td><span class="badge ${parseInt(resilience) > 60 ? 'badge-success' : 'badge-warning'}">${resilience}</span></td>
-      `;
-      body.appendChild(tr);
-    });
-  }
+            if (filtered.length === 0) {
+                emptyState.classList.remove("hidden");
+                grid.classList.add("hidden");
+            } else {
+                emptyState.classList.add("hidden");
+                grid.classList.remove("hidden");
 
-  // 4. PREDICTIONS
-  function initPredictionCharts() {
-    if (activeCharts.predCohorts) activeCharts.predCohorts.destroy();
-    const ctxPred = document.getElementById('chart-pred-cohorts').getContext('2d');
-    activeCharts.predCohorts = new Chart(ctxPred, {
-      type: 'bar',
-      data: {
-        labels: ['מחזור תשפ"ד (היסטורי)', 'מחזור תשפ"ה (נוכחי)', 'צפי תשפ"ו (בינוני)', 'יעד עירוני תשפ"ז'],
-        datasets: [{
-          label: 'אחוז זכאות עירוני',
-          data: [15.1, 16.3, 19.8, 25.0],
-          backgroundColor: ['#c0b4d6', '#9883bf', '#6a3e9c', '#f47b20'],
-          borderRadius: 6
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false
-      }
-    });
+                filtered.forEach(loc => {
+                    const card = document.createElement("div");
+                    // App-like Card Design for Mobile
+                    card.className = "bg-cardBg rounded-3xl overflow-hidden shadow-soft border border-slate-100 flex flex-col";
+                    
+                    card.innerHTML = `
+                        <!-- Full width image on mobile -->
+                        <div class="relative h-40 w-full bg-slate-100">
+                            <img src="${loc.image}" alt="${loc.name}" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-full shadow-sm">
+                                <span class="text-[10px] font-bold text-textMain">${loc.badge}</span>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h4 class="font-bold text-base text-textMain mb-2">${loc.name}</h4>
+                            <p class="text-xs text-textMuted leading-relaxed mb-3">${loc.character} ${loc.vibe}</p>
+                            
+                            <div class="flex items-center justify-between mt-3 pt-3 border-t border-slate-50">
+                                <span class="text-[10px] font-semibold text-primary px-2 py-1 bg-primaryLight/50 rounded-lg">👍 ${loc.action.substring(0, 30)}...</span>
+                                <a href="${loc.mapsUrl}" target="_blank" class="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center text-primary transition-all active:scale-95">
+                                    <i class="ph-fill ph-navigation-arrow text-lg"></i>
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+        }
 
-    if (activeCharts.predRisk) activeCharts.predRisk.destroy();
-    const ctxRisk = document.getElementById('chart-pred-risk').getContext('2d');
-    activeCharts.predRisk = new Chart(ctxRisk, {
-      type: 'doughnut',
-      data: {
-        labels: ['סיכון נמוך (שימור)', 'סיכון בינוני', 'סיכון קריטי (נשירה גבוהה)'],
-        datasets: [{
-          data: [4, 3, 2],
-          backgroundColor: ['#10b981', '#f59e0b', '#ef4444']
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false
-      }
-    });
-  }
+        // 4. ITINERARY DATA & INJECTION (Compact Mobile Design)
+        const itineraryData = [
+            {
+                day: 1, weekday: "יום רביעי", date: "01/07/2026", title: "נחיתה ונחיתה רכה לווייב היווני", hotel: "Domes Noruz Kassandra",
+                bullets: [
+                    "נחיתה בסלוניקי (07:55), איסוף רכב שכור ונסיעה לקסנדרה.",
+                    "עצירה בכפר אפיטוס (Afytos) לארוחת צהריים ראשונה.",
+                    "הגעה למלון ב-15:00, צ'ק-אין ובטן-גב.",
+                    "בערב: שיטוט בחניוטי (Hanioti)."
+                ],
+                notes: "איסוף רכב מ-Budget שדה התעופה ב-08:30."
+            },
+            {
+                day: 2, weekday: "יום חמישי", date: "02/07/2026", title: "שייט חלומי בלגונות", hotel: "Domes Noruz Kassandra",
+                bullets: [
+                    "נסיעה מוקדמת לסיטוניה (וורוורו) לשייט חצי יום עם סירה ללא רישיון באי דיאפורוס.",
+                    "החזרת הסירה וארוחת דגים טריים בוורוורו.",
+                    "ערב: בר מקומי בחניוטי."
+                ],
+                notes: "להניע השכרה ב-09:00 מראש: Kraken Boat Rental."
+            },
+            {
+                day: 3, weekday: "יום שישי", date: "03/07/2026", title: "בטן גב וריזורט", hotel: "Domes Noruz Kassandra",
+                bullets: [
+                    "נשארים במתחם המלון המפנק.",
+                    "צהריים: גירוס רחוב בחניוטי.",
+                    "ערב: Kallithea בארים / מועדונים."
+                ],
+                notes: "יום חופשי ונינוח."
+            },
+            {
+                day: 4, weekday: "יום שבת", date: "04/07/2026", title: "נסיעות קצרות בקסנדרה", hotel: "Domes Noruz Kassandra",
+                bullets: [
+                    "צהריים בביצ׳קלאב עלמה - Alma Beach.",
+                    "אחה\"צ: שיטוט מעמיק באפיטוס (Afytos).",
+                    "בערב: ארוחת ערב בקריופיגי (Kriopigi). סיום ב-Sani Dunes."
+                ],
+                notes: ""
+            },
+            {
+                day: 5, weekday: "יום ראשון", date: "05/07/2026", title: "בטן גב + חוף פוסידי", hotel: "Domes Noruz Kassandra",
+                bullets: [
+                    "יום פינוקים בריזורט (ספא, בריכה).",
+                    "אחה\"צ נסיעה ללשון החול הפראית פוסידי (Possidi Cape). הביאו שמשייה!",
+                    "בערב: ארוחת ערב באזור חניוטי."
+                ],
+                notes: ""
+            },
+            {
+                day: 6, weekday: "יום שני", date: "06/07/2026", title: "סיטוניה - Road Trip", hotel: "Domes Noruz Kassandra",
+                bullets: [
+                    "09:30: יציאה לחוף המערבי של סיטוניה.",
+                    "10:30: חוף קלוגריה (Kalogria Beach) המוגן.",
+                    "12:30: הכפר ההררי פרתנונאס (Parthenonas).",
+                    "14:30: נמל הדייגים הדרמטי פורטו קופו לארוחת צהריים.",
+                    "חזרה פראית דרך החוף המזרחי."
+                ],
+                notes: "להכין מזוודות למעבר מחר."
+            },
+            {
+                day: 7, weekday: "יום שלישי", date: "07/07/2026", title: "נפרדים מהים ועולים לעיר", hotel: "S Hotel Thessaloniki",
+                bullets: [
+                    "החזרת הרכב בנמל סלוניקי בשעה 19:00 (Gate Parking 6).",
+                    "צ'ק-אין ב-S Hotel Boutique במרכז העיר.",
+                    "🎉🎂 חגיגת יום הולדת לרחלי ואבנר! ארוחת ערב חגיגית, מרימה בטברנת פאלאטי (Palati) בלדדיקה עם מוזיקה חיה! 🥳"
+                ],
+                notes: "שים לב למיקום החזרת הרכב: נמל סלוניקי."
+            },
+            {
+                day: 8, weekday: "יום רביעי", date: "08/07/2026", title: "שיטוט, שווקים וקניות", hotel: "S Hotel Thessaloniki",
+                bullets: [
+                    "בוקר: שוק קפאני ושוק מודיאנו (Modiano).",
+                    "צהריים: שופינג בצימיסקי ובכלבו notos.",
+                    "לקראת שקיעה: עלייה לעיר העתיקה (Ano Poli) לתצפית."
+                ],
+                notes: ""
+            },
+            {
+                day: 9, weekday: "יום חמישי", date: "09/07/2026", title: "פרידה מסלוניקי", hotel: "טיסה חזרה לישראל",
+                bullets: [
+                    "יום חופשי להסתובבות בסמטאות הנמל המשופץ.",
+                    "ארוחת ערב אחרונה.",
+                    "21:30: איסוף ומונית לשדה התעופה."
+                ],
+                notes: "נחיתה בארץ ב-10/07 לפנות בוקר."
+            }
+        ];
 
-  function renderPredictionTable() {
-    const body = document.getElementById('prediction-table-body');
-    body.innerHTML = '';
+        let activeDay = 1;
 
-    const actions = {
-      "אורט חולון": ["נמוך", "badge-success", "שימור תוכנית המנטורים העירונית והרחבת תמיכה פיסיקלית."],
-      "אילון": ["בינוני", "badge-info", "הקמת קבוצת תגבור לקראת מעבדות הפיסיקה למניעת נשירה."],
-      "קוגל": ["בינוני", "badge-info", "תוכנית תגבור ממוקדת במתמטיקה 5 יח\"ל בשיתוף האקדמיה."],
-      "קציר": ["נמוך", "badge-success", "מינוף מרכזי הלמידה של שעות אחה\"צ לפתרון בעיות מורכבות."],
-      "עתידים": ["קריטי", "badge-warning", "פיצול כיתות לימוד במחשבים לשיפור תשומת הלב הפדגוגית."],
-      "הראל": ["קריטי", "badge-warning", "התערבות פדגוגית מיידית לצמצום פערי המעבר מחטיבת הביניים."],
-      "נבון": ["בינוני", "badge-info", "תוכנית גשר לעידוד בנות להישאר במסלולי פיסיקה וסייבר."],
-      "קרית שרת": ["גבוה", "badge-danger", "תוכנית חירום ומרתון למידה מואץ במתמטיקה בחודשי הקיץ."],
-      "הרצוג": ["גבוה", "badge-danger", "ליווי אישי ממוקד של רכז המקצוע לכל תלמידה במסלול."]
-    };
+        function initItinerary() {
+            const selectorContainer = document.getElementById("day-selector");
+            selectorContainer.innerHTML = "";
+            
+            itineraryData.forEach(day => {
+                const button = document.createElement("button");
+                button.id = `day-btn-${day.day}`;
+                button.onclick = () => selectDay(day.day);
+                
+                // Mobile App Date Pill Design
+                button.className = "day-tab flex-shrink-0 flex flex-col items-center justify-center w-[72px] h-[80px] rounded-2xl transition-all border border-slate-200 bg-white";
+                
+                button.innerHTML = `
+                    <span class="text-[10px] text-textMuted font-medium">${day.weekday.split(' ')[1]}</span>
+                    <span class="text-xl font-bold text-textMain leading-none my-1">${day.day}</span>
+                    <span class="text-[9px] text-slate-400">${day.date.substring(0,5)}</span>
+                `;
+                selectorContainer.appendChild(button);
+            });
+            
+            selectDay(1);
+        }
 
-    Object.keys(SCHOOL_DATA).forEach(s => {
-      const sData = SCHOOL_DATA[s];
-      const curYa = sData['יא'][4];
-      const predictedYev = (curYa * 0.88).toFixed(1); // מודל חיזוי שימור של 88%
-      const gapStudents = Math.round(sData['יב'][0] * 0.05); // צורך של 5% שיפור
+        function selectDay(dayNumber) {
+            activeDay = dayNumber;
+            const day = itineraryData.find(d => d.day === dayNumber);
+            
+            // Reset pills
+            document.querySelectorAll(".day-tab").forEach(btn => {
+                btn.className = "day-tab flex-shrink-0 flex flex-col items-center justify-center w-[72px] h-[80px] rounded-2xl transition-all border border-slate-200 bg-white shadow-sm";
+                btn.querySelector('span:nth-child(2)').className = "text-xl font-bold text-textMain leading-none my-1";
+                btn.querySelector('span:nth-child(1)').className = "text-[10px] text-textMuted font-medium";
+            });
+            
+            // Activate selected pill
+            const activeBtn = document.getElementById(`day-btn-${dayNumber}`);
+            if (activeBtn) {
+                activeBtn.className = "day-tab flex-shrink-0 flex flex-col items-center justify-center w-[72px] h-[80px] rounded-2xl transition-all border-none bg-textMain text-white shadow-md transform scale-105";
+                activeBtn.querySelector('span:nth-child(2)').className = "text-xl font-bold text-white leading-none my-1";
+                activeBtn.querySelector('span:nth-child(1)').className = "text-[10px] text-slate-300 font-medium";
+            }
+            
+            const detailContainer = document.getElementById("day-detail-box");
 
-      const details = actions[s] || ["בינוני", "badge-info", "חיזוק תהליכי הלמידה בכיתות המדעיות והמתמטיקה."];
+            let bulletsHTML = `<div class="space-y-3 mt-4">`;
+            day.bullets.forEach((b, index) => {
+                const isCelebration = b.includes("🎉") || b.includes("🎂");
+                bulletsHTML += `
+                    <div class="flex items-start gap-3 p-3.5 bg-slate-50 rounded-2xl ${isCelebration ? 'bg-amber-50 border border-amber-200 shadow-sm' : ''}">
+                        <div class="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 ${isCelebration ? 'bg-amber-100 text-amber-500' : 'bg-primaryLight text-primary'} text-xs font-bold">
+                            ${isCelebration ? '👑' : (index + 1)}
+                        </div>
+                        <span class="${isCelebration ? 'text-slate-900 font-bold' : 'text-slate-700'} text-sm leading-relaxed">${b}</span>
+                    </div>
+                `;
+            });
+            bulletsHTML += `</div>`;
 
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td><strong>${s}</strong></td>
-        <td>${curYa}%</td>
-        <td style="color:var(--primary); font-weight:800;">${predictedYev}%</td>
-        <td>${gapStudents} תלמידים</td>
-        <td><span class="badge ${details[1]}">${details[0]}</span></td>
-        <td>${details[2]}</td>
-      `;
-      body.appendChild(tr);
-    });
-  }
+            // Mobile App Card layout for day details
+            detailContainer.innerHTML = `
+                <div class="bg-cardBg rounded-3xl shadow-soft border border-slate-100 p-5 mt-2">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="bg-slate-100 text-textMuted text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wider">${day.weekday}</span>
+                        <div class="flex items-center gap-1 text-[10px] text-primary font-bold bg-primaryLight/30 px-2 py-1 rounded-md">
+                            <i class="ph-fill ph-bed"></i> ${day.hotel.split(' ')[0]}
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-extrabold text-textMain font-sans leading-tight">${day.title}</h3>
+                    
+                    ${bulletsHTML}
 
-  // Window load setup
-  window.onload = function() {
-    initSchoolSelector();
-    switchView('overview');
-  };
-</script>
+                    ${day.notes ? `
+                    <div class="mt-4 p-3 bg-amber-50/50 rounded-xl border border-amber-100/50">
+                        <p class="text-xs text-amber-800 leading-relaxed font-medium"><i class="ph-fill ph-warning-circle text-amber-500 mr-1"></i> ${day.notes}</p>
+                    </div>` : ''}
+                </div>
+            `;
+        }
 
+        // 5. CHECKLIST DATA & LOCALSTORAGE
+        const defaultChecklist = {
+            logistics: [
+                { id: "log-1", text: "צילום רישיונות נהיגה ודרכונים", checked: false },
+                { id: "log-2", text: "הדפסת אישור שריון Domes Noruz", checked: false },
+                { id: "log-3", text: "רישיון ישראלי (פלסטיק) + בינלאומי", checked: false }
+            ],
+            packing: [
+                { id: "pack-1", text: "נעלי מים מגומי (חובה בסיטוניה)", checked: false },
+                { id: "pack-2", text: "קרם הגנה, שפתון וקרם לחות", checked: false },
+                { id: "pack-3", text: "כבלים ומתאמים לרכב (למוזיקה)", checked: false }
+            ]
+        };
+
+        function loadChecklist() {
+            let savedList = localStorage.getItem("greece_trip_checklist_v3");
+            if (!savedList) {
+                savedList = JSON.stringify(defaultChecklist);
+                localStorage.setItem("greece_trip_checklist_v3", savedList);
+            }
+            
+            const listObj = JSON.parse(savedList);
+            const logContainer = document.getElementById("logistics-list");
+            logContainer.innerHTML = "";
+            listObj.logistics.forEach(item => logContainer.appendChild(createChecklistItem(item, 'logistics')));
+
+            const packContainer = document.getElementById("packing-list");
+            packContainer.innerHTML = "";
+            listObj.packing.forEach(item => packContainer.appendChild(createChecklistItem(item, 'packing')));
+        }
+
+        function createChecklistItem(item, type) {
+            const div = document.createElement("div");
+            // Mobile App Checklist Item Design
+            div.className = "flex items-center gap-3 p-3.5 bg-slate-50 rounded-2xl active:bg-slate-100 transition-colors cursor-pointer";
+            div.onclick = (e) => {
+                if (e.target.tagName !== 'INPUT') {
+                    const checkbox = div.querySelector('input');
+                    checkbox.checked = !checkbox.checked;
+                    toggleChecklistItem(item.id, type, checkbox.checked);
+                }
+            };
+
+            div.innerHTML = `
+                <input type="checkbox" id="${item.id}" ${item.checked ? 'checked' : ''} 
+                    onchange="toggleChecklistItem('${item.id}', '${type}', this.checked)"
+                    class="w-5 h-5 text-primary border-slate-300 rounded-md focus:ring-primaryLight cursor-pointer ml-1">
+                <label for="${item.id}" class="text-sm font-medium transition-all ${item.checked ? 'line-through text-slate-400' : 'text-textMain'} pointer-events-none">
+                    ${item.text}
+                </label>
+            `;
+            return div;
+        }
+
+        function toggleChecklistItem(id, type, isChecked) {
+            const savedList = JSON.parse(localStorage.getItem("greece_trip_checklist_v3"));
+            savedList[type].find(i => i.id === id).checked = isChecked;
+            localStorage.setItem("greece_trip_checklist_v3", JSON.stringify(savedList));
+            loadChecklist();
+        }
+
+        // ONLOAD INITIALIZATION
+        window.onload = function() {
+            startCompactCountdown();
+            initItinerary();
+            switchTab('itinerary'); // Start on Daily Plan
+            selectGuideRegion('kassandra');
+            loadChecklist();
+        };
+    </script>
 </body>
 </html>
