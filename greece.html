@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>מסע משפחות שקד ובן זקן - יוון 2026 (Mobile App)</title>
+    <title>מסע משפחות שקד ובן זקן - יוון 2026</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts with Greek and Hebrew support -->
@@ -91,20 +91,6 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        /* Ticker Animation for Countdown */
-        .ticker-wrap {
-            overflow: hidden;
-            white-space: nowrap;
-        }
-        .ticker-move {
-            display: inline-block;
-            animation: ticker 25s linear infinite;
-        }
-        @keyframes ticker {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
     </style>
 </head>
 <body class="text-textMain antialiased" dir="rtl">
@@ -116,20 +102,63 @@
                 🧿
             </div>
             <div class="flex flex-col">
-                <h1 class="font-bold text-sm leading-tight text-slate-800">יוון 2026</h1>
-                <span class="text-[9px] text-textMuted font-mono">Mobile App • v3.0</span>
+                <h1 class="font-bold text-sm leading-tight text-slate-800">יוון 2026 - בן זקן ושקד מטיילים</h1>
+                <span class="text-[9px] text-textMuted font-mono">Mobile App • v3.2</span>
             </div>
         </div>
         
         <!-- Hamburger Menu Button -->
-        <button onclick="alert('תפריט צד (Hamburger) יפתח כאן קישורים מהירים, שיתוף והגדרות.')" class="p-2 text-slate-600 focus:outline-none">
+        <button onclick="openMobileMenu()" class="p-2 text-slate-600 focus:outline-none transition-all active:scale-95">
             <i class="ph ph-list text-2xl"></i>
         </button>
     </header>
 
+    <!-- MOBILE MENU OVERLAY & DRAWER -->
+    <div id="mobile-menu-backdrop" class="fixed inset-0 bg-slate-900/40 z-[60] hidden transition-opacity duration-300 opacity-0" onclick="closeMobileMenu()"></div>
+    
+    <div id="mobile-menu-drawer" class="fixed top-0 right-0 bottom-0 w-72 bg-white z-[70] transform translate-x-full transition-transform duration-300 shadow-2xl flex flex-col">
+        <!-- Drawer Header -->
+        <div class="p-5 border-b border-slate-100 bg-gradient-to-br from-primaryLight/30 to-white">
+            <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center text-2xl shadow-sm">🇬🇷</div>
+                <button onclick="closeMobileMenu()" class="p-2 text-slate-500 hover:text-slate-800 bg-white rounded-full shadow-sm active:scale-95">
+                    <i class="ph ph-x text-lg"></i>
+                </button>
+            </div>
+            <h3 class="font-extrabold text-slate-800 text-lg">שקד & בן זקן</h3>
+            <p class="text-xs text-primaryDark font-medium mt-0.5">המדריך האישי לחלקידיקי וסלוניקי</p>
+        </div>
+        
+        <!-- Drawer Links -->
+        <div class="flex-1 overflow-y-auto py-4 px-3 space-y-2">
+            <!-- Share Button -->
+            <button onclick="sharePlan()" class="w-full flex items-center gap-3 p-3.5 rounded-2xl hover:bg-slate-50 transition-colors text-right active:bg-slate-100">
+                <div class="w-9 h-9 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center"><i class="ph-fill ph-share-network text-lg"></i></div>
+                <div class="flex flex-col">
+                    <span class="text-sm font-bold text-slate-700">שתף מדריך</span>
+                    <span class="text-[10px] text-slate-500">העתקת קישור לשליחה בוואטסאפ</span>
+                </div>
+            </button>
+            
+            <!-- WhatsApp Rental -->
+            <a href="https://api.whatsapp.com/send?phone=306987812466" target="_blank" class="w-full flex items-center gap-3 p-3.5 rounded-2xl hover:bg-slate-50 transition-colors text-right active:bg-slate-100">
+                <div class="w-9 h-9 rounded-full bg-green-50 text-green-600 flex items-center justify-center"><i class="ph-fill ph-whatsapp-logo text-lg"></i></div>
+                <div class="flex flex-col">
+                    <span class="text-sm font-bold text-slate-700">צור קשר: השכרת רכב</span>
+                    <span class="text-[10px] text-slate-500">תומר (Chalkidiki Cars)</span>
+                </div>
+            </a>
+        </div>
+        
+        <!-- Drawer Footer -->
+        <div class="p-4 border-t border-slate-100 text-center bg-slate-50">
+            <p class="text-[10px] text-slate-400 font-mono font-bold">נבנה באהבה עבור רמי • v3.2</p>
+        </div>
+    </div>
+
     <!-- COMPACT COUNTDOWN TICKER (Under Top Bar) -->
-    <div class="fixed top-[60px] inset-x-0 z-40 bg-accent text-white text-xs py-1.5 font-bold shadow-sm ticker-wrap">
-        <div class="ticker-move" id="compact-countdown">
+    <div class="fixed top-[60px] inset-x-0 z-40 bg-accent text-white text-xs py-2 font-bold shadow-sm text-center">
+        <div id="compact-countdown">
             <!-- Injected via JS -->
             ⏳ טוען ספירה לאחור...
         </div>
@@ -354,9 +383,8 @@
                 const days = Math.floor(difference / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 
-                // Duplicate text to create continuous ticker effect
-                const msg = `⏱️ עוד ${days} ימים ו-${hours} שעות לטיסת סאן דור ליוון! ✈️`;
-                tickerEl.innerHTML = `${msg} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${msg} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${msg}`;
+                // Static text without seconds and duplication
+                tickerEl.innerHTML = `⏱️ עוד ${days} ימים ו-${hours} שעות לטיול הגדול! ✈️`;
             }, 1000);
         }
 
@@ -404,7 +432,7 @@
             { region: "thessaloniki", category: "culinary", name: "Hatzi Bachtse", badge: "🎻 רמבטיקו חי", image: "https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?auto=format&fit=crop&w=600&q=80", character: "טברנה מדהימה ואותנטית לימי הרמבטיקו של שנות ה-30.", vibe: "האנרגיה מחשמלת ללא הגברה. הקהל שר יחד.", action: "להזמין מאזטים פשוטים וציפורו.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Hatzi+Bachtse" },
             { region: "thessaloniki", category: "culinary", name: "סולנטו (Solento)", badge: "🍕 גן עדן לבצקים", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80", character: "מסעדה איטלקית נהדרת המתמחה בפיצות נאפוליטניות.", vibe: "חמימה ואותנטית לחובבי אוכל איטלקי.", action: "מנת חובה: 'כריך פיצה' ייחודי.", mapsUrl: "https://maps.app.goo.gl/qnSnfh7hycdRog169" },
             
-            // *NEW* Shopping Categories added per your request
+            // Shopping Categories
             { region: "thessaloniki", category: "shopping", name: "כלבו נוטוס (notos)", badge: "🛍️ שופינג בסטייל", image: "https://images.unsplash.com/photo-1560243563-062bff001d68?auto=format&fit=crop&w=600&q=80", character: "כלבו גדול ומפואר בפינת הרחובות הכי מרכזיים.", vibe: "חוויית קנייה אלגנטית, נוחה וממוזגת.", action: "קומת קרקע לקוסמטיקה, וקומות עליונות לאופנה.", mapsUrl: "https://maps.app.goo.gl/eXKUkNdzsvo5sBsAA" },
             { region: "thessaloniki", category: "shopping", name: "רחוב צימיסקי (Tsimiski)", badge: "🛍️ שדרת הקניות הראשית", image: "https://images.unsplash.com/photo-1484755560695-a4c740285a15?auto=format&fit=crop&w=600&q=80", character: "רחוב הקניות הגדול והארוך ביותר של סלוניקי.", vibe: "סואן, מלא במותגים בינלאומיים כמו זארה, M&S ועוד.", action: "הקדישו לזה כמה שעות בצהרי יום רביעי.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Tsimiski+Street+Thessaloniki" },
             { region: "thessaloniki", category: "shopping", name: "שוק מודיאנו (Modiano)", badge: "🛍️ גסטרונומיה מקורה", image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80", character: "השוק המקורה ההיסטורי ששופץ למתחם קולינרי מודרני.", vibe: "מעוצב, נקי, תוסס ומעורר תיאבון.", action: "קנו גבינות, תבלינים, ושבו לקפה איכותי.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Modiano+Market" }
@@ -768,6 +796,54 @@
             savedList[type].find(i => i.id === id).checked = isChecked;
             localStorage.setItem("greece_trip_checklist_v3", JSON.stringify(savedList));
             loadChecklist();
+        }
+        
+        // 6. MOBILE MENU & SHARE FUNCTIONALITY
+        function openMobileMenu() {
+            const backdrop = document.getElementById('mobile-menu-backdrop');
+            const drawer = document.getElementById('mobile-menu-drawer');
+            
+            backdrop.classList.remove('hidden');
+            // Trigger browser reflow to enable animation
+            void backdrop.offsetWidth;
+            
+            backdrop.classList.remove('opacity-0');
+            drawer.classList.remove('translate-x-full');
+        }
+
+        function closeMobileMenu() {
+            const backdrop = document.getElementById('mobile-menu-backdrop');
+            const drawer = document.getElementById('mobile-menu-drawer');
+            
+            backdrop.classList.add('opacity-0');
+            drawer.classList.add('translate-x-full');
+            
+            setTimeout(() => {
+                backdrop.classList.add('hidden');
+            }, 300);
+        }
+
+        function sharePlan() {
+            closeMobileMenu();
+            const dummy = document.createElement('input');
+            const text = window.location.href;
+            
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+            
+            // Show custom elegant toast
+            const toast = document.createElement('div');
+            toast.className = "fixed bottom-24 left-0 right-0 mx-auto w-48 bg-textMain text-white text-xs font-bold px-4 py-3 rounded-full shadow-2xl z-[100] transition-all transform translate-y-0 text-center";
+            toast.innerHTML = "🧿 הקישור הועתק ללוח!";
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
         }
 
         // ONLOAD INITIALIZATION
