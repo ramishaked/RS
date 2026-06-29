@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>מסע משפחות שקד ובן זקן - יוון 2026</title>
-    <!-- Favicon (Emoji as SVG) -->
+    <!-- Website Favicon / Icon generated from SVG -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧿</text></svg>">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&family=Rubik:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <!-- Phosphor Icons -->
+    <!-- Phosphor Icons for iOS/Android native app look -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     
     <script>
@@ -20,21 +20,24 @@
             theme: {
                 extend: {
                     colors: {
-                        appBg: '#f8fafc',
+                        appBg: '#f8fafc', 
                         cardBg: '#ffffff',
                         primary: '#0891b2', 
-                        primaryLight: '#cffafe',
-                        primaryDark: '#0e7490',
+                        primaryLight: '#cffafe', 
+                        primaryDark: '#0e7490', 
                         accent: '#0284c7', 
-                        textMain: '#1e293b',
-                        textMuted: '#64748b',
+                        accentLight: '#e0f2fe',
+                        textMain: '#1e293b', 
+                        textMuted: '#64748b', 
+                        greeceBlue: '#005bae'
                     },
                     fontFamily: {
                         sans: ['Rubik', 'Assistant', 'sans-serif'],
                     },
                     boxShadow: {
-                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
-                        'nav': '0 -4px 10px rgba(0, 0, 0, 0.03)',
+                        'soft': '0 4px 24px -2px rgba(0, 0, 0, 0.05)',
+                        'nav': '0 -4px 12px rgba(0, 0, 0, 0.03)',
+                        'premium': '0 10px 30px -10px rgba(8, 145, 178, 0.15)'
                     }
                 }
             }
@@ -44,53 +47,58 @@
         body {
             font-family: 'Rubik', 'Assistant', sans-serif;
             background-color: #f8fafc;
-            -webkit-tap-highlight-color: transparent;
-            padding-top: 60px;
-            padding-bottom: 80px;
+            -webkit-tap-highlight-color: transparent; 
+            padding-top: 60px; 
+            padding-bottom: 85px; 
             overflow-x: hidden;
         }
         
         .top-app-bar {
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
         .bottom-nav-bar {
             background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding-bottom: env(safe-area-inset-bottom);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding-bottom: env(safe-area-inset-bottom); 
         }
 
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
 
-        .nav-item.active { color: #0891b2; }
+        .nav-item.active {
+            color: #0891b2;
+        }
         .nav-item.active .nav-icon-container {
             background-color: #cffafe;
             border-radius: 9999px;
-            padding: 4px 16px;
+            padding: 4px 18px;
         }
         
-        .content-section { animation: fadeIn 0.3s ease-in-out; }
+        .content-section {
+            animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Menu Accordion transition */
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
+        .map-pulse {
+            animation: pulse 2s infinite;
         }
-        .accordion-content.open {
-            max-height: 200px; /* arbitrary large enough height */
-            transition: max-height 0.3s ease-in;
+        @keyframes pulse {
+            0% { r: 6; opacity: 1; }
+            100% { r: 15; opacity: 0; }
         }
-        .accordion-icon { transition: transform 0.3s ease; }
-        .accordion-icon.open { transform: rotate(180deg); }
     </style>
 </head>
 <body class="text-textMain antialiased" dir="rtl">
@@ -102,13 +110,21 @@
                 🧿
             </div>
             <div class="flex flex-col">
-                <h1 class="font-bold text-sm leading-tight text-slate-800">יוון 2026 - בן זקן ושקד מטיילים</h1>
-                <span class="text-[9px] text-textMuted font-mono">Mobile App • v4.1</span>
+                <h1 class="font-bold text-sm leading-tight text-slate-800">יוון 2026 - שקד ובן זקן</h1>
+                <span class="text-[9px] text-primaryDark font-mono font-bold">משפחות מטיילות • v6.0 ✨</span>
             </div>
         </div>
-        <button onclick="openMobileMenu()" class="p-2 text-slate-600 focus:outline-none transition-all active:scale-95">
-            <i class="ph ph-list text-2xl"></i>
-        </button>
+        
+        <div class="flex items-center gap-2">
+            <!-- Weather display in Header as requested -->
+            <div class="flex items-center gap-1 text-[11px] font-extrabold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-100/60 shadow-sm" title="מזג האוויר חלקידיקי">
+                <span class="text-xs">☀️</span> 32°C
+            </div>
+            <!-- Hamburger Menu Button -->
+            <button onclick="openMobileMenu()" class="p-2 text-slate-600 focus:outline-none transition-all active:scale-95">
+                <i class="ph ph-list text-2xl"></i>
+            </button>
+        </div>
     </header>
 
     <!-- MOBILE MENU OVERLAY & DRAWER -->
@@ -123,76 +139,147 @@
                     <i class="ph ph-x text-lg"></i>
                 </button>
             </div>
-            <h3 class="font-extrabold text-slate-800 text-lg">ניווט מהיר</h3>
-            <p class="text-xs text-primaryDark font-medium mt-0.5">מדריך הטיול של שקד ובן זקן</p>
+            <h3 class="font-extrabold text-slate-800 text-lg">שקד & בן זקן</h3>
+            <p class="text-xs text-primaryDark font-medium mt-0.5">מדריך הטיול לחלקידיקי וסלוניקי</p>
         </div>
         
-        <!-- Drawer Primary Links (Main Navigation) -->
-        <div class="flex-1 overflow-y-auto py-2 px-3 space-y-1">
-            <button onclick="navFromMenu('dashboard')" class="w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-slate-50 transition-colors text-right text-slate-700 font-bold active:bg-slate-100">
-                <i class="ph-fill ph-airplane-tilt text-lg text-slate-400"></i> מידע כללי וטיסות
-            </button>
-            <button onclick="navFromMenu('itinerary')" class="w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-slate-50 transition-colors text-right text-slate-700 font-bold active:bg-slate-100">
-                <i class="ph-fill ph-calendar-check text-lg text-slate-400"></i> תוכנית הטיול היומית
-            </button>
+        <!-- Drawer Links (Main Navigation) -->
+        <div class="flex-1 overflow-y-auto py-4 px-3 space-y-2">
             
-            <!-- Accordion for Guides -->
-            <div>
-                <button onclick="toggleMenuAccordion()" class="w-full flex items-center justify-between p-3 rounded-2xl hover:bg-slate-50 transition-colors text-right text-slate-700 font-bold active:bg-slate-100">
+            <button onclick="switchTab('itinerary'); closeMobileMenu()" class="w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-slate-50 transition-colors text-right active:bg-slate-100">
+                <div class="w-9 h-9 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center"><i class="ph-fill ph-calendar-check text-lg"></i></div>
+                <span class="text-sm font-bold text-slate-700">תוכנית הטיול היומית</span>
+            </button>
+
+            <!-- Guides Accordion -->
+            <div class="rounded-2xl border border-slate-100 bg-white overflow-hidden">
+                <button onclick="toggleAccordion('guides-accordion')" class="w-full flex items-center justify-between p-3 hover:bg-slate-50 transition-colors text-right active:bg-slate-100">
                     <div class="flex items-center gap-3">
-                        <i class="ph-fill ph-map-trifold text-lg text-slate-400"></i> מדריכי עומק אזוריים
+                        <div class="w-9 h-9 rounded-full bg-primaryLight/30 text-primary flex items-center justify-center"><i class="ph-fill ph-map-trifold text-lg"></i></div>
+                        <span class="text-sm font-bold text-slate-700">מדריכים אזוריים</span>
                     </div>
-                    <i id="accordion-icon" class="ph ph-caret-down text-slate-400 accordion-icon"></i>
+                    <i id="guides-accordion-icon" class="ph-bold ph-caret-down text-slate-400 transition-transform"></i>
                 </button>
-                <div id="guides-accordion" class="accordion-content px-4 bg-slate-50/50 rounded-xl mx-2">
-                    <button onclick="navFromMenu('guides', 'kassandra')" class="w-full flex items-center gap-3 p-2.5 hover:text-primary transition-colors text-right text-slate-600 text-sm font-medium border-b border-slate-100/50">
-                        📍 קסנדרה (Kassandra)
-                    </button>
-                    <button onclick="navFromMenu('guides', 'sithonia')" class="w-full flex items-center gap-3 p-2.5 hover:text-primary transition-colors text-right text-slate-600 text-sm font-medium border-b border-slate-100/50">
-                        🌲 סיטוניה (Sithonia)
-                    </button>
-                    <button onclick="navFromMenu('guides', 'thessaloniki')" class="w-full flex items-center gap-3 p-2.5 hover:text-primary transition-colors text-right text-slate-600 text-sm font-medium">
-                        🏛️ סלוניקי (Thessaloniki)
-                    </button>
+                <div id="guides-accordion" class="hidden px-4 pb-3 space-y-1 bg-slate-50/50">
+                    <button onclick="switchTab('guides'); selectGuideRegion('kassandra'); closeMobileMenu()" class="w-full text-right p-2 text-sm text-slate-600 hover:text-primary transition-colors flex items-center gap-2"><span>📍</span> קסנדרה</button>
+                    <button onclick="switchTab('guides'); selectGuideRegion('sithonia'); closeMobileMenu()" class="w-full text-right p-2 text-sm text-slate-600 hover:text-primary transition-colors flex items-center gap-2"><span>🌲</span> סיטוניה</button>
+                    <button onclick="switchTab('guides'); selectGuideRegion('thessaloniki'); closeMobileMenu()" class="w-full text-right p-2 text-sm text-slate-600 hover:text-primary transition-colors flex items-center gap-2"><span>🏛️</span> סלוניקי</button>
                 </div>
             </div>
 
-            <button onclick="navFromMenu('checklist')" class="w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-slate-50 transition-colors text-right text-slate-700 font-bold active:bg-slate-100">
-                <i class="ph-fill ph-check-square text-lg text-slate-400"></i> משימות וצ'ק-ליסט
+            <button onclick="switchTab('phrasebook'); closeMobileMenu()" class="w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-slate-50 transition-colors text-right active:bg-slate-100">
+                <div class="w-9 h-9 rounded-full bg-sky-50 text-accent flex items-center justify-center"><i class="ph-fill ph-chats-teardrop text-lg"></i></div>
+                <span class="text-sm font-bold text-slate-700">שיחון ומדריך להתנהגות 🧿</span>
             </button>
-        </div>
-        
-        <!-- Drawer Secondary Links (Bottom) -->
-        <div class="p-3 border-t border-slate-100 bg-slate-50 space-y-2">
-            <button onclick="sharePlan()" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-100 transition-colors text-right active:bg-slate-200">
-                <div class="w-8 h-8 rounded-full bg-white text-blue-600 flex items-center justify-center shadow-sm"><i class="ph-fill ph-share-network"></i></div>
+
+            <button onclick="switchTab('dashboard'); closeMobileMenu()" class="w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-slate-50 transition-colors text-right active:bg-slate-100">
+                <div class="w-9 h-9 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center"><i class="ph-fill ph-airplane-tilt text-lg"></i></div>
+                <span class="text-sm font-bold text-slate-700">טיסות ורכבים</span>
+            </button>
+
+            <button onclick="switchTab('checklist'); closeMobileMenu()" class="w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-slate-50 transition-colors text-right active:bg-slate-100">
+                <div class="w-9 h-9 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center"><i class="ph-fill ph-check-square text-lg"></i></div>
+                <span class="text-sm font-bold text-slate-700">רשימת ציוד ומשימות</span>
+            </button>
+
+            <!-- Divider -->
+            <div class="h-px bg-slate-100 my-4 mx-2"></div>
+            
+            <!-- Actions -->
+            <button onclick="sharePlan()" class="w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-slate-50 transition-colors text-right active:bg-slate-100">
+                <div class="w-9 h-9 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center"><i class="ph-fill ph-share-network text-lg"></i></div>
                 <div class="flex flex-col">
-                    <span class="text-xs font-bold text-slate-700">שתף מדריך למשפחה</span>
+                    <span class="text-sm font-bold text-slate-700">שתף מדריך זה</span>
+                    <span class="text-[10px] text-slate-500">העתקת קישור מהירה</span>
                 </div>
             </button>
-            <a href="https://api.whatsapp.com/send?phone=306987812466" target="_blank" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-100 transition-colors text-right active:bg-slate-200">
-                <div class="w-8 h-8 rounded-full bg-white text-green-600 flex items-center justify-center shadow-sm"><i class="ph-fill ph-whatsapp-logo"></i></div>
+            
+            <a href="https://api.whatsapp.com/send?phone=306987812466" target="_blank" class="w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-slate-50 transition-colors text-right active:bg-slate-100">
+                <div class="w-9 h-9 rounded-full bg-green-50 text-green-600 flex items-center justify-center"><i class="ph-fill ph-whatsapp-logo text-lg"></i></div>
                 <div class="flex flex-col">
-                    <span class="text-xs font-bold text-slate-700">השכרת רכב - תומר</span>
+                    <span class="text-sm font-bold text-slate-700">תומר (Chalkidiki Cars)</span>
+                    <span class="text-[10px] text-slate-500">וואטסאפ השכרת רכב</span>
                 </div>
             </a>
         </div>
+        
+        <!-- Drawer Footer -->
+        <div class="p-4 border-t border-slate-100 text-center bg-slate-50">
+            <p class="text-[10px] text-slate-400 font-mono font-bold">נבנה באהבה עבור רמי • v6.0</p>
+        </div>
     </div>
 
-    <!-- COMPACT COUNTDOWN TICKER -->
-    <div class="fixed top-[60px] inset-x-0 z-40 bg-accent text-white text-[11px] py-2 font-bold shadow-sm text-center">
-        <div id="compact-countdown">⏳ טוען ספירה לאחור...</div>
+    <!-- COUNTDOWN BANNER -->
+    <div class="fixed top-[60px] inset-x-0 z-40 bg-gradient-to-r from-accent to-primary text-white text-xs py-2 font-bold shadow-sm text-center px-4 flex items-center justify-center gap-2">
+        <span id="compact-countdown">⏳ מחשב זמן לטיול...</span>
     </div>
 
-    <!-- MAIN APP CONTENT AREA -->
-    <main class="max-w-md mx-auto px-4 py-8">
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-md mx-auto px-4 py-10 pt-14">
 
         <!-- ==================== TAB 1: ITINERARY ==================== -->
         <section id="content-itinerary" class="content-section">
             <div class="mb-5 flex justify-between items-end">
                 <div>
-                    <h2 class="text-xl font-bold font-sans">תוכנית יומית מפורטת</h2>
+                    <h2 class="text-xl font-bold font-sans">התוכנית היומית שלנו 🏖️</h2>
                     <p class="text-xs text-textMuted mt-0.5">סלוניקי וחלקידיקי, יולי 2026</p>
+                </div>
+            </div>
+
+            <!-- Dedicated Map Open Button (Map is hidden by default) -->
+            <div class="mb-5">
+                <button onclick="toggleMapModal()" class="w-full flex items-center justify-center gap-2 py-3.5 px-4 bg-white hover:bg-slate-50 text-primary border border-cyan-100 rounded-2xl shadow-soft font-bold text-xs transition-all active:scale-95">
+                    <i class="ph-fill ph-map-trifold text-lg"></i>
+                    צפו במפת מסלול אינטראקטיבית 🗺️
+                </button>
+            </div>
+
+            <!-- INTERACTIVE MAP MODAL CONTAINER -->
+            <div id="map-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm transition-opacity duration-300 opacity-0" onclick="toggleMapModal()">
+                <div class="bg-white rounded-3xl p-5 w-full max-w-sm shadow-2xl relative transition-all transform scale-95 duration-300" onclick="event.stopPropagation()">
+                    <div class="flex justify-between items-center mb-4 border-b border-slate-50 pb-2">
+                        <h3 class="font-extrabold text-sm text-slate-800 flex items-center gap-1.5">
+                            <i class="ph-bold ph-map-pin text-primary"></i> מפת מסלול אינטראקטיבית
+                        </h3>
+                        <button onclick="toggleMapModal()" class="w-8 h-8 flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-slate-500 rounded-full transition-all">
+                            <i class="ph ph-x font-bold text-sm"></i>
+                        </button>
+                    </div>
+                    <p class="text-[10px] text-slate-500 mb-3 text-center">לחצו על יעדי המפה כדי לעבור למדריך שלהם!</p>
+                    
+                    <!-- SVG Map inside Modal -->
+                    <div class="relative bg-slate-50 rounded-2xl p-2 flex items-center justify-center border border-slate-100 overflow-hidden">
+                        <svg viewBox="0 0 320 200" class="w-full h-auto">
+                            <!-- Route lines -->
+                            <path d="M 50,45 L 140,140" stroke="#cbd5e1" stroke-width="3" stroke-dasharray="5,5" />
+                            <path d="M 140,140 L 250,150" stroke="#cbd5e1" stroke-width="3" stroke-dasharray="5,5" />
+                            <path d="M 250,150 L 50,45" stroke="#cbd5e1" stroke-width="3" stroke-dasharray="5,5" />
+                            
+                            <!-- Thessaloniki Pin -->
+                            <g class="cursor-pointer group" onclick="switchTab('guides'); selectGuideRegion('thessaloniki'); toggleMapModal();">
+                                <circle cx="50" cy="45" r="10" fill="#0891b2" class="opacity-20" />
+                                <circle cx="50" cy="45" r="12" fill="none" stroke="#0891b2" stroke-width="2" class="map-pulse" />
+                                <circle cx="50" cy="45" r="6" fill="#0891b2" />
+                                <text x="50" y="25" font-family="Rubik" font-size="10" font-weight="bold" fill="#1e293b" text-anchor="middle">🏛️ סלוניקי</text>
+                            </g>
+
+                            <!-- Kassandra Pin -->
+                            <g class="cursor-pointer group" onclick="switchTab('guides'); selectGuideRegion('kassandra'); toggleMapModal();">
+                                <circle cx="140" cy="140" r="10" fill="#0284c7" class="opacity-20" />
+                                <circle cx="140" cy="140" r="12" fill="none" stroke="#0284c7" stroke-width="2" class="map-pulse" />
+                                <circle cx="140" cy="140" r="6" fill="#0284c7" />
+                                <text x="140" y="162" font-family="Rubik" font-size="10" font-weight="bold" fill="#1e293b" text-anchor="middle">📍 קסנדרה</text>
+                            </g>
+
+                            <!-- Sithonia Pin -->
+                            <g class="cursor-pointer group" onclick="switchTab('guides'); selectGuideRegion('sithonia'); toggleMapModal();">
+                                <circle cx="250" cy="150" r="10" fill="#16a34a" class="opacity-20" />
+                                <circle cx="250" cy="150" r="12" fill="none" stroke="#16a34a" stroke-width="2" class="map-pulse" />
+                                <circle cx="250" cy="150" r="6" fill="#16a34a" />
+                                <text x="250" y="135" font-family="Rubik" font-size="10" font-weight="bold" fill="#1e293b" text-anchor="middle">🌲 סיטוניה</text>
+                            </g>
+                        </svg>
+                    </div>
                 </div>
             </div>
 
@@ -210,11 +297,11 @@
         <!-- ==================== TAB 2: GUIDES ==================== -->
         <section id="content-guides" class="content-section hidden">
             <div class="mb-5">
-                <h2 class="text-xl font-bold font-sans">מדריכי עומק אזוריים</h2>
-                <p class="text-xs text-textMuted mt-0.5">גלו את המקומות המיוחדים של יוון</p>
+                <h2 class="text-xl font-bold font-sans">מדריכים אזוריים 📍</h2>
+                <p class="text-xs text-textMuted mt-0.5">המקומות הכי שווים, שופינג ונופש בחלקידיקי</p>
             </div>
 
-            <!-- Region selector -->
+            <!-- Region selector (Pills) -->
             <div class="flex overflow-x-auto no-scrollbar gap-2 pb-3 mb-3 -mx-4 px-4">
                 <button onclick="selectGuideRegion('kassandra')" id="guide-reg-btn-kassandra" class="guide-region-tab flex-shrink-0 px-4 py-2 text-sm font-bold rounded-full transition-all border border-slate-200 bg-white text-slate-600">
                     📍 קסנדרה
@@ -236,106 +323,219 @@
                     <input type="text" id="guide-search-input" oninput="filterLocations()" placeholder="חפש חוף, טברנה, קניות..." class="w-full pl-3 pr-10 py-3 text-sm bg-white shadow-soft border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primaryLight transition-all">
                 </div>
                 <div id="category-filter-container" class="flex overflow-x-auto no-scrollbar gap-2 w-full py-1 -mx-4 px-4">
-                    <!-- Dynamic filters -->
+                    <!-- Dynamic sub-categories buttons here -->
                 </div>
             </div>
 
-            <!-- Locations Dynamic Grid -->
-            <div id="locations-grid" class="space-y-4">
-                <!-- Cards -->
+            <!-- Locations Dynamic Grid (Text Premium Style) -->
+            <div id="locations-grid" class="space-y-3">
+                <!-- Cards dynamically loaded here -->
             </div>
+            
+            <!-- Empty state -->
             <div id="empty-state" class="hidden text-center py-12 bg-white rounded-3xl border border-dashed border-slate-200 mt-4">
                 <i class="ph ph-compass text-4xl text-slate-300"></i>
-                <h3 class="font-bold text-slate-700 text-sm mt-3">לא נמצאו מקומות</h3>
+                <h3 class="font-bold text-slate-700 text-sm mt-3">לא נמצאו תוצאות</h3>
+                <p class="text-slate-400 text-xs mt-1">נסו מילת חיפוש או פילטר אחר</p>
             </div>
         </section>
 
-        <!-- ==================== TAB 3: DASHBOARD ==================== -->
-        <section id="content-dashboard" class="content-section hidden">
+        <!-- ==================== TAB 3: STANDALONE PHRASEBOOK ==================== -->
+        <section id="content-phrasebook" class="content-section hidden">
             <div class="mb-5">
-                <h2 class="text-xl font-bold font-sans">מידע כללי, טיסות ורכב</h2>
+                <h2 class="text-xl font-bold font-sans">להיות יווני 🧿</h2>
+                <p class="text-xs text-textMuted mt-0.5">שיחון קולי אינטראקטיבי וטיפים להתנהגות ותרבות מקומית</p>
             </div>
 
-            <div class="space-y-4">
-                <!-- Flights Card (Moved to top) -->
-                <div class="bg-cardBg p-5 rounded-3xl shadow-soft border border-slate-100 relative overflow-hidden">
-                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-blue-50 rounded-full opacity-50"></div>
-                    <div class="flex items-center gap-2 mb-4 border-b border-slate-50 pb-2 relative z-10">
-                        <i class="ph-fill ph-airplane-tilt text-2xl text-accent"></i>
-                        <h3 class="font-bold text-sm">טיסות סאן דור ליוון</h3>
+            <!-- Phrasebook search bar -->
+            <div class="mb-5 space-y-3">
+                <div class="relative w-full">
+                    <span class="absolute inset-y-0 right-3.5 flex items-center text-slate-400">
+                        <i class="ph ph-magnifying-glass text-lg"></i>
+                    </span>
+                    <input type="text" id="phrase-search-input" oninput="filterPhrases()" placeholder="חפש ביטוי, מילה או טיפ..." class="w-full pl-3 pr-10 py-3 text-sm bg-white shadow-soft border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primaryLight transition-all">
+                </div>
+                
+                <!-- Category Selectors inside Phrasebook -->
+                <div class="flex overflow-x-auto no-scrollbar gap-2 w-full py-1 -mx-4 px-4">
+                    <button onclick="selectPhraseCategory('all')" id="phrase-cat-all" class="phrase-cat-btn flex-shrink-0 px-4 py-1.5 text-xs font-semibold rounded-full transition-all border bg-textMain border-textMain text-white">🌍 הכל</button>
+                    <button onclick="selectPhraseCategory('language')" id="phrase-cat-language" class="phrase-cat-btn flex-shrink-0 px-4 py-1.5 text-xs font-semibold rounded-full transition-all border bg-white border-slate-200 text-slate-600">🗣️ מילים נפוצות</button>
+                    <button onclick="selectPhraseCategory('tavern')" id="phrase-cat-tavern" class="phrase-cat-btn flex-shrink-0 px-4 py-1.5 text-xs font-semibold rounded-full transition-all border bg-white border-slate-200 text-slate-600">🍷 בטברנה וקולינריה</button>
+                    <button onclick="selectPhraseCategory('tips')" id="phrase-cat-tips" class="phrase-cat-btn flex-shrink-0 px-4 py-1.5 text-xs font-semibold rounded-full transition-all border bg-white border-slate-200 text-slate-600">💡 התנהגות וניהול משברים</button>
+                </div>
+            </div>
+
+            <!-- Accordion Phrasebook Container -->
+            <div id="phrases-accordion-container" class="space-y-2.5">
+                <!-- Dynamic loaded accordion items -->
+            </div>
+
+            <!-- Empty state for phrasebook -->
+            <div id="phrase-empty-state" class="hidden text-center py-12 bg-white rounded-3xl border border-dashed border-slate-200 mt-4">
+                <i class="ph ph-translate text-4xl text-slate-300"></i>
+                <h3 class="font-bold text-slate-700 text-sm mt-3">לא מצאנו את הביטוי הזה</h3>
+                <p class="text-slate-400 text-xs mt-1">נסו מילה אחרת בעברית או ביוונית</p>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 4: DASHBOARD (Flights & Car) ==================== -->
+        <section id="content-dashboard" class="content-section hidden">
+            <div class="mb-5">
+                <h2 class="text-xl font-bold font-sans">מידע לוגיסטי וטיסות ✈️</h2>
+                <p class="text-xs text-textMuted mt-0.5">כל המידע המלא על הטיסות והרכבים מתמונות השובר</p>
+            </div>
+
+            <div class="space-y-5">
+                <!-- Expanded Flight Info Card based on ticket images -->
+                <div class="bg-cardBg p-5 rounded-3xl shadow-soft border border-slate-100">
+                    <div class="flex items-center gap-2 mb-4 border-b border-slate-50 pb-2">
+                        <i class="ph-fill ph-airplane-tilt text-xl text-accent"></i>
+                        <h3 class="font-bold text-sm">טיסות סאן דור (Sundor / El-Al)</h3>
                     </div>
-                    <div class="space-y-3 relative z-10">
-                        <div class="bg-blue-50/50 p-3 rounded-2xl border border-blue-100/50">
-                            <span class="text-[10px] font-bold text-blue-600 uppercase block mb-1">טיסת הלוך (01/07/2026) ✈️</span>
-                            <div class="flex justify-between items-center text-xs">
-                                <div><p class="text-[10px] text-slate-500">מס' טיסה</p><p class="font-bold">LY5245</p></div>
-                                <div class="text-center"><p class="text-[10px] text-slate-500">המראה</p><p class="font-bold text-blue-800">05:15</p></div>
-                                <div class="text-left"><p class="text-[10px] text-slate-500">נחיתה (SKG)</p><p class="font-bold text-blue-800">07:55</p></div>
+                    
+                    <div class="space-y-5">
+                        <!-- Outbound Flight detailed -->
+                        <div class="bg-blue-50/40 p-4 rounded-2xl border border-blue-100/60 relative overflow-hidden">
+                            <div class="absolute top-0 left-0 bg-blue-500 text-white text-[8px] font-black px-2 py-0.5 rounded-br-lg">
+                                הלוך • OUTBOUND
+                            </div>
+                            <div class="flex justify-between items-center mb-2 mt-1">
+                                <span class="text-xs font-extrabold text-blue-900">יום רביעי, 01/07/2026</span>
+                                <span class="text-[10px] bg-white text-blue-600 border border-blue-100 px-2 py-0.5 rounded-full font-mono font-bold">LY5245</span>
+                            </div>
+
+                            <div class="grid grid-cols-3 gap-2 items-center text-center bg-white p-3 rounded-xl border border-blue-50 shadow-sm mb-3">
+                                <div class="text-right">
+                                    <p class="text-[9px] text-slate-400">המראה (TLV)</p>
+                                    <p class="text-sm font-black text-slate-800">05:15</p>
+                                    <span class="text-[9px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded font-black">טרמינל 1</span>
+                                </div>
+                                <div class="flex flex-col items-center justify-center">
+                                    <span class="text-[9px] font-bold text-slate-400">2ש' ו-40ד'</span>
+                                    <div class="w-full border-t border-dashed border-slate-300 relative my-1">
+                                        <i class="ph-fill ph-airplane text-blue-500 text-xs absolute -top-1.5 left-1/2 transform -translate-x-1/2"></i>
+                                    </div>
+                                    <span class="text-[8px] text-slate-400 font-medium">טיסה ישירה</span>
+                                </div>
+                                <div class="text-left">
+                                    <p class="text-[9px] text-slate-400">נחיתה (SKG)</p>
+                                    <p class="text-sm font-black text-slate-800">07:55</p>
+                                    <span class="text-[9px] text-slate-400 font-bold">טרמינל 1</span>
+                                </div>
+                            </div>
+
+                            <!-- Flight characteristics from image -->
+                            <div class="grid grid-cols-2 gap-2 text-[10px] text-slate-600 bg-slate-50 p-2.5 rounded-xl">
+                                <div><span class="text-slate-400">מטוס:</span> <span class="font-bold">בואינג 737</span></div>
+                                <div><span class="text-slate-400">ארוחה:</span> <span class="font-bold">כיבוד קל</span></div>
+                                <div class="col-span-2"><span class="text-slate-400">מפעיל:</span> <span class="font-bold text-blue-700">SUNDOR</span> (מופעל ע"י אל-על)</div>
                             </div>
                         </div>
-                        <div class="bg-indigo-50/50 p-3 rounded-2xl border border-indigo-100/50">
-                            <span class="text-[10px] font-bold text-indigo-600 uppercase block mb-1">טיסת חזור (09/07/2026) ✈️</span>
-                            <p class="text-xs font-bold text-indigo-900">המראה מסלוניקי בשעות הערב/לילה</p>
-                            <p class="text-[10px] text-slate-500 mt-0.5">נחיתה בישראל לפנות בוקר של ה-10/07.</p>
+
+                        <!-- Return Flight detailed -->
+                        <div class="bg-indigo-50/40 p-4 rounded-2xl border border-indigo-100/60 relative overflow-hidden">
+                            <div class="absolute top-0 left-0 bg-indigo-600 text-white text-[8px] font-black px-2 py-0.5 rounded-br-lg">
+                                חזור • RETURN
+                            </div>
+                            <div class="flex justify-between items-center mb-2 mt-1">
+                                <span class="text-xs font-extrabold text-indigo-900">יום שישי לפנות בוקר, 10/07/2026</span>
+                                <span class="text-[10px] bg-white text-indigo-600 border border-indigo-100 px-2 py-0.5 rounded-full font-mono font-bold">LY5248</span>
+                            </div>
+
+                            <div class="grid grid-cols-3 gap-2 items-center text-center bg-white p-3 rounded-xl border border-indigo-50 shadow-sm mb-3">
+                                <div class="text-right">
+                                    <p class="text-[9px] text-slate-400">המראה (SKG)</p>
+                                    <p class="text-sm font-black text-slate-800">00:40</p>
+                                    <span class="text-[9px] text-slate-400">סלוניקי</span>
+                                </div>
+                                <div class="flex flex-col items-center justify-center">
+                                    <span class="text-[9px] font-bold text-slate-400">2ש' ו-25ד'</span>
+                                    <div class="w-full border-t border-dashed border-slate-300 relative my-1">
+                                        <i class="ph-fill ph-airplane text-indigo-500 text-xs absolute -top-1.5 left-1/2 transform -translate-x-1/2 rotate-180"></i>
+                                    </div>
+                                    <span class="text-[8px] text-slate-400 font-medium">טיסה ישירה</span>
+                                </div>
+                                <div class="text-left">
+                                    <p class="text-[9px] text-slate-400">נחיתה (TLV)</p>
+                                    <p class="text-sm font-black text-slate-800">03:05</p>
+                                    <span class="text-[9px] text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-black">טרמינל 3</span>
+                                </div>
+                            </div>
+
+                            <p class="text-[10px] text-red-600 bg-red-50 p-2 rounded-xl mb-3 font-semibold border border-red-100/60">
+                                ⚠️ שימו לב: הטיסה ממריאה ב-00:40 בלילה שבין חמישי לשישי. חובה להגיע לשדה ביום חמישי, 09/07 בערב!
+                            </p>
+
+                            <!-- Flight characteristics from image -->
+                            <div class="grid grid-cols-2 gap-2 text-[10px] text-slate-600 bg-slate-50 p-2.5 rounded-xl">
+                                <div><span class="text-slate-400">מטוס:</span> <span class="font-bold">בואינג 737-800</span></div>
+                                <div><span class="text-slate-400">ארוחה:</span> <span class="font-bold">כיבוד קל</span></div>
+                                <div class="col-span-2"><span class="text-slate-400">מפעיל:</span> <span class="font-bold text-indigo-700">SUNDOR</span> (בואינג 737-800Sun)</div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Booked Car Rental Card -->
-                <div class="bg-cardBg p-5 rounded-3xl shadow-soft border border-slate-100 relative overflow-hidden">
-                    <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-emerald-50 rounded-full opacity-50"></div>
-                    <div class="flex items-center gap-2 mb-4 border-b border-slate-50 pb-2 relative z-10">
-                        <i class="ph-fill ph-car-profile text-2xl text-primary"></i>
+                <div class="bg-cardBg p-5 rounded-3xl shadow-soft border border-slate-100">
+                    <div class="flex items-center gap-2 mb-3 border-b border-slate-50 pb-2">
+                        <i class="ph-fill ph-car-profile text-xl text-primary"></i>
                         <h3 class="font-bold text-sm">השכרת רכב (Budget)</h3>
                     </div>
-                    <div class="space-y-3 relative z-10">
+                    <div class="space-y-3">
                         <div class="bg-slate-50 p-3 rounded-2xl">
                             <span class="text-[10px] font-bold text-primary uppercase block mb-1">Pick-up (איסוף)</span>
                             <p class="text-xs font-bold">01/07/2026 בשעה 08:30</p>
                             <p class="text-[11px] text-textMuted">שדה תעופה סלוניקי, טרמינל 2/1.</p>
                         </div>
                         <div class="bg-red-50 p-3 rounded-2xl border border-red-100">
-                            <span class="text-[10px] font-bold text-red-600 uppercase block mb-1">Drop-off (החזרה) ⚠️ שים לב!</span>
+                            <span class="text-[10px] font-bold text-red-600 uppercase block mb-1">Drop-off (שים לב למיקום!)</span>
                             <p class="text-xs font-bold text-red-900">07/07/2026 בשעה 19:00</p>
-                            <p class="text-[11px] text-red-800 font-bold">נמל סלוניקי (Port of Thessaloniki - Gate Parking 6).</p>
+                            <p class="text-[11px] text-red-800">נמל סלוניקי (Port - Gate Parking 6).</p>
                         </div>
-                        <p class="text-[10px] bg-amber-50 p-2.5 rounded-xl text-amber-800 border border-amber-200">
+                        <p class="text-[10px] bg-amber-50 p-2 rounded-xl text-amber-800 border border-amber-200">
                             ⚠️ חובה להציג רישיון נהיגה פלסטיק ישראלי + רישיון נהיגה בינלאומי.
                         </p>
-                    </div>
-                </div>
-
-                <!-- Weather Card -->
-                <div class="bg-gradient-to-br from-primary to-primaryDark text-white p-5 rounded-3xl shadow-soft">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <p class="text-3xl font-bold font-sans">32°C</p>
-                            <p class="text-xs text-primaryLight mt-1">יולי בחלקידיקי - בהיר ושמשי</p>
-                        </div>
-                        <i class="ph-fill ph-sun text-4xl text-yellow-300 animate-pulse"></i>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ==================== TAB 4: CHECKLIST ==================== -->
+        <!-- ==================== TAB 5: CHECKLIST ==================== -->
         <section id="content-checklist" class="content-section hidden">
             <div class="mb-5">
-                <h2 class="text-xl font-bold font-sans">משימות וציוד</h2>
-                <p class="text-xs text-textMuted mt-0.5">צ'ק-ליסט להתארגנות קלה</p>
+                <h2 class="text-xl font-bold font-sans">משימות וציוד לטיסה 🎒</h2>
+                <p class="text-xs text-textMuted mt-0.5">צ'ק-ליסט משפחתי מלא - הוסיפו פריטים משלכם!</p>
+            </div>
+
+            <!-- Add Checklist Item Form -->
+            <div class="bg-cardBg p-4 rounded-3xl shadow-soft border border-slate-100 mb-5">
+                <span class="text-[11px] font-bold text-slate-500 block mb-2">הוספת פריט או משימה אישית:</span>
+                <div class="flex gap-2">
+                    <input type="text" id="new-item-text" placeholder="למשל: לקנות מצופים לילדים" class="flex-1 px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary">
+                    <select id="new-item-type" class="px-2 py-2 text-xs rounded-xl border border-slate-200 bg-white">
+                        <option value="logistics">💼 לוגיסטיקה</option>
+                        <option value="packing">🎒 ציוד אישי</option>
+                    </select>
+                    <button onclick="addCustomChecklistItem()" class="bg-primary hover:bg-primaryDark text-white font-bold text-xs px-3 py-2 rounded-xl active:scale-95 transition-all">
+                        הוסף
+                    </button>
+                </div>
             </div>
 
             <div class="space-y-5">
+                <!-- Logistics -->
                 <div class="bg-cardBg p-5 rounded-3xl shadow-soft border border-slate-100">
                     <h3 class="font-bold text-sm mb-3 flex items-center gap-2 border-b border-slate-50 pb-2">
-                        <i class="ph-fill ph-briefcase text-primary"></i> לוגיסטיקה
+                        <i class="ph-fill ph-briefcase text-primary"></i> לוגיסטיקה ומנהלה
                     </h3>
                     <div class="space-y-2" id="logistics-list"></div>
                 </div>
 
+                <!-- Packing List -->
                 <div class="bg-cardBg p-5 rounded-3xl shadow-soft border border-slate-100">
                     <h3 class="font-bold text-sm mb-3 flex items-center gap-2 border-b border-slate-50 pb-2">
-                        <i class="ph-fill ph-backpack text-accent"></i> ציוד אישי
+                        <i class="ph-fill ph-backpack text-accent"></i> ציוד אישי ואביזרים
                     </h3>
                     <div class="space-y-2" id="packing-list"></div>
                 </div>
@@ -347,9 +547,10 @@
     <!-- BOTTOM NAVIGATION BAR -->
     <nav class="bottom-nav-bar fixed bottom-0 inset-x-0 z-50 border-t border-slate-200 shadow-nav">
         <div class="flex justify-around items-center h-[70px] px-2 max-w-md mx-auto">
+            
             <button onclick="switchTab('itinerary')" id="nav-itinerary" class="nav-item active flex flex-col items-center justify-center w-full h-full text-slate-400 transition-colors">
                 <div class="nav-icon-container transition-all duration-300">
-                    <i class="ph-fill ph-calendar-check text-2xl mb-0.5"></i>
+                    <i class="ph ph-calendar-check text-2xl mb-0.5"></i>
                 </div>
                 <span class="text-[10px] font-semibold mt-1">תוכנית</span>
             </button>
@@ -358,28 +559,36 @@
                 <div class="nav-icon-container transition-all duration-300">
                     <i class="ph ph-map-trifold text-2xl mb-0.5"></i>
                 </div>
-                <span class="text-[10px] font-semibold mt-1">מדריך</span>
+                <span class="text-[10px] font-semibold mt-1">מדריכים</span>
+            </button>
+
+            <button onclick="switchTab('phrasebook')" id="nav-phrasebook" class="nav-item flex flex-col items-center justify-center w-full h-full text-slate-400 transition-colors">
+                <div class="nav-icon-container transition-all duration-300">
+                    <i class="ph ph-chats-teardrop text-2xl mb-0.5"></i>
+                </div>
+                <span class="text-[10px] font-semibold mt-1">שיחון</span>
             </button>
 
             <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-item flex flex-col items-center justify-center w-full h-full text-slate-400 transition-colors">
                 <div class="nav-icon-container transition-all duration-300">
-                    <i class="ph ph-info text-2xl mb-0.5"></i>
+                    <i class="ph ph-airplane-tilt text-2xl mb-0.5"></i>
                 </div>
-                <span class="text-[10px] font-semibold mt-1">מידע</span>
+                <span class="text-[10px] font-semibold mt-1">טיסות</span>
             </button>
 
             <button onclick="switchTab('checklist')" id="nav-checklist" class="nav-item flex flex-col items-center justify-center w-full h-full text-slate-400 transition-colors">
                 <div class="nav-icon-container transition-all duration-300">
                     <i class="ph ph-check-square text-2xl mb-0.5"></i>
                 </div>
-                <span class="text-[10px] font-semibold mt-1">משימות</span>
+                <span class="text-[10px] font-semibold mt-1">צ'ק-ליסט</span>
             </button>
+
         </div>
     </nav>
 
-    <!-- JAVASCRIPT FOR MOBILE APP LOGIC -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // 1. COMPACT COUNTDOWN TICKER (Static, No animation, Clean text)
+        // 1. STATIC COUNTDOWN (July 1, 2026)
         function startCompactCountdown() {
             const targetDate = new Date("July 1, 2026 05:15:00").getTime();
             const tickerEl = document.getElementById("compact-countdown");
@@ -389,18 +598,18 @@
                 const difference = targetDate - now;
                 
                 if (difference < 0) {
-                    tickerEl.innerHTML = "✈️ הטיול הגדול ליוון התחיל! 🇬🇷";
+                    tickerEl.innerHTML = "✈️ הטיול התחיל! חופשה מהממת ביוון! 🇬🇷🧿";
                     return;
                 }
                 
                 const days = Math.floor(difference / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 
-                tickerEl.innerHTML = `⏱️ עוד ${days} ימים ו-${hours} שעות לטיול הגדול!`;
+                tickerEl.innerHTML = `⏱️ עוד ${days} ימים ו-${hours} שעות לטיול הגדול של שקד ובן זקן!`;
             }, 1000);
         }
 
-        // 2. BOTTOM NAV SWITCHER
+        // 2. BOTTOM NAV TAB SWITCHER
         function switchTab(tabId) {
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.add('hidden');
@@ -421,49 +630,136 @@
             window.scrollTo(0, 0);
         }
 
-        // 3. UPDATED LOCATIONS DATA (Guides)
+        // 3. FULL REGIONAL LOCATIONS DATA (Text Only - No Images Needed!)
         const locationsData = [
-            // ==================== KASSANDRA REGION ====================
-            { region: "kassandra", category: "villages", name: "אפיטוס (Afytos)", badge: "🏘️ הכפר היפה ביותר", image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=600&q=80", character: "כפר אבן היסטורי המשמר ארכיטקטורה מקדונית מסורתית. אפיטוס בנוי על צוק גבוה המשקיף על מפרץ טורונאוס.", vibe: "סמטאות צרות ומרוצפות אבן, בתי קפה קטנים, וטברנות מעל הים.", action: "הכפר שומר על קסם יווני אמיתי. שוטטו כאן בנחת בין הערביים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Afytos+Kassandra" },
-            { region: "kassandra", category: "villages", name: "חניוטי (Hanioti)", badge: "🏘️ בסיס הטיול", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80", character: "עיירת חוף נעימה ותוססת - בה ממוקם המלון שלכם. שופעת טברנות, חנויות קטנות ודוכני אוכל.", vibe: "כיכר מרכזית ירוקה, טברנות אותנטיות ודוכני אוכל רחוב כמו גירוס.", action: "העיירה מישורית ונעימה מאוד להליכה ברגל ישירות מהמלון ללא רכב.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Hanioti" },
-            { region: "kassandra", category: "villages", name: "קריופיגי (Kriopigi)", badge: "🏘️ כפר הררי קולינרי", image: "https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=600&q=80", character: "כפר מסורתי קטן הממוקם על גבעה מיוערת בעצי אורן, מעט מעל קו החוף.", vibe: "שקט מאוד, פחות מתויר, ומציע הצצה לחיים היווניים של פעם בחצרות אבן.", action: "הגיעו לכאן במיוחד לארוחת ערב באחת מהטברנות הביתיות המעולות.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Kriopigi" },
-            { region: "kassandra", category: "villages", name: "פוליכרונו (Polychrono)", badge: "🏘️ נוחה ומשפחתית", image: "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=600&q=80", character: "עיירת חוף משפחתית ורגועה השכנה לקריופיגי וחניוטי.", vibe: "טיילת ארוכה ומישורית, ים חמים ובטוח, אווירה קלילה.", action: "טיילו בטיילת הערב (שאסורה לרכבים) ושבו לגלידה על קו המים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Polychrono" },
-            { region: "kassandra", category: "beaches", name: "חוף פוסידי (Possidi Cape)", badge: "🏖️ טבע פראי", image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80", character: "רצועת חול צרה וארוכה שנמתחת כמו חץ עמוק לתוך הים האגאי. המים צלולים בצורה קיצונית.", vibe: "פראית ומבודדת. אין מיטות שיזוף, ברים או מוזיקה - רק טבע.", action: "מומלץ להגיע באחה\"צ עם שמשייה לשקיעה. צד אחד תמיד חלק כמו בריכה.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Possidi+Cape" },
-            { region: "kassandra", category: "beaches", name: "חוף ליוסי (Liosi Beach)", badge: "🏖️ טורקיז תחת צוק", image: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=600&q=80", character: "רצועת חוף שקטה הממוקמת ממש מתחת לצוק של הכפר אפיטוס.", vibe: "מים בצבע טורקיז מהפנט עם קרקעית חולית נקייה, מוקף במצוקים דרמטיים.", action: "שחיית בוקר רגועה ולאחריה ישיבה בטברנת דגים על קו המים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Liosi+Beach+Afytos" },
-            { region: "kassandra", category: "culinary", name: "טברנה בוגיאטה (Bogiata)", badge: "🍽️ טברנה אותנטית", image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80", character: "טברנה מקומית ויוונית להפליא הממוקמת בסמטאות אפיטוס.", vibe: "שולחנות עץ כחולים, שירות חם, אוכל מעולה באווירה רומנטית ציורית.", action: "מומלץ להזמין: מנות בשרים על הגריל ומאזטים מסורתיים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Bogiata+Taverna" },
-            { region: "kassandra", category: "culinary", name: "טברנה מקיס (Makis)", badge: "🍽️ בשרים בפפקוחורי", image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80", character: "הטברנה הפופולרית ביותר בפפקוחורי, מתמחה באיכות הגריל והבשרים.", vibe: "חצר פתוחה ותוססת, אירוח יווני משפחתי מלא אנרגיות.", action: "חובה להזמין: נתחי בשר עסיסיים על הגריל וקישואים מטוגנים פריכים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Makis+Taverna+Pefkochori" },
-            { region: "kassandra", category: "tips", name: "🍽️ תרבות ה-Sharing בטברנות", badge: "💡 טיפ קולינרי", image: "https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?auto=format&fit=crop&w=600&q=80", character: "החוויה בטברנה יוונית מבוססת על הזמנת מספר גדול של מנות ראשונות (Mezedes) למרכז השולחן.", vibe: "שמחה, משפחתית, ומאפשרת לטעום שפע של מאכלים מקומיים.", action: "הזמינו סלט יווני, צציקי, קישואים קריספיים וקלמארי, ותיהנו מארוחה משותפת.", mapsUrl: "https://www.google.com/maps" },
-            { region: "kassandra", category: "tips", name: "☕ Freddo Espresso פסק זמן", badge: "💡 טיפ מקומי", image: "https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&w=600&q=80", character: "המשקה הלאומי הקיצי של יוון הוא Freddo Espresso (אספרסו מוקצף עם קרח).", vibe: "מרענן, קריר, וחלק בלתי נפרד מחיי היום-יום של המקומיים.", action: "שבו בבית קפה, הזמינו פרדו, ושתו אותו לאט וברוגע.", mapsUrl: "https://www.google.com/maps" },
+            // ==================== KASSANDRA ====================
+            { region: "kassandra", category: "villages", name: "אפיטוס (Afytos)", badge: "🏘️ הכפר היפה ביותר", character: "כפר אבן היסטורי המשמר ארכיטקטורה מקדונית מסורתית. אפיטוס בנוי על צוק גבוה המשקיף על מפרץ.", vibe: "סמטאות צרות ומרוצפות אבן, בתי קפה קטנים וטברנות שתלויות מעל הים. המקום המושלם לשיטוט בשעות בין הערביים.", action: "למרות יופיו, הכפר שומר על קסם יווני אמיתי ללא יאכטות מנקרות עיניים או מועדוני חוף רועשים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Afytos+Kassandra" },
+            { region: "kassandra", category: "villages", name: "חניוטי (Hanioti)", badge: "🏘️ בסיס הטיול והנוחות", character: "עיירת חוף נעימה ותוססת במרכז החוף המזרחי - בה ממוקם המלון שלכם.", vibe: "כיכר מרכזית ירוקה, מדרחובים רחבים מלאים בטברנות אותנטיות ודוכני אוכל רחוב מעולים.", action: "העיירה מישורית ונעימה מאוד להליכה ברגל ישירות מהמלון בערב, ללא צורך להניע רכב.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Hanioti+Chalkidiki" },
+            { region: "kassandra", category: "villages", name: "קריופיגי (Kriopigi)", badge: "🏘️ כפר הררי קולינרי", character: "כפר מסורתי קטן הממוקם על גבעה מיוערת בעצי אורן, מעט מעל קו החוף.", vibe: "שקט מאוד, פחות מתויר מהשכנים שלו, מציע הצצה לחיים היווניים של פעם.", action: "הגיעו בזכות הטברנות המשפחתיות המדהימות שבו - ובראשן הכיכר של אנתולה - המציעות אוכל ביתי מבושל בחצרות אבן.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Kriopigi+Kassandra" },
+            { region: "kassandra", category: "villages", name: "פוליכרונו (Polychrono)", badge: "🏘️ נוחה ושטוחה", character: "עיירת חוף משפחתית ורגועה השכנה לקריופיגי וחניוטי.", vibe: "הכל שטוח ונוח מאוד להתניידות. ים רדוד, חמים, בטוח להפליא ושטוח כמו בריכה.", action: "טיילו בטיילת הארוכה (אסורה לרכבים בערב) ושבו בטברנות שעל החול בזמן שהילדים משחקים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Polychrono+Kassandra" },
+            { region: "kassandra", category: "villages", name: "סיבירי (Siviri)", badge: "🏘️ שקיעות מרהיבות ותיאטרון", character: "עיירת חוף מקסימה ושלווה הממוקמת בצד המערבי של קסנדרה, הידועה בטיילת הנהדרת והתיאטרון שלה.", vibe: "ים רגוע, צלול ונוח מאוד לשחייה עם טברנות משפחתיות המונחות על החול.", action: "צפו בשקיעה הכי יפה בחצי האי (השמש נופלת ישר לים) ותיהנו מווייב יווני אותנטי ופשוט.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Siviri+Chalkidiki+Greece" },
+            { region: "kassandra", category: "villages", name: "ניאה סקיוני (Nea Skioni)", badge: "🏘️ נמל דייגים שקט", character: "כפר דייגים קטן ושקט הממוקם בחוף הדרום-מערבי של קסנדרה, ללא תיירות המונית.", vibe: "החיים כאן מסתובבים סביב הנמל והדייגים שמביאים את שללם בכל בוקר.", action: "המקום האידיאלי לאכול דגים ופירות ים טריים בטברנה פשוטה על המזח, כשהים נושק לשולחן.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Nea+Skioni+Chalkidiki+Greece" },
+            { region: "kassandra", category: "villages", name: "פוסידי (Possidi)", badge: "🏘️ לשון החול והיסטוריה", character: "נקודה קסומה בצד המערבי של קסנדרה, המפורסמת בזכות המגדלור ושרידי מקדש פוסידון.", vibe: "פראי, מבודד, פתוח אל הים הפתוח ומשדר רוגע עמוק וחיבור לטבע.", action: "לכו עד קצה לשון החול המרהיבה ובקרו במגדלור העתיק שנבנה ב-1864.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Possidi+Chalkidiki+Greece" },
+            { region: "kassandra", category: "villages", name: "פפקוחורי (Pefkochori)", badge: "🏘️ תוסס ואותנטי", character: "כפר נופש תוסס המוקף בעצי אורן המגיעים עד לקו המים.", vibe: "טיילת ארוכה ומפורסמת שלאורכה פזורים עשרות ברים טרנדיים, חנויות בוטיק ומסעדות דגים.", action: "בקר בחלקו העליון של הכפר כדי למצוא סמטאות ציוריות עם בתי אבן מסורתיים וגינות פורחות.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Pefkochori+Chalkidiki+Greece" },
+            { region: "kassandra", category: "villages", name: "קליתאה (Kallithea)", badge: "🏘️ בירת המסיבות", character: "העיירה המרכזית בחוף המזרחי, הידועה בחופים תוססים ובמועדוני ענק פתוחים מחוץ לעיר.", vibe: "פחות מתאים למי שמחפש שקט ואותנטיות, אך נחמד לדעת שזה קיים במרחק 15 דקות נסיעה.", action: "סעו לשם אם מתחשק לכם חופים סואנים ותוססים במיוחד או חיי לילה פעילים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Kallithea+Chalkidiki+Greece" },
+            
+            { region: "kassandra", category: "beaches", name: "לשון החול פוסידי (Possidi Cape)", badge: "🏖️ טבע פראי ללא מתווכים", character: "רצועת חול צרה וארוכה להפליא שנמתחת עמוק לתוך הים האגאי. מים צלולים בצורה קיצונית.", vibe: "פראית ומבודדת. אין מיטות שיזוף או מוזיקה – רק חול וים כחול. כמעט תמיד צד אחד חלק כמו בריכה.", action: "הגיעו באחה\"צ המאוחרים עם שמשייה ומים קרים לשקיעה מרהיבה.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Possidi+Cape" },
+            { region: "kassandra", category: "beaches", name: "חוף נאבאגוס (Navagos Beach)", badge: "🏖️ יוקרה נינוחה ופראית", character: "מפרץ קטן וסלעי הממוקם בקצה הדרומי ביותר של קסנדרה (ליד פאליורי) המוקף צוקים ויער אורנים.", vibe: "בוהו-שיק איכותי ומשוחרר. בר המעוצב מחומרים טבעיים, מים עמוקים, שקטים וקרירים.", action: "תפסו מיטת שיזוף מעץ, תהנו ממוזיקה נעימה (לא מחרישה) ומחירים נוחים ללא יחס מנוכר.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Navagos+Beach+Paliouri" },
+            { region: "kassandra", category: "beaches", name: "חוף גלארוקאבוס (Glarokavos Beach)", badge: "🏖️ לגונה טבעית ואורנים", character: "חוף ארוך מאוד דרומית לפפקוחורי, המפורסם בזכות לגונה טבעית גדולה המשמשת כמעגן.", vibe: "מים חמימים, שטוחים לחלוטין וחוליים. יער אורנים רחב המגיע כמעט עד המים למתן צל טבעי.", action: "שבו בברים הפשוטים (כמו Faros) או פרוסו מגבת ברוגע פראי תחת עצי האורן.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Glarokavos+Beach" },
+            { region: "kassandra", category: "beaches", name: "חוף אפיטוס / ליוסי (Liosi Beach)", badge: "🏖️ טורקיז מתחת לצוק", character: "רצועת החוף השקטה הממוקמת ממש מתחת לכפר אפיטוס.", vibe: "מים בצבע טורקיז מהפנט עם קרקעית חולית נקייה ורכה, מול צוקים דרמטיים גבוהים.", action: "שחיית בוקר רגועה וישיבה באחת מטברנות הדגים על קו המים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Liosi+Beach+Afytos" },
+            { region: "kassandra", category: "beaches", name: "חוף קליתאה (Kallithea Beach)", badge: "🏖️ בריכה טבעית ענקית", character: "רצועת חוף רחבה להפליא הממוקמת מתחת לעיירה קליתאה.", vibe: "חול זהוב דק ורך במיוחד עם מים צלולים ורדודים שנראים כמו בריכה ענקית ויפהפייה.", action: "ביקור חובה למי שאוהב חופים מושלמים וכניסה חולית ונוחה ללא סלעים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Kallithea+Beach+Chalkidiki" },
+            
+            { region: "kassandra", category: "culinary", name: "טברנה בוגיאטה (Bogiata)", badge: "🍽️ טברנה אותנטית באפיטוס", character: "טברנה מקומית, יוונית ואותנטית הממוקמת בלב הסמטאות של אפיטוס.", vibe: "שולחנות עץ כחולים, שירות יווני חם ואווירה מסורתית.", action: "מומלץ להזמין מנות בשרים מצוינות על הגריל ומאזטים קלאסיים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Bogiata+Taverna+Afytos" },
+            { region: "kassandra", category: "culinary", name: "טברנה מקיס (Makis)", badge: "🍽️ בשרים בפפקוחורי", character: "אחת הטברנות הפופולריות ביותר בפפקוחורי, הידועה באיכות הבשרים שלה.", vibe: "חצר פתוחה ותוססת, אירוח יווני משפחתי למופת.", action: "להזמין: נתחי בשר עסיסיים על הגריל, צלעות וקישואים מטוגנים פריכים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Makis+Taverna+Pefkochori" },
+            { region: "kassandra", category: "culinary", name: "דון קרפדור (Don Crepadore)", badge: "🥞 קינוחים מושחתים", character: "בית קפה וקרפרייה בעיירת החוף סקאלה פורקאס (Skala Fourkas).", vibe: "ריחות מתוקים של שוקולד ובצק חם, אידיאלי למשפחות.", action: "קרפים ענקיים במגוון מילויים ותוספות שוקולד וגלידה.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Don+Crepadore+Skala+Fourkas" },
 
-            // ==================== SITHONIA REGION ====================
-            { region: "sithonia", category: "villages", name: "פרתנונאס (Parthenonas)", badge: "🏘️ כפר הררי משומר", image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=600&q=80", character: "כפר הררי עתיק ומשוחזר הממוקם בגובה 350 מטרים מעל הים. ננטש ושוחזר בקפידה.", vibe: "סמטאות אבן, חצרות פורחות, שקט פנטסטי ותצפית פנורמית משגעת.", action: "שבו לקפה בטברנה תחת עץ הדולב בכיכר הכפר מול נוף המפרץ.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Parthenonas" },
-            { region: "sithonia", category: "villages", name: "ניקיטי העתיקה (Old Nikiti)", badge: "🏺 קסם מהמאה ה-14", image: "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?auto=format&fit=crop&w=600&q=80", character: "החלק ההיסטורי והנסתר של ניקיטי מעבר לכביש הראשי, נבנה במאה ה-14.", vibe: "כפר יווני שקט להפליא עם בתי אבן, גגות רעפים ומרפסות עץ ציוריות.", action: "עלו לכנסיית סנט ניקיטאס ושתו אוזו בכיכר הקטנה.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Old+Nikiti" },
-            { region: "sithonia", category: "villages", name: "פורטו קופו (Porto Koufo)", badge: "⚓ מעגן הפיורד", image: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=600&q=80", character: "נמל הדייגים העמוק ביותר ביוון, מוגן על ידי מצוקי ענק סלעיים. מזכיר פיורד.", vibe: "פראי, דרמטי ושקט מאוד. הים בפנים תמיד חלק לחלוטין.", action: "טיילו לאורך המזח ושבו לארוחת דגים פנומנלית בטברנות שעל המים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Porto+Koufo" },
-            { region: "sithonia", category: "villages", name: "אורמוס פנאגיאס (Ormos Panagias)", badge: "⛵ נמל דייגים מזרחי", image: "https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?auto=format&fit=crop&w=600&q=80", character: "נמל קטן ושלו בצד הצפון-מזרחי, נקודת היציאה להפלגות סביב הר אתוס.", vibe: "שקט, פשוט וציורי מאוד בשעות אחר הצהריים כשסירות הדייגים חוזרות.", action: "מעולה לארוחת ערב בטברנות דגים שיושבות ממש על החול.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Ormos+Panagias" },
-            { region: "sithonia", category: "beaches", name: "אלמה ביץ' (Alma Beach Bar)", badge: "🏖️ חוף חובה מתוכנן", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80", character: "חוף מרהיב, מתוכנן ומפנק המציע חול זהוב דק ומיטות שיזוף נוחות.", vibe: "יווני קיצי מושלם, קו ראשון למים עם מוזיקת רקע ושירות מעולה.", action: "עצירת חובה ביום שבת (04/07) לרחצה ומנוחה עם שייק צונן.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Alma+Beach+Bar" },
-            { region: "sithonia", category: "beaches", name: "חוף קלוגריה (Kalogria Beach)", badge: "🏖️ הבריכה המושלמת", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80", character: "מפרץ חולי מוגן ויפהפה. הים שטוח לחלוטין, חמים ורדוד לאורך מטרים רבים.", vibe: "כמו בריכה ענקית וצלולה המוקפת עצי אורן. שלווה ורומנטית בבוקר.", action: "הגיעו לפני 09:30 בבוקר! יש סלע בקצה הימני לשניורקלינג מעולה.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Kalogria+Beach" },
-            { region: "sithonia", category: "beaches", name: "טראני אמודיה (Trani Ammouda)", badge: "🏖️ המרחב הענק", image: "https://images.unsplash.com/photo-1601579240741-2fbf873f98a2?auto=format&fit=crop&w=600&q=80", character: "רצועת חוף חולית עצומה באורך 2 קילומטרים. אף פעם לא מרגיש עמוס.", vibe: "משוחררת, פתוחה, נקייה ופראית. מי טורקיז-ברקת.", action: "מושלם למי שרוצה שקט מוחלט ומרחב בלי צפיפות.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Trani+Ammouda" },
-            { region: "sithonia", category: "beaches", name: "חוף קרידי (Karydi Beach)", badge: "🏖️ הקריביים של יוון", image: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=600&q=80", character: "מפרץ קטן וסגור בוורוורו. אחד החופים המצולמים בחלקידיקי.", vibe: "חול לבן דק כקמח, מים רדודים בגוון טורקיז ועצי אורן מצלים.", action: "עמוס מאוד! מומלץ להגיע לפני 09:00 בבוקר כדי לחוות אותו כגן עדן פרטי.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Karydi+Beach" },
-            { region: "sithonia", category: "beaches", name: "חוף קלמיטסי (Kalamitsi Beach)", badge: "🏖️ החיבור הפראי", image: "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=600&q=80", character: "מפרץ חול מושלם בצורת חצי סהר בקצה הדרום-מזרחי.", vibe: "מים עמוקים וצלולים, שקטים ורגועים בזכות סלעי ענק שמגנים על המפרץ.", action: "אווירה אותנטית עם טברנות פשוטות שיושבות ממש על החול.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Kalamitsi+Beach" },
-            { region: "sithonia", category: "culinary", name: "בוקאדורה (Boukadoura)", badge: "🐙 בישול עילי אותנטי", image: "https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?auto=format&fit=crop&w=600&q=80", character: "ממוקמת בווילה על צוק מעל המים ברצועת החוף אליה. מנוהלת ע\"י שפית מקומית.", vibe: "בישול עילי של מתכונים משפחתיים עתיקים, שמן זית בייצור עצמי ואווירה אינטימית.", action: "חובה להזמין תבשילים עתיקים מבושלים לאט. חוויה קולינרית שונה.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Boukadoura" },
-            { region: "sithonia", category: "culinary", name: "טברנה סוניה (Taverna Sonia)", badge: "🐙 טברנה משפחתית", image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=600&q=80", character: "טברנה משפחתית מצוינת ומומלצת מאוד בניקיטי.", vibe: "פשוטה, נקייה, פסטורלית ומזמינה במיוחד למשפחות.", action: "הזמינו דגים קטנים ומטוגנים ומאזטים מסורתיים מעולים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Sonia+Taverna+Nikiti" },
-            { region: "sithonia", category: "culinary", name: "אריסטופאניס (Aristofanis)", badge: "🐙 דגים על החול", image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80", character: "טברנת דגים משפחתית וותיקה ממש בנמל הקטן של אורמוס פנאגיאס.", vibe: "שולחנות על החול הרך, סנטימטרים מהמים והסירות.", action: "הזמינו תמנון צלוי על הגריל, ברבוניות קטנות וקלמארי טרי.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Aristofanis+Taverna" },
-            { region: "sithonia", category: "tips", name: "⛵ השכרת סירה בוורוורו", badge: "💡 טיפ שייט", image: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=600&q=80", character: "הוזמנה סירת Compass 168cc Pro ליום חמישי 02/07 דרך חברת YOLO rent a boat.", vibe: "שייט בלגונות חלומיות וריקות באי דיאפורוס ללא צורך ברישיון.", action: "חובה להגיע בשעה 09:00 בדיוק לוורוורו כדי לתפוס ים שקט.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Vourvourou" },
-            { region: "sithonia", category: "tips", name: "🌊 נעלי מים - פריט חובה", badge: "💡 טיפ חופים", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80", character: "חלק מהחופים היפים והפראיים בסיטוניה כוללים אבני חלוקים קטנות בכניסה למים.", vibe: "נעלי מים יאפשרו כניסה רכה, מהירה ובטוחה למים ללא פחד החלקה.", action: "אל תשכחו לזרוק נעלי מים בתיק הים כשאתם יוצאים לסיטוניה.", mapsUrl: "https://www.google.com/maps" },
-            { region: "sithonia", category: "tips", name: "🚗 נהיגה בכבישי סיטוניה", badge: "💡 טיפ דרך", image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=600&q=80", character: "הכבישים בתוך סיטוניה הרריים, מפותלים ומלאים בסיבובים מול מצוקי הים.", vibe: "הנסיעה מציעה נופים מהפנטים אך דורשת ריכוז ונהיגה רגועה ללא חיפזון.", action: "הורידו מראש מפות אופליין ב-Google Maps מחשש לחוסר קליטה.", mapsUrl: "https://www.google.com/maps" },
+            // ==================== SITHONIA ====================
+            { region: "sithonia", category: "villages", name: "פרתנונאס (Parthenonas)", badge: "💡 כפר הררי משומר", character: "כפר הררי עתיק ששוחזר בקפידה, ממוקם בגובה 350 מטרים מעל הים על צלע הר איתמוס.", vibe: "סמטאות מרוצפות אבן, חצרות פורחות ושקט פנטסטי מול נוף הים האגאי ומפרץ טורונאוס.", action: "שתו קפה תחת עץ דולב ענק בכיכר מול תצפית פנורמית משגעת על כל המפרץ והאי קליפוס.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Parthenonas+Sithonia+Greece" },
+            { region: "sithonia", category: "villages", name: "העיר העתיקה ניקיטי (Old Nikiti)", badge: "🏺 קסם מהמאה ה-14", character: "החלק ההיסטורי של ניקיטי שנבנה במאה ה-14, ממוקם מעל הכביש הראשי.", vibe: "כפר יווני שקט, בתי אבן עם רעפים אדומים, מרפסות עץ וכיכר אינטימית מוקפת דולבים.", action: "ללכת ברגל בסמטאות ולעלות לתצפית מכנסיית סנט ניקיטאס (St. Nikitas).", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Old+Nikiti+Sithonia" },
+            { region: "sithonia", category: "villages", name: "פורטו קופו (Porto Koufo)", badge: "⚓ מעגן הפיורד השקט", character: "נמל הדייגים העמוק והמוגן ביותר ביוון, מזכיר פיורד סגור המוגן בצוקי ענק.", vibe: "פראי, דרמטי ושקט מאוד. המצוקים חוסמים לחלוטין את רעש הגלים, המים חלקים כמו בריכה.", action: "שבו לארוחת דגים פנומנלית בטברנות הפשוטות שעל קו המים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Porto+Koufo+Sithonia" },
+            { region: "sithonia", category: "villages", name: "אורמוס פנאגיאס (Ormos Panagias)", badge: "⛵ נמל דייגים מזרחי", character: "נמל קטן ושלו בצד הצפון-מזרחי של סיטוניה, נקודת יציאה להפלגות סביב הר אתוס.", vibe: "שקט, פשוט ומאוד ציורי בשעות אחה\"צ כשסירות הדייגים חוזרות.", action: "טברנות הדגים המשגעות מניחות שולחנות ממש על החול.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Ormos+Panagias+Sithonia" },
+            
+            { region: "sithonia", category: "beaches", name: "חוף קלוגריה (Kalogria Beach)", badge: "🏖️ הבריכה המושלמת", character: "מפרץ חולי מוגן ויפהפה בחוף הצפון-מערבי (בין ניקיטי לאליה). הים חלק ושטוח.", vibe: "הים שטוח לחלוטין, חמים ורדוד ללא סלעים. עצי אורן מגיעים עד המים ומעניקים צל טבעי.", action: "הגיעו עד 09:30 בבוקר (הרואד-טריפ שלכם) כדי לתפוס מקום ברוגע ולשנרקל בסלע הימני.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Kalogria+Beach+Sithonia" },
+            { region: "sithonia", category: "beaches", name: "טראני אמודיה (Trani Ammouda)", badge: "🏖️ המרחב המוזהב", character: "רצועת חוף חולית עצומה באורך 2 קילומטרים ליד אורמוס פנאגיאס בחוף המזרחי.", vibe: "אף פעם לא מרגיש עמוס בזכות הגודל. חול זהוב דק ורך ומים צלולים בגווני טורקיז-ברקת.", action: "מושלם למי שרוצה שקט מוחלט ומרחבים פתוחים ופראיים ללא מוזיקה המונית.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Trani+Ammouda+Beach+Sithonia" },
+            { region: "sithonia", category: "beaches", name: "חוף קרידי (Karydi Beach)", badge: "🏖️ הקריביים של יוון", character: "מפרץ קטן, צלול וסגור באזור וורוורו (Vourvourou) בחוף המזרחי.", vibe: "חול לבן דק כקמח, מים רדודים במיוחד בגוון טורקיז בהיר ומהפנט, ועצי אורן מעוצבים.", action: "מוזהר: עמוס מאוד ביולי. הגיעו רק לפני 09:00 בבוקר או בשקיעה.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Karydi+Beach+Vourvourou" },
+            { region: "sithonia", category: "beaches", name: "חוף קלמיטסי (Kalamitsi Beach)", badge: "🏖️ החיבור הפראי בדרום", character: "מפרץ חול מושלם בצורה של חצי סהר הממוקם בקצה הדרום-מזרחי של סיטוניה.", vibe: "מים עמוקים וצלולים בצורה יוצאת דופן בגווני כחול וטורקיז. מוגן על ידי סלעים גדולים.", action: "תהנו משחייה במים שקטים ורגועים, ואכלו בטברנות הדגים הפשוטות בקצה המפרץ.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Kalamitsi+Beach+Sithonia" },
+            
+            { region: "sithonia", category: "culinary", name: "בוקאדורה (Boukadoura)", badge: "🐙 בישול עילי אותנטי", character: "ממוקמת בווילה על צוק מעל המים (חוף אליה). מנוהלת על ידי השפית יוטה.", vibe: "בישול עילי המבוסס על מתכונים משפחתיים עתיקים ושמן זית בייצור עצמי. ללא פלצנות.", action: "תבשילים מבושלים לאט, סלטים מיוחדים ומאזטים ברמה אחרת.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Boukadoura+Restaurant+Sithonia" },
+            { region: "sithonia", category: "culinary", name: "אריסטופאניס (Aristofanis)", badge: "🐙 טברנה על החול", character: "טברנת דגים משפחתית וותיקה ממש בנמל הקטן של אורמוס פנאגיאס.", vibe: "השולחנות מונחים ממש על החול הרך, סנטימטרים מהמים והסירות.", action: "תמנונים צלויים שנמתחו בשמש, ברבוניות קטנות, קלמארי פריך וסלט יווני עשיר.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Aristofanis+Taverna+Ormos+Panagias" },
+            { region: "sithonia", category: "culinary", name: "טברנה פורטו קופו", badge: "🐙 דגים ישר מהסירה", character: "טברנה פשוטה ונקייה על קו המים בנמל הדייגים פורטו קופו.", vibe: "ללא מוזיקה רועשת, רק אוכל מעולה וטרי וגלי הפיורד ברקע.", action: "דגים טריים שנשקלים במקום, סקורדליה (ממרח שום) וירקות מקומיים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Taverna+Porto+Koufo+Sithonia" },
 
-            // ==================== THESSALONIKI REGION ====================
-            { region: "thessaloniki", category: "culinary", name: "טברנת פאלאטי (Palati)", badge: "🎉 חגיגת יום הולדת", image: "https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?auto=format&fit=crop&w=600&q=80", character: "טברנה מפורסמת ברובע לדדיקה עם אוכל ומוזיקה חיה (כאן חוגגים לרחלי ואבנר!).", vibe: "סוחפת, חמה, שמחה ותוססת מאוד.", action: "מומלץ להגיע רעבים ומוכנים לחגיגה. הכל כבר מוזמן לכם.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Palati+Taverna" },
-            { region: "thessaloniki", category: "culinary", name: "Hatzi Bachtse", badge: "🎻 רמבטיקו חי", image: "https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?auto=format&fit=crop&w=600&q=80", character: "טברנה מדהימה ואותנטית לימי הרמבטיקו של שנות ה-30.", vibe: "האנרגיה מחשמלת ללא הגברה. הקהל שר יחד עד השעות הקטנות.", action: "הזמינו מאזטים פשוטים וציפורו והיסחפו עם המוזיקה.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Hatzi+Bachtse" },
-            { region: "thessaloniki", category: "culinary", name: "סולנטו (Solento)", badge: "🍕 גן עדן לבצקים", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80", character: "מסעדה איטלקית נהדרת המתמחה בפיצות נאפוליטניות עם שוליים אווריריים.", vibe: "חמימה, מוקפדת ואותנטית לחובבי אוכל איטלקי בסלוניקי.", action: "מנת חובה: 'כריך פיצה' ייחודי ממולא בגבינות ונקניקים.", mapsUrl: "https://maps.app.goo.gl/qnSnfh7hycdRog169" },
-            { region: "thessaloniki", category: "shopping", name: "כלבו נוטוס (notos)", badge: "🛍️ שופינג בסטייל", image: "https://images.unsplash.com/photo-1560243563-062bff001d68?auto=format&fit=crop&w=600&q=80", character: "כלבו ענק ומפואר בפינת הרחובות צימיסקי ומיטרופולאוס (סגנון אירופאי קלאסי).", vibe: "חוויית קנייה ממוזגת, אלגנטית ומרוכזת תחת קורת גג אחת.", action: "קומת קרקע לקוסמטיקה, וקומות עליונות לאופנת נשים וגברים.", mapsUrl: "https://maps.app.goo.gl/eXKUkNdzsvo5sBsAA" },
-            { region: "thessaloniki", category: "shopping", name: "רחוב צימיסקי (Tsimiski)", badge: "🛍️ שדרת הקניות הראשית", image: "https://images.unsplash.com/photo-1484755560695-a4c740285a15?auto=format&fit=crop&w=600&q=80", character: "רחוב הקניות הגדול והארוך ביותר של סלוניקי.", vibe: "סואן, אורבני, מלא במותגים בינלאומיים כמו זארה, M&S ועוד.", action: "הקדישו לזה כמה שעות טובות בצהרי יום רביעי. מצוין לשופינג יומיומי.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Tsimiski+Street" },
-            { region: "thessaloniki", category: "shopping", name: "שוק מודיאנו (Modiano)", badge: "🛍️ גסטרונומיה מקורה", image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80", character: "השוק המקורה ההיסטורי של העיר ששופץ למתחם קולינרי מודרני.", vibe: "מעוצב, נקי, תוסס, מגניב ומעורר תיאבון.", action: "קנו גבינות מקומיות, תבלינים, ושבו לקפה או כוס יין במרכז השוק.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Modiano+Market" },
-            { region: "thessaloniki", category: "tips", name: "💶 כסף, תשלומים ומזומן", badge: "💡 גיבוי חשוב", image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80", character: "למרות שאשראי מתקבל כמעט בכל מקום, בטברנות אותנטיות או בשווקים התקשורת נופלת.", vibe: "תמיד כדאי שיהיה גיבוי לשקט נפשי.", action: "החזיקו כ-100 אירו במזומן בארנק לכל מקרה של תקלת אשראי.", mapsUrl: "https://www.google.com/maps" }
+            // ==================== THESSALONIKI ====================
+            // Gardens & Courtyards
+            { region: "thessaloniki", category: "gardens", name: "Mimoza Anapsyktirion", badge: "🍀 קיוסק רטרו ירוק", character: "נווה מדבר ירוק ומפתיע בחלק המערבי של העיר, מעוצב בסגנון קיוסק יווני של פעם.", vibe: "עצי פרי, עציצים פורחים ושולחנות ברזל תחת צל עבה באווירה משוחררת ושכונתית.", action: "מושלם לקפה קר (Freddo Espresso) בצהריים, בירה קרה או קוקטייל פשוט בערב.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Mimoza+Anapsyktirion+Thessaloniki" },
+            { region: "thessaloniki", category: "gardens", name: "Avli (נאפולי)", badge: "🍀 בר-קפה בפארק", character: "בר-קפה פתוח לחלוטין הממוקם בתוך פארק ירוק באזור נאפולי (Neapoli).", vibe: "מדשאות ירוקות, צל עצים כבדים ואווירה שכונתית רגועה להפליא הרחק מהחום.", action: "הזמינו קפה בבוקר או כוס יין מקומי קריר וקוקטיילים קלילים בערב לצד נשנושים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Avli+Park+Davaki+Neapoli+Thessaloniki" },
+            { region: "thessaloniki", category: "gardens", name: "Byzantine Watermills (פוליכני)", badge: "🍀 טבע והיסטוריה", character: "מתחם היסטורי יפהפה המשלב טבע פראי, מים זורמים ושרידים של טחנות מים ביזנטיות עתיקות.", vibe: "מרגיש כמו כפר הררי קטן במרחק דקות נסיעה בודדות ממרכז העיר.", action: "מעולה למי שמחפש שקט מוחלט, חיבור להיסטוריה ואוויר נקי לקפה ודרינק.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Byzantine+Watermills+Polichni+Thessaloniki" },
+            { region: "thessaloniki", category: "gardens", name: "Tsoupra (צופרה)", badge: "🍀 קנטינה אלטרנטיבית בטבע", character: "קנטינה צבעונית הממוקמת בטבע בדרך שבין נאו ריסיו לסורוטי (קרוב לשדה התעופה).", vibe: "שולחנות עץ ארוכים מתחת לעצים ענקיים, תאורת גרילנדות עדינה בערב ואווירה חופשייה.", action: "מקום אידיאלי לגיחה קצרה מהעיר בדרך חזרה מחלקידיקי לבירה, נקניקייה ומאזטים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Tsoupra+Neo+Rysio+Souroti+Thessaloniki" },
+            { region: "thessaloniki", category: "gardens", name: "Bonobo Cafe Bar (פלגיארי)", badge: "🍀 חצר פנורמית בגבעה", character: "בית קפה-בר עם חצר רחבת ידיים הממוקם על גבעה באזור פלגיארי (Plagiari).", vibe: "מיקום גבוה המבטיח בריזת ערב קרירה ונוף פתוח ויפהפה למפרץ ולמרחבים הירוקים.", action: "ברחו מהלחות של מרכז העיר לקוקטייל איכותי באוויר הפתוח.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Bonobo+Cafe+Bar+Plagiari+Thessaloniki" },
+            { region: "thessaloniki", category: "gardens", name: "The Garden of Sin", badge: "🍀 חצר שכונתית סודית", character: "חצר מעוצבת להפליא, נסתרת בתוך השכונה השקטה \"40 כנסיות\" מעל מרכז העיר.", vibe: "צמחייה עשירה, עיצוב בטוב טעם ויוקרה שקטה ונינוחה.", action: "מה להזמין: קפה פילטר מעולה, משקאות קיציים קרים או יין יווני משובח בערב.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=The+Garden+of+Sin+Thessaloniki" },
+            { region: "thessaloniki", category: "gardens", name: "Rafiki Outdoors", badge: "🍀 ג'ונגל אורבני סודי", character: "חצר נסתרת ומדהימה הממוקמת ממש מאחורי רחוב צימיסקי (Tsimiski) הסואן.", vibe: "ברגע שנכנסים מרגישים בלב ג'ונגל טרופי קטן, מבודד לחלוטין מרעש העיר והקניות.", action: "עצירת חובה לקפה קר או דרינק מרענן באמצע יום שופינג מפרך במרכז.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Rafiki+Outdoors+Tsimiski+Thessaloniki" },
+            { region: "thessaloniki", category: "gardens", name: "Beyond the Walls", badge: "🍀 צמוד לחומה הביזנטית", character: "חצר אורבנית ירוקה ומעוצבת הממוקמת בצמוד לשרידי החומה הביזנטית העתיקה במרכז.", vibe: "משלב בצורה מושלמת אבני חומה עתיקות עם עיצוב מודרני מוקפד באווירה נעימה.", action: "נהדר לברונץ' בוקר איכותי, קפה של צהריים או דרינק של אחה\"צ (Aperitivo).", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Beyond+the+Walls+Thessaloniki" },
+            
+            // Rooftops & Views
+            { region: "thessaloniki", category: "rooftops", name: "Castra Terrace Bar", badge: "🌅 הטרסה הכי יפה בעיר", character: "בר טרסה מדהים שנמצא בנקודה הגבוהה ביותר של העיר העתיקה (Ano Poli) בצמוד לחומות.", vibe: "נוף פנורמי משגע המשתרע על כל העיר, הנמל והמפרץ התרמאי.", action: "הגיעו שעה לפני השקיעה, הזמינו בירה או קוקטייל, וצפו בשמש נופלת לתוך הים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Castra+Terrace+Bar+Ano+Poli+Thessaloniki" },
+            { region: "thessaloniki", category: "rooftops", name: "Le Coq Tail Mix Bar", badge: "🌅 קוקטיילים ונוף לחומות", character: "בר קוקטיילים ותיק ואהוב הממוקם באזור החומות הגבוהות של אנו פולי.", vibe: "צוות ברמנים מקצועי ביותר המכין קוקטיילים קלאסיים ומודרניים ברמה הגבוהה ביותר.", action: "הזמינו קוקטייל מבוסס פירות קיץ מרעננים מול אחד הנופים האיקוניים של סלוניקי.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Le+Coq+Tail+Mix+Bar+Thessaloniki" },
+            { region: "thessaloniki", category: "rooftops", name: "Nectar Distillery", badge: "🌅 רופטופ אופנתי במרכז", character: "רופטופ-בר מעוצב וצעיר הממוקם על גג מלון Zeus is Loose מול כיכר דיקסטריון.", vibe: "עיצוב מודרני, מושקע, קהל צעיר ובינלאומי, מוזיקה מעולה ונוף אורבני מלמעלה.", action: "נסו קוקטיילים מצוינים מהחבית ומתוצרת עצמית (Draught & Signature Cocktails).", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Nectar+Distillery+Zeus+is+Loose+Thessaloniki" },
+            { region: "thessaloniki", category: "rooftops", name: "Stin Taratsa (וואלאוריטו)", badge: "🌅 רופטופ קליל ומקומי", character: "בר רופטופ קליל הממוקם בלב רובע הבילויים התוסס וואלאוריטו (Valaoritou).", vibe: "מעוצב בצורה צבעונית ופשוטה עם שולחנות עץ וגרילנדות, מושך קהל מקומי.", action: "תיהנו ממחירים נוחים, אווירה חופשית לחלוטין וקוקטיילים נהדרים באוויר הפתוח.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Stin+Taratsa+Valaoritou+Thessaloniki" },
+            { region: "thessaloniki", category: "rooftops", name: "Byzantio Sky Bar & Bistro", badge: "🌅 טרסה מעל העיר העתיקה", character: "שילוב של בית קפה, בר וביסטרו איכותי הממוקם בעיר העתיקה.", vibe: "מציע טרסה פתוחה המרחפת מול הנוף הפנורמי של סלוניקי והים.", action: "מתאים לקפה בוקר מול הנוף השקט, או לארוחת ערב קלה ויין בשעות החשכה.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Byzantio+Sky+Bar+Bistro+Ano+Poli+Thessaloniki" },
+            { region: "thessaloniki", category: "rooftops", name: "Mansion Bar & Terrace", badge: "🌅 בר מרשים במערב", character: "בר מרשים הממוקם בחלק המערבי והפחות תיירותי של העיר (אזור Neapoli).", vibe: "טרסה רחבה ומעוצבת, נקודת מפלט נהדרת לקפה, קוקטיילים ואוכל קל באווירה מקומית.", action: "סעו לשם כדי לפגוש את חיי הלילה של המקומיים מחוץ לאזור התיירותי.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Mansion+Bar+Terrace+Neapoli+Thessaloniki" },
+            { region: "thessaloniki", category: "rooftops", name: "Veranda Refresh Your Feelings", badge: "🌅 מרפסת תוססת בטומבה", character: "ממוקם בשכונת טומבה (Toumba) המזרחית והתוססת.", vibe: "בנוי כמרפסת רחבה שמציעה תצפית יפה, עם מוזיקה מצוינת וקוקטיילים נהדרים.", action: "פתוח מהבוקר ועד השעות הקטנות של הלילה לקפה, יין או בירות.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Veranda+Refresh+Your+Feelings+Toumba+Thessaloniki" },
+
+            // Aperitivo & Bars
+            { region: "thessaloniki", category: "bars", name: "Giulietta Spritzeria", badge: "🍹 ספריצרייה איטלקית", character: "בר ספריץ ואפריטיבו איטלקי קטן ומטריף בלב העיר בעיצוב נקי.", vibe: "מגוון עצום של ורמוטים, אפריטיפי וקוקטיילים מבוססי ספריץ לצד זיתים ונשנושים.", action: "התאספו כאן לעמידה קלה ברחוב בשעות אחר הצהריים (אפריטיבו קלאסי).", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Giulietta+Spritzeria+Thessaloniki" },
+            { region: "thessaloniki", category: "bars", name: "Ilektron (הרוטונדה)", badge: "🍹 קפה-בר של תקליטים", character: "קפה-בר ייחודי הממוקם באזור הרוטונדה, מנוהל ע\"י חובבי מוזיקה מושבעים.", vibe: "קירות מלאי תקליטים, מוזיקה משובחת (ג'אז, סול, אינדי) המנוגנת מוויניל בלבד.", action: "מושלם לחובבי מוזיקה, בירה מקומית או קוקטייל באווירה חמימה ואותנטית.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Ilektron+Rotonda+Thessaloniki" },
+            { region: "thessaloniki", category: "bars", name: "Bar Ba Ben", badge: "🍹 חצר פנימית אלטרנטיבית", character: "חצר פנימית אלטרנטיבית המסתתרת בתוך בלוק בניינים בלב העיר.", vibe: "חומרי גלם פשוטים, המון ירוק, ונינוחות מוחלטת של שכונה.", action: "מקום קליל ולא מחייב לבירה קרה ונשנושים בערב קיץ חם.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Bar+Ba+Ben+Thessaloniki" },
+            { region: "thessaloniki", category: "bars", name: "Brew Lokal (טומבה)", badge: "🍹 קפה מומחים ויין", character: "בית קפה-בר מעולה בשכונת טומבה המזרחית.", vibe: "ביום מציע קפה ספשלטי מעולה, ובערב הופך לבר אפריטיבו עם יינות ובירות קראפט.", action: "נסו לוחות גבינות יווניות משובחות וברוסקטות קריספיות לצד היין.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Brew+Lokal+Toumba+Thessaloniki" },
+            { region: "thessaloniki", category: "bars", name: "Sortie (ליד הרוטונדה)", badge: "🍹 מינימליזם אורבני", character: "בר-קפה מינימליסטי ומעוצב בטוב טעם באזור הרוטונדה ההיסטורי.", vibe: "חלל פנימי נקי וישיבה בחוץ על הרחוב האותנטי, קפה משובח ואפריטיבו קליל.", action: "מקום רגוע לשיחת ערב נעימה ודרינק מרענן.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Sortie+Rotonda+Thessaloniki" },
+            { region: "thessaloniki", category: "bars", name: "Folki Cafe Bar", badge: "🍹 תוסס וצעיר במרכז", character: "בר אורבני קטן, צעיר ומלא חיים במרכז העיר, מקום מפגש קלאסי למקומיים.", vibe: "אווירה שמחה ותוססת, קפה מהיר, יין לבן צונן או ספריץ בשעות אחה\"צ.", action: "שבו בחוץ וספגו את קצב החיים של צעירי סלוניקי.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Folki+Cafe+Bar+Thessaloniki" },
+            { region: "thessaloniki", category: "bars", name: "Flantza (כיכר מאווילי)", badge: "🍹 קוקטיילים תחת העצים", character: "בר מגניב הממוקם בכיכר מאווילי (Mavili Square) הנסתרת והקסומה.", vibe: "השולחנות פזורים בחוץ בכיכר תחת השמיים והעצים, חוויית בילוי קיצית אמיתית.", action: "שבו לשיחה ארוכה וצחוקים עם קוקטיילים מצוינים לתוך הלילה.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Flantza+Mavili+Square+Thessaloniki" },
+            { region: "thessaloniki", category: "bars", name: "Mata Hari (מנמני)", badge: "🍹 מסתורי וזול במערב", character: "בר בעיצוב מיוחד ומסתורי באזור מנמני (Menemeni) בצד המערבי האותנטי.", vibe: "אווירה צעירה, מוזיקה מעולה, קוקטיילים איכותיים ומחירים זולים בהרבה מהמרכז.", action: "מקום נהדר לחוות בילוי מקומי אותנטי ללא עמלות תיירים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Mata+Hari+Menemeni+Thessaloniki" },
+            { region: "thessaloniki", category: "bars", name: "Il Posto (כיכר אבוסמוס)", badge: "🍹 מפגש המקומיים הגדול", character: "קפה-בר גדול ותוסס הממוקם בכיכר המרכזית של שכונת אבוסמוס (Evosmos) המערבית.", vibe: "מקום המפגש המקומי האולטימטיבי, תמיד שמח והומה אדם מהבוקר ועד הלילה.", action: "הזמינו בירה קרה או יין וצפו בעוברים ושבים בכיכר התוססת.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Il+Posto+Evosmos+Thessaloniki" },
+
+            // Music & Taverns
+            { region: "thessaloniki", category: "music", name: "טברנת פאלאטי (Palati)", badge: "🎉 חגיגת יום הולדת", character: "טברנה מפורסמת ברובע לדדיקה עם אוכל ומוזיקה חיה מצוינת.", vibe: "סוחפת, חמה ותוססת מאוד. אווירה שקשה להישאר אדישים אליה.", action: "כאן תחגגו יומולדת ביום שלישי 07/07 בשעה 20:30! המקום האולטימטיבי לחגיגה.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Palati+Taverna+Thessaloniki" },
+            { region: "thessaloniki", category: "music", name: "Hatzi Bachtse (חצי באחצ'ה)", badge: "🎻 רמבטיקו חי ללא הגברה", character: "טברנה מדהימה המחזירה אתכם לימי הרמבטיקו הישן של שנות ה-30. ישיבה בגינה פנימית.", vibe: "הנגנים יושבים לצד השולחנות ומנגנים בוזוקי לחלוטין ללא מיקרופונים (Unplugged).", action: "חובה להזמין מקום מראש! מאזטים מעולים (ציפורו, רצינה, בשרים) במחירים מצחיקים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Hatzi+Bachtse+Thessaloniki" },
+            { region: "thessaloniki", category: "music", name: "Stasi (אנו פולי)", badge: "🎻 מאזטים שיתופיים", character: "קפה-מזדופוליו (Mezedopoleio) שיתופי המנוהל ע\"י קואופרטיב צעיר בסמטאות אנו פולי.", vibe: "תפריט פשוט וקצר של מאזטים עונתיים מעולים לצד כוסות ציפורו, אוזו ויין מקומי.", action: "מושלם לעצירה רגועה וארוכה אחרי שיטוט בסמטאות של העיר העליונה.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Stasi+Mezedopoleio+Ano+Poli+Thessaloniki" },
+            { region: "thessaloniki", category: "music", name: "Anopolis (אנו פולי)", badge: "🎻 מול מנזר ולאטאדון", character: "מקום פתוח, פשוט ומקסים הממוקם בלב אנו פולי מול אזור המנזר והחומות העתיקות.", vibe: "נוף מדהים לחומות ההיסטוריות, אווירה קלילה, ומוזיקה יוונית נעימה ברקע.", action: "מתאים לצהריים או אחה\"צ לציפורו, מאזטים או קפה יווני מבושל על חול.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Anopolis+Ano+Poli+Thessaloniki" },
+            { region: "thessaloniki", category: "music", name: "Yagkini (יאנקיני)", badge: "🎻 מוזיקה ולאיקו משפחתי", character: "ממוקם בשכונת אבוסמוס המערבית, מקום שכונתי חם המוקדש למוזיקה יוונית מסורתית.", vibe: "אוכל ביתי פשוט ומשובח באווירה יוונית משפחתית ושמחה של פעם.", action: "מקום נפלא להרגיש כמו מקומי אמיתי הרחק מהתיירים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Yagkini+Evosmos+Thessaloniki" },
+            { region: "thessaloniki", category: "music", name: "Laterna (לאטרנה)", badge: "🎻 נוסטלגיה יוונית", character: "מקום המעוצב בסגנון נוסטלגי שמזכיר סרטים יווניים ישנים משנות ה-50 וה-60.", vibe: "פתוח לקפה, בירות ודרינקים ומארח ערבי מוזיקה חיה אותנטיים ושמחים מאוד.", action: "חוויית ערב שכונתית ייחודית עם המון שמחת חיים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Laterna+Voulgari+64+Thessaloniki" },
+
+            // Villas & Culture
+            { region: "thessaloniki", category: "villas", name: "Epavli Marokkou", badge: "🏛️ אחוזה היסטורית משנת 1906", character: "וילה היסטורית יפהפייה ומפוארת ברחוב וסיליסיס אולגס. המבנה שוחזר בצורה מופלאה.", vibe: "חצר פנימית רחבת ידיים וטרסה ענקית המוקפת עצים עתיקים. אווירה אלגנטית ושקטה.", action: "ברחו מהמרכז לקפה איכותי, ארוחת צהריים או קוקטייל באווירת סלוניקי האריסטוקרטית.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Epavli+Marokkou+Thessaloniki" },
+            { region: "thessaloniki", category: "villas", name: "TABYA", badge: "🏛️ מתחם תרבות וויניל", character: "בית משומר מתחילת המאה ה-20 שהפך למתחם תרבות (קפה-בר, חנות תקליטים, ספרייה).", vibe: "חצר ירוקה, שקטה ומיוחדת המוארת בערב באור עדין. אווירה אמנותית ובוהמיינית.", action: "נהדר לשבת ברוגע, לשמוע מוזיקה טובה מתקליטים ולשתות בירה או יין מקומי.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=TABYA+Melenikou+14G+Thessaloniki" },
+            { region: "thessaloniki", category: "villas", name: "Villa Bianca (וילה ביאנקה)", badge: "🏛️ גלריית אמנות עירונית", character: "אחת הווילות ההיסטוריות המפורסמות והמרשימות ביותר (מ-1912), משמשת כגלריה עירונית.", vibe: "חצר אלגנטית ושקטה במיוחד עם בית קפה קטן ואיכותי לצד תערוכות אמנות.", action: "שלבו ביקור בתערוכת אמנות מקומית עם קפה שקט בגינה היסטורית מפוארת.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Villa+Bianca+Thessaloniki" },
+            { region: "thessaloniki", category: "villas", name: "Merenda (נאפולי)", badge: "🏛️ בית קפה רטרו וחצר", character: "מקום מעוצב בסגנון רטרו חמים ומזמין הממוקם בנאפולי עם גינה פנימית מתוקה.", vibe: "קפה מעולה, מתוקים יווניים ביתיים נהדרים, ויינות וקוקטיילים קלילים בערב.", action: "מקום נעים ביותר לברוח מהקצב העירוני הסוער והלחות.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Merenda+Neapoli+Thessaloniki" },
+            { region: "thessaloniki", category: "villas", name: "Ergon Agora (הסניף המזרחי)", badge: "🏛️ מתחם גסטרונומיה ענק", character: "מתחם אוכל (Gastronomy Hub) מודרני בכניסה המזרחית לעיר המשלב מעדניית ענק ומסעדות.", vibe: "מרחבים ירוקים עצומים בחוץ, חניה בשפע, ואוכל יווני מודרני מחומרי הגלם הטובים ביותר.", action: "מצוין לשופינג קולינרי איכותי ולבילוי צהריים משפחתי מושלם.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Ergon+Agora+East+Thessaloniki" },
+
+            // Sea & Breeze
+            { region: "thessaloniki", category: "sea", name: "Sanaa Coast (קלמריה)", badge: "🌊 הווייב של מיקונוס בסלוניקי", character: "בר-מסעדה סופר מעוצב, יוקרתי ומרהיב הממוקם ממש על קו המים באזור קלמריה.", vibe: "עיצוב מבוסס על חומרים טבעיים (קש, עץ, אבנים), מוזיקת לאונג' נהדרת ובריזה חזקה.", action: "פתוח מהבוקר לקפה איכותי ועד השעות הקטנות לקוקטיילים ואוכל ים-תיכוני מצוין.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Sanaa+Coast+Kalamaria+Thessaloniki" },
+            { region: "thessaloniki", category: "sea", name: "Touloumba (טולומבה)", badge: "🌊 דגים עם הרגליים במים", character: "טברנת דגים משפחתית ופשוטה להפליא באזור מיכאניונה-אפנומי מדרום לעיר.", vibe: "השולחנות מונחים ממש מטר מקו המים, כשהגלים נושקים לרגליים. כמו כפר דייגים מבודד.", action: "דגים קטנים מטוגנים, תמנון על הגריל וצזיקי עשיר במחירים נמוכים ומקומיים.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Touloumba+Nea+Michaniona+Thessaloniki" },
+            { region: "thessaloniki", category: "sea", name: "Prigkipas (אגיה טריאדה)", badge: "🌊 אוזרי על החול באגיה טריאדה", character: "אוזרי (Ouzeri) ומסעדת דגים מעולה הממוקמת בעיירת החוף אגיה טריאדה.", vibe: "שולחנות פזורים בחוץ ממש על החול מול המים, עם שירות חם וחייכני מול האולימפוס.", action: "דגים, פירות ים וכוסות אוזו מול נוף פנורמי מדהים של המפרץ והשקיעה.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Prigkipas+Agia+Triada+Thessaloniki" },
+            { region: "thessaloniki", category: "sea", name: "Capo di Faro (חוף פרייה)", badge: "🌊 שקיעות אדומות מטורפות", character: "מקום מעוצב ויפהפה הממוקם ממש על חוף הים של פרייה (Peraia).", vibe: "מיטות שיזוף נוחות ביום, ובר-מסעדה תוסס בערב עם קוקטיילים מעולים ושקיעות מטורפות.", action: "שבו בערב וצפו בקו הרקיע של סלוניקי הנדלק לאט מצדו השני של המפרץ.", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Capo+di+Faro+Peraia+Thessaloniki" },
+            { region: "thessaloniki", category: "sea", name: "Klio Cruise Bar (הטיילת)", badge: "🌊 הפלגת בר בתוך המפרץ", character: "אחת מספינות הבר הנוסטלגיות והמפורסמות שעוגנות ליד המגדל הלבן בטיילת.", vibe: "הסירה מפליגה מדי שעה לסיבוב של 30 דקות בתוך מימי המפרץ של סלוניקי.", action: "הכניסה ללא תשלום, מותנית בהזמנת משקה אחד מהבר (בירה, יין או קוקטייל).", mapsUrl: "https://www.google.com/maps/search/?api=1&query=Klio+Cruise+Bar+White+Tower+Thessaloniki" }
+        ];
+
+        // 4. STANDALONE GREEK PHRASEBOOK & TIPS DATA (23 Phrases & Tips)
+        const phrasesData = [
+            // Greek Phrases (Language)
+            { category: "language", name: "בוקר טוב", greek: "Καλημέρα", phonetic: "קָה-לִי-מֶה-רָה", english: "Kalimera", detail: "ברכת הבוקר הכי נפוצה ביוון. פתחו איתה כל שיחה עד הצהריים כדי לקבל שירות מצוין וחיוך.", action: "ברכת בוקר חיונית לקשירת קשר" },
+            { category: "language", name: "ערב טוב", greek: "Καλησπέρα", phonetic: "קָה-לִי-סְ-פֶּה-רָה", english: "Kalispera", detail: "נאמרת משעות אחר הצהריים (בסביבות 17:00 ואילך) ועד הלילה.", action: "ברכה מצוינת בכניסה לטברנה בערב" },
+            { category: "language", name: "לילה טוב", greek: "Καληνύχτα", phonetic: "קָה-לִי-נִיחְ-טָה", english: "Kalinichta", detail: "אומרים רק כאשר עוזבים טברנה מאוחר בלילה או כשהולכים לישון.", action: "פרידה לילית נעימה" },
+            { category: "language", name: "שלום / להתראות (לאדם יחיד)", greek: "Γεια σου", phonetic: "יָא-סוּ", english: "Yassou", detail: "הדרך הנפוצה והבלתי פורמלית לומר 'שלום' או 'ביי' לחבר, לילד או לאדם קרוב.", action: "סלנג יומיומי חיוני ומלא שמחה" },
+            { category: "language", name: "שלום / להתראות (רשמי / לרבים)", greek: "Γεια σας", phonetic: "יָא-סַאס", english: "Yassas", detail: "הצורה המנומסת והרשמית לפנות למארח מבוגר, קבוצת אנשים או לצוות המלון.", action: "הפנייה המכבדת והבטוחה ביותר" },
+            { category: "language", name: "תודה", greek: "Ευχαριστώ", phonetic: "אֶפְ-חָה-רִי-סְ-טוֹ", english: "Efcharisto", detail: "מילת המפתח בכל אינטראקציה. הראו הערכה אמיתית והיוונים יתנו לכם את הלב.", action: "חובה להשתמש בטברנות ובמלונות" },
+            { category: "language", name: "בבקשה / על לא דבר", greek: "Παρακαλώ", phonetic: "פָּה-רָה-קָה-לוֹ", english: "Parakalo", detail: "מילה רב-שימושית המשמשת גם כ'בבקשה' וגם כמענה ל'תודה' (על לא דבר).", action: "שימושית ביותר לאורך כל שעות היום" },
+            { category: "language", name: "כן (שימו לב, מטעה!)", greek: "Ναι", phonetic: "נֶאִי", english: "Ne", detail: "זהירות! נשמע כמו 'לא' בעברית ובאנגלית, אך המשמעות ביוונית היא חד משמעית 'כן'!", action: "מוקד בלבול נפוץ - זכרו נאי = כן" },
+            { category: "language", name: "לא", greek: "Όχι", phonetic: "אוֹ-כִי", english: "Ochi", detail: "מילה קצרה ופשוטה לסירוב מנומס.", action: "הגייה מהירה והחלטית" },
+            { category: "language", name: "מה שלומך?", greek: "Τι κάνεις;", phonetic: "טִי קָא-נִיס", english: "Ti kanis", detail: "שאלה ידידותית לשלום המארח או בעל העסק שאתם פוגשים.", action: "התחלת שיחה באווירה חמה" },
+            { category: "language", name: "הכל טוב / בסדר", greek: "Όλα καλά", phonetic: "אוֹ-לָה קָה-לָה", english: "Ola kala", detail: "התשובה האופטימית והמצוינת לכל שאלה על מצב העניינים הנוכחי.", action: "משרה רוגע ואנרגיה טובה" },
+            { category: "language", name: "קפה קר (פרדּוֹ)", greek: "Φρέντο", phonetic: "פְרֶ-דוֹ", english: "Freddo", detail: "הקפה האייקוני של הקיץ היווני. הזמינו Freddo Espresso או Freddo Cappuccino.", action: "הזמנת הקפה הקר המושלם בים" },
+            { category: "language", name: "יוון (השם המקומי)", greek: "Ελλάδα", phonetic: "אֶ-לָה-דָה", english: "Ellada", detail: "השם המקורי של יוון בפי המקומיים. קריאה 'אלאדה' מחממת להם את הלב.", action: "כבוד למדינה המארחת" },
+            { category: "language", name: "סליחה", greek: "Συγγνώμη", phonetic: "סִיגְ-נוֹ-מִי", english: "Sygnomi", detail: "משמשת לבקשת סליחה, התנצלות, או כדי למשוך את תשומת ליבו של מלצר עסוק.", action: "פנייה מנומסת ויעילה" },
+            { category: "language", name: "איפה השירותים?", greek: "Πού είναι η τουαλέτα;", phonetic: "פּוּ אִי-נֶה אִי טוּ-אַ-לֶה-טָה", english: "Pou einai i toualeta", detail: "שאלה הכרחית ושימושית ביותר כשמטיילים עם ילדים ומשפחה לאורך שעות.", action: "שאלה חיונית בנסיעות ובחופים" },
+
+            // Tavern Category
+            { category: "tavern", name: "לחיים!", greek: "Γεια μας", phonetic: "יָא-מַא-ס", english: "Yamas", detail: "הברכה הנפוצה ביותר בטברנות כשמרימים כוסית אוזו, ציפורו, בירה מקומית או יין.", action: "מרימים כוסית משפחתית בטברנה" },
+            { category: "tavern", name: "חשבון בבקשה", greek: "Το λογαριασμό, παρακαλώ", phonetic: "טוֹ לוֹ-גָה-רְיָא-זְמוֹ פָּה-רָה-קָה-לוֹ", english: "To logariasmo parakalo", detail: "הדרך הנכונה, המנומסת והעצמאית לקרוא למלצר בטברנה ולהביא את הארוחה לסיומה.", action: "סיום ארוחה מכובד בטברנה" },
+            { category: "tavern", name: "טעים מאוד!", greek: "Πολύ νόστιμο", phonetic: "פּוֹ-לִי נוֹס-טִי-מוֹ", english: "Poli nostimo", detail: "החמיאו למארחים או למלצר בסיום הארוחה - לעיתים קרובות זה יקנה לכם קינוח מפנק חינם.", action: "החמאה לקולינריה המקומית" },
+            { category: "tavern", name: "מים", greek: "Νερό", phonetic: "נֶה-רוֹ", english: "Nero", detail: "מים קרים לשולחן ביולי החם. לרוב יביאו לכם בקבוק מים מינרליים קרים מיד עם הישיבה.", action: "מצרך קיומי בקיץ היווני" },
+            { category: "tavern", name: "בירה", greek: "Μπύρα", phonetic: "בִּי-רָה", english: "Bira", detail: "הזמינו בירה מקומית קרה וצוננת (כמו מיתוס - Mythos או אלפא - Alfa) מהחבית.", action: "משקה קיצי קלאסי ומרענן" },
+            { category: "tavern", name: "יין", greek: "Κρασί", phonetic: "קְרָה-סִי", english: "Krasi", detail: "להזמנת יין הבית בטברנה (לבן, אדום או רוזה) המוגש לרוב בקראף של חצי ליטר או ליטר.", action: "תוספת חובה לארוחת הדגים" },
+            { category: "tavern", name: "כמה זה עולה?", greek: "Πόσο κάνει;", phonetic: "פּוֹ-סוֹ קָא-נִי", english: "Poso kanei", detail: "שאלה מצוינת ומהירה לשימוש בשווקים ובחנויות שופינג ברחובות סלוניקי.", action: "לשימוש קל ומהיר בקניות" },
+
+            // Tips Category
+            { category: "tips", name: "אהבת הזר (Philoxenia) וקצב הסבלנות", detail: "היוונים אוהבים לארח מכל הלב (פילוקסניה), אך זה עובד רק כשבאים בגישה מכבדת. אל תתחילו ב-'יש לי בעיה', אלא ב-'קלימרה, מה שלומך?'. ביוון הקצב הוא 'סיגה סיגה' (לאט לאט). להאיץ בהם נתפס כחוסר נימוס בוטה.", action: "שדרו רוגע והיו סבלניים בהשכרת הרכב ובשירות!" },
+            { category: "tips", name: "תקלות, 'שכר לימוד' וחוק ה-3 בבוקר", detail: "אף פעם לא מנהלים וויכוחים ב-3 בבוקר אחרי טיסה. קחו מפתח, לכו לישון, והכל ייראה אחרת בבוקר שאחרי. טעויות תכנון קורות. קראו לזה 'שכר לימוד'. שלמו את הקנס או המנה ואל תתנו לזה להרוס חופשה משפחתית שלמה.", action: "נהלו משברים ברוגע ובסלחנות" },
+            { category: "tips", name: "שדרוג חדר ובעיות במזגן", detail: "בישראל מצופה שבעל העסק יבוא לקראתנו. ביוון, גישת 'זה לא מה שהזמנתי!' תגרום להם להתגונן. הגישה שעובדת תמיד לוקחת אחריות או מנקה אותם מאשמה: 'אנחנו כנראה לא מבינים איך השלט של המזגן עובד, תוכלו לעזור?'. רוצים לשדרג? שאלו בנימוס אם יש חדר פנוי עם נוף, והציעו להוסיף תשלום. לעיתים קרובות ישדרגו אתכם בחינם.", action: "בקשו עזרה במקום להטיח האשמות" },
+            { category: "tips", name: "חוקי הטברנה: המלצות וטיפים במזומן", detail: "אל תשאלו נהגי מוניות 'מה המסעדה הכי טובה?' (ישלחו אתכם למלכודת תיירים יקרה). שאלו: 'איפה *אתה* הכי אוהב לאכול?'. הגעתם לקראת סגירה? שאלו בנימוס: 'אנחנו מורעבים, יש סיכוי למשהו קטן ומהיר שלא יעכב אתכם?'. הלב היווני ייפתח מיד. שילמתם באשראי? השאירו תמיד כמה יורו במזומן על השולחן.", action: "השאירו את הטיפ במטבעות מזומן על השולחן" }
         ];
 
         let activeGuideRegion = "kassandra";
         let activeGuideCategory = "all";
+        let activePhraseCategory = "all";
 
         function populateCategoryFilters() {
             const container = document.getElementById("category-filter-container");
@@ -471,27 +767,18 @@
 
             let categories = [];
             if (activeGuideRegion === "kassandra") {
-                categories = [
-                    { id: "all", label: "🌍 הכל" },
-                    { id: "villages", label: "🏘️ עיירות וכפרים" },
-                    { id: "beaches", label: "🏖️ חופים" },
-                    { id: "culinary", label: "🍽️ קולינריה" },
-                    { id: "tips", label: "💡 טיפים" }
-                ];
+                categories = [{ id: "all", label: "🌍 הכל" }, { id: "villages", label: "🏘️ עיירות" }, { id: "beaches", label: "🏖️ חופים שקטים" }, { id: "culinary", label: "🍽️ מסעדות" }];
             } else if (activeGuideRegion === "sithonia") {
-                categories = [
-                    { id: "all", label: "🌍 הכל" },
-                    { id: "villages", label: "🏘️ עיירות ונמלים" },
-                    { id: "beaches", label: "🌲 חופי טורקיז" },
-                    { id: "culinary", label: "🐙 טברנות דגים" },
-                    { id: "tips", label: "💡 טיפים ושייט" }
-                ];
+                categories = [{ id: "all", label: "🌍 הכל" }, { id: "villages", label: "🏘️ כפרים ונמלים" }, { id: "beaches", label: "🌲 חופים שקטים" }, { id: "culinary", label: "🐙 טברנות ואוכל" }];
             } else if (activeGuideRegion === "thessaloniki") {
                 categories = [
-                    { id: "all", label: "🌍 הכל" },
-                    { id: "shopping", label: "🛍️ קניות ושופינג" },
-                    { id: "culinary", label: "🍽️ מסעדות ואוכל" },
-                    { id: "tips", label: "💡 טיפים לעיר" }
+                    { id: "all", label: "🌍 הכל" }, 
+                    { id: "gardens", label: "🍀 גינות וחצרות" }, 
+                    { id: "rooftops", label: "🌅 גגות ונופים" }, 
+                    { id: "bars", label: "🍹 ברים ואפריטיבו" },
+                    { id: "music", label: "🎻 טברנות ומוזיקה" },
+                    { id: "villas", label: "🏛️ וילות ותרבות" },
+                    { id: "sea", label: "🌊 ליד הים" }
                 ];
             }
 
@@ -500,9 +787,7 @@
                 button.onclick = () => selectGuideCategory(cat.id);
                 button.id = `cat-btn-${cat.id}`;
                 button.className = "flex-shrink-0 px-4 py-1.5 text-xs font-semibold rounded-full transition-all border " +
-                    (activeGuideCategory === cat.id 
-                        ? "bg-textMain border-textMain text-white shadow-md" 
-                        : "bg-white border-slate-200 text-slate-600 active:bg-slate-50");
+                    (activeGuideCategory === cat.id ? "bg-textMain border-textMain text-white" : "bg-white border-slate-200 text-slate-600");
                 button.innerText = cat.label;
                 container.appendChild(button);
             });
@@ -511,25 +796,58 @@
         function selectGuideRegion(regionId) {
             activeGuideRegion = regionId;
             activeGuideCategory = "all";
+            
             document.querySelectorAll(".guide-region-tab").forEach(btn => {
                 btn.classList.remove('bg-primaryLight', 'text-primaryDark', 'border-primaryLight');
                 btn.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
             });
             const activeBtn = document.getElementById(`guide-reg-btn-${regionId}`);
-            activeBtn.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
-            activeBtn.classList.add('bg-primaryLight', 'text-primaryDark', 'border-primaryLight');
+            if(activeBtn) {
+                activeBtn.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
+                activeBtn.classList.add('bg-primaryLight', 'text-primaryDark', 'border-primaryLight');
+            }
+
             populateCategoryFilters();
             filterLocations();
         }
 
         function selectGuideCategory(catId) {
             activeGuideCategory = catId;
+            
             document.querySelectorAll("#category-filter-container button").forEach(btn => {
                 btn.className = "flex-shrink-0 px-4 py-1.5 text-xs font-semibold rounded-full transition-all border bg-white border-slate-200 text-slate-600";
             });
             const activeBtn = document.getElementById(`cat-btn-${catId}`);
-            if (activeBtn) activeBtn.className = "flex-shrink-0 px-4 py-1.5 text-xs font-semibold rounded-full transition-all border bg-textMain border-textMain text-white";
+            if (activeBtn) {
+                activeBtn.className = "flex-shrink-0 px-4 py-1.5 text-xs font-semibold rounded-full transition-all border bg-textMain border-textMain text-white";
+            }
             filterLocations();
+        }
+
+        // Voice speech synthesis for Greek Phrasebook
+        function playGreekSpeech(greekText) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(greekText);
+                utterance.lang = 'el-GR';
+                utterance.rate = 0.8; 
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function togglePhraseAccordion(id) {
+            const body = document.getElementById(id + '-body');
+            const chevron = document.getElementById(id + '-chevron');
+            
+            if(body.classList.contains('hidden')) {
+                body.classList.remove('hidden');
+                body.classList.add('block');
+                chevron.classList.add('rotate-180');
+            } else {
+                body.classList.remove('block');
+                body.classList.add('hidden');
+                chevron.classList.remove('rotate-180');
+            }
         }
 
         function filterLocations() {
@@ -541,7 +859,7 @@
             const filtered = locationsData.filter(loc => {
                 const matchesRegion = loc.region === activeGuideRegion;
                 const matchesCategory = activeGuideCategory === "all" || loc.category === activeGuideCategory;
-                const searchString = `${loc.name} ${loc.character} ${loc.vibe} ${loc.action}`.toLowerCase();
+                const searchString = `${loc.name} ${loc.character} ${loc.vibe || ''} ${loc.action}`.toLowerCase();
                 const matchesSearch = !searchVal || searchString.includes(searchVal);
                 return matchesRegion && matchesCategory && matchesSearch;
             });
@@ -552,21 +870,31 @@
             } else {
                 emptyState.classList.add("hidden");
                 grid.classList.remove("hidden");
-                filtered.forEach(loc => {
+
+                filtered.forEach((loc, index) => {
                     const card = document.createElement("div");
-                    card.className = "bg-cardBg rounded-3xl overflow-hidden shadow-soft border border-slate-100 flex flex-col";
+                    // Assign border accent based on category
+                    let borderCol = "border-primary";
+                    if (loc.category === 'beaches') borderCol = "border-sky-400";
+                    if (loc.category === 'culinary' || loc.category === 'music') borderCol = "border-amber-500";
+                    if (loc.category === 'gardens') borderCol = "border-emerald-500";
+                    if (loc.category === 'villas') borderCol = "border-indigo-500";
+                    
+                    card.className = `bg-cardBg rounded-2xl p-4 shadow-soft border-r-4 ${borderCol} flex flex-col justify-between gap-3 border border-slate-100`;
                     card.innerHTML = `
-                        <div class="relative h-40 w-full bg-slate-100">
-                            <img src="${loc.image}" alt="${loc.name}" class="w-full h-full object-cover">
-                            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-full shadow-sm"><span class="text-[10px] font-bold text-textMain">${loc.badge}</span></div>
-                        </div>
-                        <div class="p-4">
-                            <h4 class="font-bold text-base text-textMain mb-2">${loc.name}</h4>
-                            <p class="text-xs text-textMuted leading-relaxed mb-3">${loc.character} ${loc.vibe}</p>
-                            <div class="flex items-center justify-between mt-3 pt-3 border-t border-slate-50">
-                                <span class="text-[10px] font-semibold text-primary px-2 py-1 bg-primaryLight/50 rounded-lg">👍 ${loc.action.substring(0, 30)}...</span>
-                                <a href="${loc.mapsUrl}" target="_blank" class="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center text-primary transition-all active:scale-95"><i class="ph-fill ph-navigation-arrow text-lg"></i></a>
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="text-[10px] font-extrabold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">${loc.badge}</span>
                             </div>
+                            <h4 class="font-bold text-base text-textMain">${loc.name}</h4>
+                            <p class="text-xs text-textMuted leading-relaxed mt-2 font-medium">${loc.character}</p>
+                            ${loc.vibe ? `<p class="text-xs text-slate-500 leading-relaxed mt-1.5">${loc.vibe}</p>` : ''}
+                        </div>
+                        <div class="flex items-center justify-between mt-2 pt-2 border-t border-slate-50">
+                            <span class="text-[10px] font-bold text-primary bg-primaryLight/40 px-2 py-1 rounded-lg leading-normal flex-1 ml-2">💡 ${loc.action}</span>
+                            <a href="${loc.mapsUrl}" target="_blank" class="w-9 h-9 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-primary transition-all active:scale-95 flex-shrink-0" title="ניווט במפה">
+                                <i class="ph-fill ph-navigation-arrow text-base"></i>
+                            </a>
                         </div>
                     `;
                     grid.appendChild(card);
@@ -574,7 +902,96 @@
             }
         }
 
-        // 4. ITINERARY DATA (FULLY RESTORED RAW TEXT)
+        // 5. PHRASEBOOK FILTERING & RENDERING (Tab 3)
+        function selectPhraseCategory(catId) {
+            activePhraseCategory = catId;
+            document.querySelectorAll(".phrase-cat-btn").forEach(btn => {
+                btn.className = "phrase-cat-btn flex-shrink-0 px-4 py-1.5 text-xs font-semibold rounded-full transition-all border bg-white border-slate-200 text-slate-600";
+            });
+            const activeBtn = document.getElementById(`phrase-cat-${catId}`);
+            if (activeBtn) {
+                activeBtn.className = "phrase-cat-btn flex-shrink-0 px-4 py-1.5 text-xs font-semibold rounded-full transition-all border bg-textMain border-textMain text-white";
+            }
+            filterPhrases();
+        }
+
+        function filterPhrases() {
+            const searchVal = document.getElementById("phrase-search-input").value.trim().toLowerCase();
+            const container = document.getElementById("phrases-accordion-container");
+            const emptyState = document.getElementById("phrase-empty-state");
+            container.innerHTML = "";
+
+            const filtered = phrasesData.filter(phrase => {
+                const matchesCategory = activePhraseCategory === "all" || phrase.category === activePhraseCategory;
+                const searchString = `${phrase.name} ${phrase.greek || ''} ${phrase.phonetic || ''} ${phrase.detail || ''} ${phrase.action}`.toLowerCase();
+                const matchesSearch = !searchVal || searchString.includes(searchVal);
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                emptyState.classList.remove("hidden");
+                container.classList.add("hidden");
+            } else {
+                emptyState.classList.add("hidden");
+                container.classList.remove("hidden");
+
+                filtered.forEach((phrase, index) => {
+                    const card = document.createElement("div");
+                    const cardId = `phrase-card-${index}`;
+                    const isTip = phrase.category === 'tips';
+                    
+                    card.className = "bg-cardBg rounded-2xl overflow-hidden shadow-soft border border-slate-100 transition-all duration-300";
+                    
+                    card.innerHTML = `
+                        <!-- Accordion Header -->
+                        <button onclick="togglePhraseAccordion('${cardId}')" class="w-full flex items-center justify-between p-4 text-right hover:bg-slate-50/50 transition-colors focus:outline-none">
+                            <div class="flex items-center gap-3">
+                                <span class="text-base">${isTip ? '💡' : '🗣️'}</span>
+                                <div class="flex flex-col">
+                                    <span class="font-extrabold text-sm text-textMain">${phrase.name}</span>
+                                    ${!isTip && phrase.greek ? `<span class="text-xs text-primaryDark font-mono font-semibold" dir="ltr">${phrase.greek}</span>` : ''}
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[9px] ${phrase.category === 'tips' ? 'bg-amber-50 text-amber-700' : 'bg-sky-50 text-sky-700'} font-bold px-2 py-0.5 rounded">
+                                    ${phrase.category === 'tips' ? 'התנהגות' : phrase.category === 'tavern' ? 'טברנה' : 'שיחון'}
+                                </span>
+                                <i id="${cardId}-chevron" class="ph-bold ph-caret-down text-slate-400 transition-transform duration-200 text-sm"></i>
+                            </div>
+                        </button>
+                        
+                        <!-- Accordion Body -->
+                        <div id="${cardId}-body" class="hidden border-t border-slate-50 bg-slate-50/60 p-4 space-y-3">
+                            ${isTip ? `
+                                <p class="text-xs text-slate-600 leading-relaxed">${phrase.detail}</p>
+                                <div class="text-[10px] text-accent font-semibold bg-sky-50 border border-sky-100/50 p-2.5 rounded-xl">💡 ${phrase.action}</div>
+                            ` : `
+                                <div class="grid grid-cols-2 gap-2 text-xs bg-white p-3 rounded-xl border border-slate-100 shadow-sm">
+                                    <div>
+                                        <span class="text-[9px] text-slate-400 block">איך הוגים:</span>
+                                        <span class="font-extrabold text-slate-800">${phrase.phonetic}</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-[9px] text-slate-400 block">באנגלית:</span>
+                                        <span class="font-semibold text-slate-800 font-mono" dir="ltr">${phrase.english}</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-slate-500 leading-relaxed">${phrase.detail || ''}</p>
+                                <div class="flex items-center justify-between gap-3 pt-2">
+                                    <span class="text-[10px] font-semibold text-accent px-2 py-1 bg-sky-50 rounded-lg leading-relaxed flex-1">💡 ${phrase.action}</span>
+                                    <button onclick="playGreekSpeech('${phrase.greek}')" class="w-10 h-10 bg-primaryLight hover:bg-primary/20 text-primaryDark rounded-full flex items-center justify-center transition-all active:scale-90 flex-shrink-0" title="הקרא בקול">
+                                        <i class="ph-bold ph-speaker-high text-lg"></i>
+                                    </button>
+                                </div>
+                            `}
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+        }
+
+        // ==================== ITINERARY DATA ====================
         const itineraryData = [
             {
                 day: 1, weekday: "יום רביעי", date: "01/07/2026", title: "נחיתה ונחיתה רכה לווייב היווני", hotel: "Domes Noruz Kassandra",
@@ -584,7 +1001,7 @@
                     "הגעה למלון ב-15:00, צ'ק-אין, מנוחה ובטן-גב בחוף המלון.",
                     "בערב: שיטוט רגלי בעיירה חניוטי (Hanioti)."
                 ],
-                notes: "איסוף רכב מ-Budget שדה התעופה ב-08:30."
+                notes: "איסוף רכב מ-Budget שדה התעופה ב-08:30 (טרמינל 1)."
             },
             {
                 day: 2, weekday: "יום חמישי", date: "02/07/2026", title: "שייט חלומי בלגונות של סיטוניה", hotel: "Domes Noruz Kassandra",
@@ -592,29 +1009,27 @@
                     "נסיעה מוקדמת לסיטוניה (וורוורו) לשייט חצי יום (09:00 - 13:00) עם סירה ללא רישיון (עד 30 כ\"ס) באי דיאפורוס (Diaporos).",
                     "עגינה בלגונות ריקות (Blue Lagoon).",
                     "החזרת הסירה וארוחת צהריים של דגים טריים בטברנה מקומית על קו המים בוורוורו.",
-                    "אחה\"ד: מנוחה בריזורט.",
-                    "ערב: בר מקומי בחניוטי."
+                    "אחה\"ד: מנוחה בריזורט. ערב: בר מקומי בחניוטי."
                 ],
-                notes: "הוזמנה סירת Compass 168cc Pro. הגעה ב-09:00 בדיוק לוורוורו ל-YOLO rent a boat."
+                notes: "הוזמנה סירת Compass 168cc Pro מחברת YOLO rent a boat בוורוורו. שעת הגעה: 09:00 בבוקר בדיוק."
             },
             {
                 day: 3, weekday: "יום שישי", date: "03/07/2026", title: "בטן גב", hotel: "Domes Noruz Kassandra",
                 bullets: [
-                    "נשארים במתחם המלון המפנק.",
-                    "רביצה על מיטות השיזוף, שחייה בים השטוח וקריאת ספר באווירה הנהדרת של המלון.",
+                    "נשארים במתחם המלון המפנק. רביצה על מיטות השיזוף, שחייה בים השטוח וקריאת ספר באווירה הנהדרת של המלון.",
                     "צהריים: הליכה קצרה של 5 דקות למרכז חניוטי לאכול אוכל רחוב יווני אמיתי וזול (גירוס עסיסי בפיתה חמה).",
-                    "ערב: Kallithea - בארים / מועדונים - לבדוק."
+                    "ערב: קליתאה (Kallithea) - ברים או מועדוני ענק לבדוק."
                 ],
-                notes: "יום חופשי ונינוח."
+                notes: ""
             },
             {
                 day: 4, weekday: "יום שבת", date: "04/07/2026", title: "נסיעות קצרות בקסנדרה", hotel: "Domes Noruz Kassandra",
                 bullets: [
                     "ארוחת בוקר מאוחרת וזמן בריכה.",
-                    "אחה\"צ: נסיעה קצרה לשיטוט מעמיק בסמטאות האבן הציוריות של אפיטוס (Afytos), תצפיות נוף לים ללא לחץ.",
                     "צהריים בביצ׳קלאב עלמה - Alma Beach.",
-                    "בערב: נסיעה לכפר השכן קריופיגי (Kriopigi) לארוחת ערב אותנטית - להשלים.",
-                    "לקפוץ לאיזור של Sani Dunes."
+                    "אחה\"צ: נסיעה קצרה לשיטוט מעמיק בסמטאות האבן הציוריות של אפיטוס (Afytos), תצפיות נוף לים ללא לחץ.",
+                    "בערב: נסיעה לכפר השכן קריופיגי (Kriopigi) לארוחת ערב אותנטית.",
+                    "לקפוץ לאזור של Sani Dunes."
                 ],
                 notes: ""
             },
@@ -630,13 +1045,13 @@
             {
                 day: 6, weekday: "יום שני", date: "06/07/2026", title: "סיטוניה - Road Trip", hotel: "Domes Noruz Kassandra",
                 bullets: [
-                    "09:30 - יציאה לדרך: יציאה מחניוטי ונסיעה של כשעה אל עבר החוף המערבי של סיטוניה. הנסיעה בשעות הבוקר נעימה והנופים משתנים ככל שמתקרבים לאזור המיוער של סיטוניה.",
-                    "10:30 - 12:30 | חוף קלוגריה (Kalogria Beach): הגעה לאחד החופים היפים והרגועים ביותר בחצי האי. בשעות הבוקר, הים בתוך המפרץ המוגן של קלוגריה שטוח לחלוטין כמו מראה, והמים צלולים ומאפשרים לראות את הקרקעית החולית בבהירות מוחלטת. תפסו מקום תחת עצי האורן המגיעים כמעט עד קו המים, ותיהנו משחיית בוקר מושלמת במים השקטים והרדודים לפני שהמוני התיירים מגיעים.",
-                    "12:30 - 12:50 | נסיעה אל הכפר פרתנונאס (Parthenonas): נסיעה קצרה ויפה של כ-20 דקות במעלה כביש הררי מפותל אל הכפר ההיסטורי והמשוחזר שנמצא בגובה 350 מטרים מעל פני הים.",
-                    "12:50 - 14:00 | שיטוט וקפה בפרתנונאס: טיול רגוע בין סמטאות האבן העתיקות והשקטות של הכפר הציורי. עצרו לקפה יווני מסורתי או משקה קר בטברנה מקומית תחת צל עץ הדולב הענק בכיכר המרכזית. הנוף הפנורמי מכאן על מפרץ טורונאוס והאי הקטן קליפוס פשוט מרהיב, ותוכלו לראות מפה את האצבע של קסנדרה (כולל האזור הכללי של המלון שלכם) פרוסה לרווחה.",
-                    "14:00 - 14:30 | נסיעה דרומה אל פורטו קופו (Porto Koufo): נסיעה פסטורלית של כ-30 דקות לאורך כביש החוף המערבי והירוק של סיטוניה עד לקצה הדרומי ביותר של האצבע.",
-                    "14:30 - 16:30 | ארוחת צהריים אותנטית בפורטו קופו: הגעה לפורטו קופו, נמל דייגים טבעי עצום המוקף בצוקים דרמטיים ומזכיר פיורד נורווגי שקט. שבו לארוחת צהריים מאוחרת ואיטית באחת מטברנות הדייגים הפשוטות על קו המים (כמו Taverna Porto Koufo או Tzitzikas). זהו המקום לטעום דגים ופירות ים טריים שנחתו מהסירות באותו הבוקר, לצד צ'יפס יווני אמיתי, סלט חוריאטיקי עסיסי וכוס אוזו או בירה קרה – חוויה פשוטה, אותנטית וטעימה ללא שום שמץ של פלצנות.",
-                    "16:30 - 18:00 | דרך חזרה נופית דרך החוף המזרחי: יציאה מפורטו קופו ונסיעה חזרה צפונה דרך כביש החוף המזרחי של סיטוניה. הדרך פראית ומרהיבה, ומציעה נקודות תצפית דרמטיות אל עבר חצי האי אתוס והר אתוס המרשים באור הדמדומים הרך של שעות אחר הצהריים המאוחרות."
+                    "09:30 - יציאה לדרך: יציאה מחניוטי ונסיעה של כשעה אל עבר החוף המערבי של סיטוניה.",
+                    "10:30 - 12:30 | חוף קלוגריה (Kalogria Beach): הגעה לאחד החופים היפים והרגועים ביותר בחצי האי. הים בתוך המפרץ המוגן שטוח לחלוטין.",
+                    "12:30 - 12:50 | נסיעה אל הכפר פרתנונאס (Parthenonas): נסיעה קצרה ויפה של כ-20 דקות במעלה כביש הררי מפותל אל הכפר ההיסטורי והמשוחזר.",
+                    "12:50 - 14:00 | שיטוט וקפה בפרתנונאס: טיול רגוע בין סמטאות האבן. עצרו לקפה יווני תחת עץ דולב ענק בכיכר מול תצפית פנורמית משגעת.",
+                    "14:00 - 14:30 | נסיעה דרומה אל פורטו קופו (Porto Koufo): נסיעה פסטורלית של כ-30 דקות לאורך כביש החוף המערבי והירוק.",
+                    "14:30 - 16:30 | ארוחת צהריים אותנטית בפורטו קופו: שבו לארוחת צהריים מאוחרת באחת מטברנות הדייגים (כמו Taverna Porto Koufo).",
+                    "16:30 - 18:00 | דרך חזרה נופית דרך החוף המזרחי: יציאה מפורטו קופו ונסיעה חזרה צפונה דרך כביש החוף המזרחי עם נקודות תצפית אל הר אתוס."
                 ],
                 notes: "להכין מזוודות למעבר מחר."
             },
@@ -644,19 +1059,18 @@
                 day: 7, weekday: "יום שלישי", date: "07/07/2026", title: "נפרדים מהים ועולים לסלוניקי האורבנית", hotel: "S Hotel Thessaloniki",
                 bullets: [
                     "צ'ק אאוט מהמלון. נסיעה חזרה לכיוון סלוניקי.",
-                    "החזרת הרכב השכור (Budget) בנמל סלוניקי (Port - Gate Parking 6) בשעה 19:00 ומעבר במונית גדולה/הסעה למלון הבוטיק במרכז העיר.",
-                    "צ'ק-אין ב-S Hotel Boutique.",
-                    "אחר הצהריים: הליכה רגועה לאורך הטיילת המפורסמת עד למגדל הלבן (White Tower).",
-                    "בערב: 🎉🎂 חגיגת יום הולדת לרחלי ואבנר! ארוחה ראשונה ברובע לדדיקה (Ladadika) התוסס והרומנטי בטברנת פאלאטי (Palati) עם מוזיקה חיה! 🥳"
+                    "החזרת הרכב השכור בנמל סלוניקי (Port of Thessaloniki - Gate Parking 6) בשעה 19:00 ומעבר במונית גדולה למלון הבוטיק.",
+                    "צ'ק-אין ב-S Hotel Boutique במרכז העיר. הליכה רגועה לאורך הטיילת המפורסמת עד למגדל הלבן.",
+                    "🎉🎂 חגיגת יום הולדת לרחלי ואבנר! ארוחת ערב חגיגית בשעה 20:30, מרימה בטברנת פאלאטי (Palati) בלדדיקה עם מוזיקה חיה! 🥳"
                 ],
-                notes: "שים לב למיקום החזרת הרכב: נמל סלוניקי לפי השובר המעודכן."
+                notes: "שים לב למיקום החזרת הרכב: נמל סלוניקי בהתאם לשובר (Gate Parking 6)."
             },
             {
                 day: 8, weekday: "יום רביעי", date: "08/07/2026", title: "שיטוט בעיר וקניות בג׳מבו ?", hotel: "S Hotel Thessaloniki",
                 bullets: [
-                    "בוקר: סיור קולינרי עצמאי בשווקים התוססים של סלוניקי - שוק קפאני (Kapani) ההיסטורי ושוק מודיאנו (Modiano) המודרני והמשופץ (מומלץ לאכול אוכל רחוב כמו בוגאצה או גירוס מעולה).",
-                    "צהריים: שופינג ברחוב Tsimiski הראשי (וכלבו notos).",
-                    "לקראת שקיעה: עלייה במונית לעיר העתיקה (Ano Poli) לתצפית פנורמית מהממת וארוחת ערב בטברנה מסורתית מול הנוף."
+                    "בוקר: סיור קולינרי עצמאי בשווקים התוססים של סלוניקי - שוק קפאני (Kapani) ההיסטורי ושוק מודיאנו (Modiano) המודרני והמשופץ.",
+                    "צהריים: שופינג ברחוב Tsimiski הראשי.",
+                    "לקראת שקיעה: עלייה במונית לעיר העתיקה (Ano Poli) לתצפית פנורמית וארוחת ערב בטברנה מסורתית מול הנוף."
                 ],
                 notes: ""
             },
@@ -668,9 +1082,11 @@
                     "ארוחת ערב אחרונה חגיגית בעיר.",
                     "21:30: איסוף המזוודות ונסיעה במונית לשדה התעופה לקראת טיסת הלילה."
                 ],
-                notes: "נחיתה בארץ ב-10/07 לפנות בוקר."
+                notes: "נחיתה בארץ ב-10/07 לפנות בוקר (שישי בבוקר, טיסה LY5248 יוצאת ב-00:40 בלילה וממריאה מטרמינל 1)."
             }
         ];
+
+        let activeDay = 1;
 
         function initItinerary() {
             const selectorContainer = document.getElementById("day-selector");
@@ -680,7 +1096,9 @@
                 const button = document.createElement("button");
                 button.id = `day-btn-${day.day}`;
                 button.onclick = () => selectDay(day.day);
+                
                 button.className = "day-tab flex-shrink-0 flex flex-col items-center justify-center w-[72px] h-[80px] rounded-2xl transition-all border border-slate-200 bg-white";
+                
                 button.innerHTML = `
                     <span class="text-[10px] text-textMuted font-medium">${day.weekday.split(' ')[1]}</span>
                     <span class="text-xl font-bold text-textMain leading-none my-1">${day.day}</span>
@@ -688,6 +1106,7 @@
                 `;
                 selectorContainer.appendChild(button);
             });
+            
             selectDay(1);
         }
 
@@ -700,6 +1119,7 @@
                 btn.querySelector('span:nth-child(2)').className = "text-xl font-bold text-textMain leading-none my-1";
                 btn.querySelector('span:nth-child(1)').className = "text-[10px] text-textMuted font-medium";
             });
+            
             const activeBtn = document.getElementById(`day-btn-${dayNumber}`);
             if (activeBtn) {
                 activeBtn.className = "day-tab flex-shrink-0 flex flex-col items-center justify-center w-[72px] h-[80px] rounded-2xl transition-all border-none bg-textMain text-white shadow-md transform scale-105";
@@ -708,12 +1128,13 @@
             }
             
             const detailContainer = document.getElementById("day-detail-box");
+
             let bulletsHTML = `<div class="space-y-3 mt-4">`;
             day.bullets.forEach((b, index) => {
                 const isCelebration = b.includes("🎉") || b.includes("🎂");
                 bulletsHTML += `
                     <div class="flex items-start gap-3 p-3.5 bg-slate-50 rounded-2xl ${isCelebration ? 'bg-amber-50 border border-amber-200 shadow-sm' : ''}">
-                        <div class="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 ${isCelebration ? 'bg-amber-100 text-amber-500' : 'bg-primaryLight text-primary'} text-xs font-bold">
+                        <div class="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 ${isCelebration ? 'bg-amber-100 text-amber-500' : 'bg-primaryLight text-primary'} text-xs font-bold mt-0.5">
                             ${isCelebration ? '👑' : (index + 1)}
                         </div>
                         <span class="${isCelebration ? 'text-slate-900 font-bold' : 'text-slate-700'} text-sm leading-relaxed">${b}</span>
@@ -730,8 +1151,11 @@
                             <i class="ph-fill ph-bed"></i> ${day.hotel.split(' ')[0]}
                         </div>
                     </div>
+                    
                     <h3 class="text-xl font-extrabold text-textMain font-sans leading-tight">${day.title}</h3>
+                    
                     ${bulletsHTML}
+
                     ${day.notes ? `
                     <div class="mt-4 p-3 bg-amber-50/50 rounded-xl border border-amber-100/50">
                         <p class="text-xs text-amber-800 leading-relaxed font-medium"><i class="ph-fill ph-warning-circle text-amber-500 mr-1"></i> ${day.notes}</p>
@@ -740,26 +1164,27 @@
             `;
         }
 
-        // 5. CHECKLIST DATA
+        // ==================== CHECKLIST LOGIC ====================
         const defaultChecklist = {
             logistics: [
-                { id: "log-1", text: "צילום רישיונות נהיגה ודרכונים", checked: false },
+                { id: "log-1", text: "צילום רישיונות נהיגה ודרכונים בטלפון", checked: false },
                 { id: "log-2", text: "הדפסת אישור שריון Domes Noruz", checked: false },
-                { id: "log-3", text: "רישיון ישראלי (פלסטיק) + בינלאומי", checked: false }
+                { id: "log-3", text: "רישיון פלסטיק ישראלי + רישיון בינלאומי", checked: false }
             ],
             packing: [
-                { id: "pack-1", text: "נעלי מים מגומי (חובה בסיטוניה)", checked: false },
+                { id: "pack-1", text: "נעלי מים מגומי (חובה לחופי סיטוניה)", checked: false },
                 { id: "pack-2", text: "קרם הגנה, שפתון וקרם לחות", checked: false },
-                { id: "pack-3", text: "כבלים ומתאמים לרכב (למוזיקה)", checked: false }
+                { id: "pack-3", text: "כבלי USB ומתאמים לרכב", checked: false }
             ]
         };
 
         function loadChecklist() {
-            let savedList = localStorage.getItem("greece_trip_checklist_v3");
+            let savedList = localStorage.getItem("greece_trip_checklist_v6");
             if (!savedList) {
                 savedList = JSON.stringify(defaultChecklist);
-                localStorage.setItem("greece_trip_checklist_v3", savedList);
+                localStorage.setItem("greece_trip_checklist_v6", savedList);
             }
+            
             const listObj = JSON.parse(savedList);
             const logContainer = document.getElementById("logistics-list");
             logContainer.innerHTML = "";
@@ -772,33 +1197,85 @@
 
         function createChecklistItem(item, type) {
             const div = document.createElement("div");
-            div.className = "flex items-center gap-3 p-3.5 bg-slate-50 rounded-2xl active:bg-slate-100 transition-colors cursor-pointer";
-            div.onclick = (e) => {
-                if (e.target.tagName !== 'INPUT') {
-                    const checkbox = div.querySelector('input');
-                    checkbox.checked = !checkbox.checked;
-                    toggleChecklistItem(item.id, type, checkbox.checked);
-                }
-            };
+            div.className = "flex items-center justify-between p-3 bg-slate-50 rounded-2xl active:bg-slate-100 transition-colors cursor-pointer group";
+            
             div.innerHTML = `
-                <input type="checkbox" id="${item.id}" ${item.checked ? 'checked' : ''} 
-                    onchange="toggleChecklistItem('${item.id}', '${type}', this.checked)"
-                    class="w-5 h-5 text-primary border-slate-300 rounded-md focus:ring-primaryLight cursor-pointer ml-1">
-                <label for="${item.id}" class="text-sm font-medium transition-all ${item.checked ? 'line-through text-slate-400' : 'text-textMain'} pointer-events-none">
-                    ${item.text}
-                </label>
+                <div class="flex items-center gap-3 flex-1" onclick="handleItemCheck('${item.id}', '${type}')">
+                    <input type="checkbox" id="${item.id}" ${item.checked ? 'checked' : ''} 
+                        class="w-5 h-5 text-primary border-slate-300 rounded-md focus:ring-primaryLight cursor-pointer ml-1">
+                    <label for="${item.id}" class="text-sm font-medium transition-all ${item.checked ? 'line-through text-slate-400' : 'text-textMain'} pointer-events-none">
+                        ${item.text}
+                    </label>
+                </div>
+                <button onclick="deleteChecklistItem('${item.id}', '${type}')" class="p-1.5 text-slate-400 hover:text-red-500 rounded-lg transition-colors" title="מחק">
+                    <i class="ph ph-trash text-base"></i>
+                </button>
             `;
             return div;
         }
 
-        function toggleChecklistItem(id, type, isChecked) {
-            const savedList = JSON.parse(localStorage.getItem("greece_trip_checklist_v3"));
-            savedList[type].find(i => i.id === id).checked = isChecked;
-            localStorage.setItem("greece_trip_checklist_v3", JSON.stringify(savedList));
+        function handleItemCheck(id, type) {
+            const savedList = JSON.parse(localStorage.getItem("greece_trip_checklist_v6"));
+            const target = savedList[type].find(i => i.id === id);
+            if (target) {
+                target.checked = !target.checked;
+                localStorage.setItem("greece_trip_checklist_v6", JSON.stringify(savedList));
+                loadChecklist();
+            }
+        }
+
+        function addCustomChecklistItem() {
+            const textInput = document.getElementById("new-item-text");
+            const typeSelect = document.getElementById("new-item-type");
+            const text = textInput.value.trim();
+            const type = typeSelect.value;
+
+            if (!text) return;
+
+            const savedList = JSON.parse(localStorage.getItem("greece_trip_checklist_v6"));
+            const newItem = {
+                id: type + "-" + Date.now(),
+                text: text,
+                checked: false
+            };
+
+            savedList[type].push(newItem);
+            localStorage.setItem("greece_trip_checklist_v6", JSON.stringify(savedList));
+            
+            textInput.value = "";
             loadChecklist();
         }
-        
-        // 6. MOBILE MENU & ACCORDION
+
+        function deleteChecklistItem(id, type) {
+            const savedList = JSON.parse(localStorage.getItem("greece_trip_checklist_v6"));
+            savedList[type] = savedList[type].filter(i => i.id !== id);
+            localStorage.setItem("greece_trip_checklist_v6", JSON.stringify(savedList));
+            loadChecklist();
+        }
+
+        // ==================== INTERACTIVE MAP MODAL TOGGLE ====================
+        function toggleMapModal() {
+            const modal = document.getElementById('map-modal');
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                setTimeout(() => {
+                    modal.classList.remove('opacity-0');
+                    modal.querySelector('.transform').classList.remove('scale-95');
+                    modal.querySelector('.transform').classList.add('scale-100');
+                }, 10);
+            } else {
+                modal.classList.add('opacity-0');
+                modal.querySelector('.transform').classList.remove('scale-100');
+                modal.querySelector('.transform').classList.add('scale-95');
+                setTimeout(() => {
+                    modal.classList.remove('flex');
+                    modal.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        // ==================== MOBILE MENU & DRAWER ====================
         function openMobileMenu() {
             const backdrop = document.getElementById('mobile-menu-backdrop');
             const drawer = document.getElementById('mobile-menu-drawer');
@@ -813,26 +1290,22 @@
             const drawer = document.getElementById('mobile-menu-drawer');
             backdrop.classList.add('opacity-0');
             drawer.classList.add('translate-x-full');
-            setTimeout(() => { backdrop.classList.add('hidden'); }, 300);
+            setTimeout(() => backdrop.classList.add('hidden'), 300);
         }
 
-        function toggleMenuAccordion() {
-            const content = document.getElementById('guides-accordion');
-            const icon = document.getElementById('accordion-icon');
-            content.classList.toggle('open');
-            icon.classList.toggle('open');
+        function toggleAccordion(id) {
+            const el = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+            if(el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                el.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
         }
 
-        function navFromMenu(tabId, regionId = null) {
-            closeMobileMenu();
-            setTimeout(() => {
-                switchTab(tabId);
-                if (regionId) {
-                    selectGuideRegion(regionId);
-                }
-            }, 300);
-        }
-
+        // Copy Share Link to Clipboard
         function sharePlan() {
             closeMobileMenu();
             const dummy = document.createElement('input');
@@ -857,8 +1330,9 @@
         window.onload = function() {
             startCompactCountdown();
             initItinerary();
-            switchTab('itinerary');
+            switchTab('itinerary'); 
             selectGuideRegion('kassandra');
+            filterPhrases(); // Initialize Phrasebook rendering
             loadChecklist();
         };
     </script>
