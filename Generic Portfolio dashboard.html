@@ -122,6 +122,9 @@ input[type=number]:focus{outline:none;border-color:#3b82f6;}
 .grad-text{background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
 .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.g4charts{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+@media(max-width:1000px){.g4charts{grid-template-columns:1fr 1fr;}}
+@media(max-width:520px){.g4charts{grid-template-columns:1fr;}}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 @media(max-width:700px){.g3{grid-template-columns:1fr;}.g4{grid-template-columns:1fr 1fr;}.g2{grid-template-columns:1fr;}}
 .alloc-track{position:relative;height:8px;border-radius:4px;margin:5px 0 2px;}
@@ -153,6 +156,16 @@ body.light .sum-danger{background:#fef2f2;border-right-color:#dc2626;}
 body.light .sum-warn{background:#fffbeb;border-right-color:#f59e0b;}
 body.light .sum-ok{background:#f0fdf4;border-right-color:#16a34a;}
 body.light .act-rec{background:#f0f6ff;border:1px solid #dbeafe;}
+
+/* ===== VEHICLE FILTER + ICON ===== */
+.vf-btn{padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:700;cursor:pointer;border:1px solid;transition:all .2s;}
+body.dark .vf-btn{background:transparent;border-color:#1a2540;color:#475569;}
+body.dark .vf-btn.active{background:#0c2340;color:#60a5fa;border-color:#2563eb;}
+body.light .vf-btn{background:#fff;border-color:#e2e8f0;color:#94a3b8;}
+body.light .vf-btn.active{background:#dbeafe;color:#1d4ed8;border-color:#93c5fd;}
+.veh-ico{display:inline-flex;align-items:center;justify-content:center;font-size:.7rem;width:16px;flex-shrink:0;}
+.veh-etf{color:#0ea5e9;}
+.veh-stock{color:#f43f5e;}
 
 /* ===== HELP MODAL ===== */
 .help-bg{display:none;position:fixed;inset:0;z-index:2000;align-items:center;justify-content:center;padding:16px;}
@@ -302,10 +315,11 @@ body.light .help-btn{background:#fff;border:1px solid #e2e8f0;color:#475569;}
   </div>
 </div>
 
-<div class="fu g3" style="margin-bottom:16px;">
+<div class="fu g4charts" style="margin-bottom:16px;">
   <div class="card" style="padding:14px;"><div class="soft" style="font-size:.82rem;font-weight:700;margin-bottom:10px;text-align:center;">הקצאת אפיקים</div><div style="position:relative;height:180px;"><canvas id="donutAlloc"></canvas></div><div id="alloc-legend" style="margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:3px;"></div></div>
   <div class="card" style="padding:14px;"><div class="soft" style="font-size:.82rem;font-weight:700;margin-bottom:10px;text-align:center;">סקטורים</div><div style="position:relative;height:180px;"><canvas id="pieSector"></canvas></div><div id="sector-legend" style="margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:3px;"></div></div>
   <div class="card" style="padding:14px;"><div class="soft" style="font-size:.82rem;font-weight:700;margin-bottom:10px;text-align:center;">חלוקת מטבע</div><div style="position:relative;height:180px;"><canvas id="donutCurr"></canvas></div><div id="curr-legend" style="margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:4px;"></div></div>
+  <div class="card" style="padding:14px;"><div class="soft" style="font-size:.82rem;font-weight:700;margin-bottom:10px;text-align:center;">מניות בודדות מול תעודות סל</div><div style="position:relative;height:180px;"><canvas id="donutVehicle"></canvas></div><div id="vehicle-legend" style="margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:4px;"></div></div>
 </div>
 
 <div class="card fu" style="margin-bottom:16px;">
@@ -341,6 +355,13 @@ body.light .help-btn{background:#fff;border:1px solid #e2e8f0;color:#475569;}
   <div id="gallery" class="acc-body"><div style="padding:0 16px 16px;" id="gallery-content"></div></div>
 </div>
 
+<div class="fu" style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+  <span class="muted" style="font-size:.8rem;font-weight:600;">סינון החזקות:</span>
+  <button class="vf-btn active" data-vf="all" onclick="setVehicleFilter('all',this)">הכל</button>
+  <button class="vf-btn" data-vf="etf" onclick="setVehicleFilter('etf',this)">📊 תעודות סל / קרנות</button>
+  <button class="vf-btn" data-vf="stock" onclick="setVehicleFilter('stock',this)">● מניות בודדות</button>
+  <span id="vf-summary" class="muted" style="font-size:.78rem;font-weight:600;margin-inline-start:auto;"></span>
+</div>
 <div class="fu" id="holdings-section" style="margin-bottom:16px;"></div>
 
 <div class="card fu" style="padding:0;margin-bottom:16px;overflow:hidden;">
@@ -1009,6 +1030,27 @@ function buildCharts() {
   if (charts.c) charts.c.destroy();
   charts.c = new Chart(document.getElementById('donutCurr'),{type:'doughnut',data:{labels:['\u05d3\u05d5\u05dc\u05e8 (USD)','\u05e9\u05e7\u05dc (ILS)'],datasets:[{data:[usd,ils],backgroundColor:['#3b82f6','#06b6d4'],borderWidth:2,borderColor:bg}]},options:{...chartBase,cutout:'62%',plugins:{...chartBase.plugins,tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${(ctx.raw/totalInv*100).toFixed(1)}%`}}}}});
   buildLegend('curr-legend',['\u05d3\u05d5\u05dc\u05e8 (USD)','\u05e9\u05e7\u05dc (ILS)'],['#3b82f6','#06b6d4'],[usd,ils],totalInv);
+
+  // ---- מניות בודדות מול תעודות סל ----
+  let etfVal=0, stockVal=0;
+  invested.forEach(d=>{ if(isETF(d)) etfVal+=d.val; else stockVal+=d.val; });
+  if (charts.v) charts.v.destroy();
+  charts.v = new Chart(document.getElementById('donutVehicle'),{type:'doughnut',data:{labels:['תעודות סל / קרנות','מניות בודדות'],datasets:[{data:[etfVal,stockVal],backgroundColor:['#0ea5e9','#f43f5e'],borderWidth:2,borderColor:bg}]},options:{...chartBase,cutout:'62%',plugins:{...chartBase.plugins,tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${(ctx.raw/totalInv*100).toFixed(1)}%`}}}}});
+  buildLegend('vehicle-legend',['תעודות סל / קרנות','מניות בודדות'],['#0ea5e9','#f43f5e'],[etfVal,stockVal],totalInv);
+}
+
+// Detects a pooled vehicle (ETF / index fund / mutual fund) vs a single stock
+function isETF(d){
+  const n=(d.name||'').toLowerCase();
+  // pooled-vehicle keywords (indices, tracking funds, ETFs)
+  const pooled=['etf','ucits','מחקה','מדד','קרן','tracker','index',
+    's&p','sp 500','500','world','ftse','acwi','msci','nasdaq','נאסדק','russell','stoxx','dax','nikkei',
+    'mags','magnificent','vaneck','vanguard','ishares','invesco','spdr','אינ.חוץ','איישרס',
+    'מור.מ','הרל','הראל','קסם','איביאי','אלטשולר','ת"א','תא ','גוב','בונד','emerging','מתעוררים','מתפתחים',
+    'europe','אירופה','gold','זהב','agriculture','commodit','reit','ריט','bitcoin','ibit','qqq','tqqq','smh','eem','gld'];
+  // categories that are inherently pooled/fund-based
+  if(['global_eq','em_eq','europe_eq','asia_eq','gov_bond','corp_bond','linked_bond','gold','commodities'].includes(d.catId)) return true;
+  return pooled.some(k=>n.includes(k));
 }
 function updateChartBorders() {
   const bg = getBg();
@@ -1037,10 +1079,21 @@ function updSum(){
 /* HOLDINGS */
 function renderHoldings() {
   const el = document.getElementById('holdings-section'); el.innerHTML='';
+  // filter summary line
+  const etfItems=invested.filter(d=>isETF(d)), stockItems=invested.filter(d=>!isETF(d));
+  const etfVal=etfItems.reduce((s,d)=>s+d.val,0), stockVal=stockItems.reduce((s,d)=>s+d.val,0);
+  const sumEl=document.getElementById('vf-summary');
+  if(sumEl){
+    if(vehicleFilter==='etf') sumEl.innerHTML=`מוצג: ${etfItems.length} תעודות סל · ₪${Math.round(etfVal).toLocaleString('he-IL')} (${(etfVal/totalInv*100).toFixed(0)}% מהתיק)`;
+    else if(vehicleFilter==='stock') sumEl.innerHTML=`מוצג: ${stockItems.length} מניות בודדות · ₪${Math.round(stockVal).toLocaleString('he-IL')} (${(stockVal/totalInv*100).toFixed(0)}% מהתיק)`;
+    else sumEl.innerHTML=`📊 ${(etfVal/totalInv*100).toFixed(0)}% תעודות · ● ${(stockVal/totalInv*100).toFixed(0)}% מניות בודדות`;
+  }
   Object.keys(CATS).forEach(k => {
-    const items = invested.filter(d => d.catId===k);
-    if (!items.length && !targets[k]) return;
-    const val=items.reduce((s,d)=>s+d.val,0),actual=val/totalInv*100,tgt=targets[k],diff=actual-tgt;
+    const allItems = invested.filter(d => d.catId===k);
+    const items = allItems.filter(d => vehicleFilter==='all' || (vehicleFilter==='etf'?isETF(d):!isETF(d)));
+    if (!allItems.length && !targets[k]) return;
+    if (vehicleFilter!=='all' && !items.length) return;
+    const val=allItems.reduce((s,d)=>s+d.val,0),actual=val/totalInv*100,tgt=targets[k],diff=actual-tgt;
     const isbal=Math.abs(diff)<1.5,isover=diff>0&&!isbal;
     const gapCls=isbal?'gap-bal':isover?'gap-pos':'gap-neg';
     const fillW=Math.min(actual/Math.max(tgt,actual)*100,100);
@@ -1066,11 +1119,20 @@ function renderHoldings() {
         <table><thead><tr><th>נייר</th><th>חשבון</th><th>שווי ₪</th><th>% תיק</th><th>תשואה</th></tr></thead>
         <tbody>${items.map(d => {
           const bi = accountList.indexOf(d.account);
-          return `<tr><td style="font-weight:600">${d.name}</td><td><span class="badge badge-${bi>=0?bi:0}">${d.account}</span></td><td style="font-weight:700">₪${d.val.toLocaleString('he-IL',{maximumFractionDigits:0})}</td><td class="neu">${(d.val/totalInv*100).toFixed(1)}%</td><td class="${d.ret>0?'pos':d.ret<0?'neg':'neu'}">${d.ret>0?'+':''}${d.ret.toFixed(2)}%</td></tr>`;
+          const etf=isETF(d);
+          const ico=etf?`<span class="veh-ico veh-etf" title="תעודת סל / קרן">📊</span>`:`<span class="veh-ico veh-stock" title="מניה בודדת">●</span>`;
+          return `<tr><td style="font-weight:600"><span style="display:inline-flex;align-items:center;gap:6px;">${ico}${d.name}</span></td><td><span class="badge badge-${bi>=0?bi:0}">${d.account}</span></td><td style="font-weight:700">₪${d.val.toLocaleString('he-IL',{maximumFractionDigits:0})}</td><td class="neu">${(d.val/totalInv*100).toFixed(1)}%</td><td class="${d.ret>0?'pos':d.ret<0?'neg':'neu'}">${d.ret>0?'+':''}${d.ret.toFixed(2)}%</td></tr>`;
         }).join('')}</tbody></table>
       </div>`;
     el.appendChild(div);
   });
+}
+let vehicleFilter='all';
+function setVehicleFilter(f,btn){
+  vehicleFilter=f;
+  document.querySelectorAll('.vf-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderHoldings();
 }
 
 /* INVESTMENT CALCULATOR */
