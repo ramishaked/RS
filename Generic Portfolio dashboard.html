@@ -585,10 +585,13 @@ const MAPPING = [
   ['MSCI EUROPE','europe_eq'],['EUROPE','europe_eq'],['אירופה','europe_eq'],['STOXX','europe_eq'],['DAX','europe_eq'],['ZPRX','europe_eq'],['ZPRV','europe_eq'],['VGK','europe_eq'],['EZU','europe_eq'],
   // -- מניות ישראל --
   ['ת"א 125','il_eq'],['ת"א 90','il_eq'],['ת"א 35','il_eq'],['תא 125','il_eq'],['תא 90','il_eq'],['תא 35','il_eq'],['90 ת','il_eq'],['הרל.תא','il_eq'],['מור.מ ת','il_eq'],['קסם etf תא','il_eq'],['איביאי פננ','il_eq'],['פיננסים','il_eq'],['הרל.אין תעש','il_eq'],['ביטחוני','il_eq'],['תל אביב','il_eq'],['אלטשולר','il_eq'],
+  // -- מדד S&P 500 (לפני מניות ארה"ב הכלליות) --
+  ['S&P 500','sp500'],['S&P500','sp500'],['SP 500','sp500'],['SP500','sp500'],['500P&S','sp500'],['P&S 500','sp500'],['SPX','sp500'],['S&P 500 UCITS','sp500'],['CORE S&P','sp500'],['מחקה S&P','sp500'],['מחקה 500','sp500'],['VOO','sp500'],['IVV','sp500'],['SPY','sp500'],['SPLG','sp500'],['500','sp500'],
   // -- מניות ארה"ב טכנולוגיה --
   ['Nasdaq','us_tech'],['NASDAQ','us_tech'],['QQQ','us_tech'],['נאסדק','us_tech'],['Technology','us_tech'],['טכנולוגיה','us_tech'],['SMH','us_tech'],['Semiconductor','us_tech'],['VanEck','us_tech'],['Vaneck','us_tech'],['NVDA','us_tech'],['NVIDIA','us_tech'],['MSFT','us_tech'],['MICROSOFT','us_tech'],['META','us_tech'],['AMZN','us_tech'],['AMAZON','us_tech'],['GOOGL','us_tech'],['GOOG','us_tech'],['Alphabet','us_tech'],['PLTR','us_tech'],['PALANTIR','us_tech'],['TSM','us_tech'],['TAIWAN','us_tech'],['LASR','us_tech'],['Nlight','us_tech'],['nLIGHT','us_tech'],['SOFI','us_tech'],['SoFi','us_tech'],['SEDG','us_tech'],['SolarEdge','us_tech'],['AVGO','us_tech'],['Broadcom','us_tech'],['TSLA','us_tech'],['Tesla','us_tech'],['AAPL','us_tech'],['Apple','us_tech'],
   // -- מניות ארה"ב רחב --
-  ['S&P 500','us_eq'],['SP 500','us_eq'],['S&P500','us_eq'],['500','us_eq'],['MAGS','us_eq'],['Magnificent','us_eq'],['Russell','us_eq'],['Dow Jones','us_eq'],['VTI','us_eq'],['VOO','us_eq'],['SPY','us_eq'],['IVV','us_eq'],['USA','us_eq'],['ארה"ב','us_eq'],['אמריק','us_eq'],['Small Cap','us_eq'],['Mid-Cap','us_eq'],['MidCap','us_eq'],['IVOV','us_eq'],['USSC','us_eq'],
+  ['VTI','us_eq'],['VANGUARD TOTAL','us_eq'],['Total Stock Market','us_eq'],['Russell 2000','us_eq'],['AVDV','us_eq'],['Avantis Intl','us_eq'],
+  ['MAGS','us_eq'],['Magnificent','us_eq'],['Russell','us_eq'],['Dow Jones','us_eq'],['VTI','us_eq'],['USA','us_eq'],['ארה"ב','us_eq'],['אמריק','us_eq'],['Small Cap','us_eq'],['Mid-Cap','us_eq'],['MidCap','us_eq'],['IVOV','us_eq'],['USSC','us_eq'],
   // -- מניות עולמיות --
   ['WORLD','global_eq'],['FTSE','global_eq'],['ACWI','global_eq'],['MSCIACW','global_eq'],['All-World','global_eq'],['AllWorld','global_eq'],['MSCI WORLD','global_eq'],['עולם','global_eq'],['עולמי','global_eq'],['Global','global_eq'],['גלובל','global_eq'],
 ];
@@ -611,6 +614,7 @@ function sectorOf(catId, name) {
   if (catId === 'alt') return 'אלטרנטיבי';
   if (catId === 'us_tech') return 'טכנולוגיה';
   if (catId === 'small_value') return 'מניות ערך';
+  if (catId === 'sp500') return 'מדדים';
   const n = (name || '').toLowerCase();
   const isIndex = ['s&p','world','ftse','acwi','msci','מור.מ','מחקה','הראל','mags','magnificent','500','nasdaq','נאסדק'].some(k => n.includes(k));
   if (isIndex) return 'מדדים';
@@ -990,7 +994,8 @@ async function processFiles() {
 /* CATEGORIES */
 const CATS = {
   global_eq:    {label:'מניות עולמיות',      color:'#10b981', target:0},
-  us_eq:        {label:'מניות ארה"ב',        color:'#3b82f6', target:0},
+  sp500:        {label:'מדד S&P 500',         color:'#2563eb', target:0},
+  us_eq:        {label:'מניות ארה"ב אחרות',    color:'#60a5fa', target:0},
   us_tech:      {label:'מניות ארה"ב טכנולוגיה', color:'#8b5cf6', target:0},
   small_value:  {label:'מניות ערך / קטנות',   color:'#14b8a6', target:0},
   il_eq:        {label:'מניות ישראל',        color:'#06b6d4', target:0},
@@ -1152,7 +1157,7 @@ function isETF(d){
     'מור.מ','הרל','הראל','קסם','איביאי','אלטשולר','ת"א','תא ','גוב','בונד','emerging','מתעוררים','מתפתחים',
     'europe','אירופה','gold','זהב','agriculture','commodit','reit','ריט','bitcoin','ibit','qqq','tqqq','smh','eem','gld'];
   // categories that are inherently pooled/fund-based
-  if(['global_eq','em_eq','europe_eq','asia_eq','small_value','gov_bond','corp_bond','linked_bond','gold','commodities'].includes(d.catId)) return true;
+  if(['global_eq','sp500','em_eq','europe_eq','asia_eq','small_value','gov_bond','corp_bond','linked_bond','gold','commodities'].includes(d.catId)) return true;
   return pooled.some(k=>n.includes(k));
 }
 function updateChartBorders() {
@@ -1273,7 +1278,7 @@ function fmtK(v){return v>=1000?'₪'+Math.round(v/1000)+'K':'₪'+Math.round(v)
 
 function renderActions(){
   // ---- gather metrics ----
-  const usEq=pct('us_eq'), usTech=pct('us_tech'), usTotal=usEq+usTech;
+  const usSp=pct('sp500'), usEq=pct('us_eq'), usTech=pct('us_tech'), usTotal=usSp+usEq+usTech;
   const il=pct('il_eq'), global=pct('global_eq'), em=pct('em_eq'), eu=pct('europe_eq'), asia=pct('asia_eq');
   const bonds=pct('gov_bond')+pct('corp_bond')+pct('linked_bond');
   const reit=pct('reit'), gold=pct('gold'), commod=pct('commodities'), crypto=pct('crypto'), alt=pct('alt');
@@ -1283,7 +1288,7 @@ function renderActions(){
   const usdVal=invested.filter(d=>d.currency==='USD').reduce((s,d)=>s+d.val,0);
   const usdPct=usdVal/totalInv*100;
   const nHoldings=invested.length;
-  const equityPct=global+usEq+usTech+il+em+eu+asia;
+  const equityPct=global+usSp+usEq+usTech+il+em+eu+asia;
 
   // largest single holding (concentration)
   let topHold=null;
@@ -1354,7 +1359,7 @@ function renderActions(){
   // ---- COLUMN 2: לחתוך כפילויות והפחית מוקדי סיכון (concentration / cleanup) ----
   const col2=[];
   if(usTotal>45){
-    col2.push({t:`ריכוזיות בארה"ב (${usTotal.toFixed(0)}%)`,b:`מניות ארה"ב (רחב ${usEq.toFixed(0)}% + טכנולוגיה ${usTech.toFixed(0)}%) הן מעל 45% מהתיק. תלות גבוהה בשוק אחד וסקטור אחד.`,rec:'שקול לצמצם מעט ולהפנות לאפיקים מפוזרים גיאוגרפית (עולמי, אירופה, מתעוררים) כדי להקטין תלות בשוק בודד.'});
+    col2.push({t:`ריכוזיות בארה"ב (${usTotal.toFixed(0)}%)`,b:`מניות ארה"ב (S&P 500 ${usSp.toFixed(0)}% + אחרות ${usEq.toFixed(0)}% + טכנולוגיה ${usTech.toFixed(0)}%) הן מעל 45% מהתיק. תלות גבוהה בשוק אחד וסקטור אחד.`,rec:'שקול לצמצם מעט ולהפנות לאפיקים מפוזרים גיאוגרפית (עולמי, אירופה, מתעוררים) כדי להקטין תלות בשוק בודד.'});
   }
   if(usTech>25){
     col2.push({t:`הטיה כבדה לטכנולוגיה (${usTech.toFixed(0)}%)`,b:'משקל גבוה למניות/מדדי טכנולוגיה. סקטור זה תנודתי ומתואם מאוד בתוך עצמו — בירידות סקטוריאליות כל הרכיב יורד יחד.',rec:'שקול לגזום את החשיפה הטכנולוגית ולפזר לסקטורים אחרים או למדד רחב שכבר מכיל טכנולוגיה במשקל מאוזן.'});
@@ -1365,7 +1370,7 @@ function renderActions(){
   if(dups.length){
     col2.push({t:'כפילויות בין חשבונות',b:`מוחזקים אותם ניירות במספר חשבונות: ${dups.slice(0,4).join(', ')}${dups.length>4?' ועוד':''}. מקשה על מעקב וניהול.`,rec:'שקול לאחד כל נייר לחשבון אחד (לפי שיקולי מס והטבות) לפישוט הניהול וצמצום עמלות כפולות.'});
   }
-  if(il>0 && il<25 && global+usEq+usTech>50 && bonds<20){
+  if(il>0 && il<25 && global+usSp+usEq+usTech>50 && bonds<20){
     col2.push({t:`הטיה נמוכה לישראל (${il.toFixed(0)}%)`,b:'החשיפה לשוק הישראלי נמוכה. אם מרבית ההוצאות שלך שקליות, ייתכן חוסר התאמה בין נכסים להתחייבויות.',rec:'שקול להגדיל מעט את מדד ת"א (125/90) לצמצום סיכון מטבע מול צריכה שקלית — או להשאיר נמוך אם מכוון לפיזור גלובלי מודע.'});
   }
   if(crypto+alt>10){
@@ -1410,12 +1415,17 @@ const SECURITIES = {
     {id:'1159235',name:'iShares MSCI ACWI UCITS ETF',cur:'ILS',fee:0.20},
     {id:'1185164',name:'Invesco MSCI World UCITS ETF ACC',cur:'ILS',fee:0.05},
   ],
-  us_eq:[
+  sp500:[
     {id:'1183441',name:'Invesco S&P 500 UCITS ETF',cur:'ILS',fee:0.05},
     {id:'1159250',name:'iShares Core S&P 500 UCITS ETF',cur:'ILS',fee:0.07},
     {id:'5139282',name:'י.ל מחקה S&P 500',cur:'ILS',fee:0.02},
     {id:'5117601',name:'מור מחקה S&P 500',cur:'ILS',fee:0.42},
+    {id:'VOO',name:'Vanguard S&P 500 ETF',cur:'USD',fee:0.03},
+  ],
+  us_eq:[
     {id:'MAGS',name:'Roundhill Magnificent Seven ETF',cur:'USD',fee:0.29},
+    {id:'VTI',name:'Vanguard Total Stock Market ETF',cur:'USD',fee:0.03},
+    {id:'1159516',name:'הראל סל ראסל 2000',cur:'ILS',fee:0.30},
   ],
   us_tech:[
     {id:'1186063',name:'Invesco NASDAQ-100 SWAP UCITS ETF ACC',cur:'ILS',fee:0.20},
@@ -1484,33 +1494,33 @@ const GALLERY=[
     {name:'טנגו',author:'זיק',ira:false,fee:0.05,
      stats:{avg:9.93,y26:7.89,y25:6.62,sd:11.23,sharpe:0.76},alloc:{global_eq:90,em_eq:10}},
     {name:'השילוש הקדוש',author:'מיקה שור',ira:false,fee:0.07,
-     stats:{avg:10.47,y26:7.75,y25:7.51,sd:11.50,sharpe:0.79},alloc:{us_eq:67,europe_eq:21,em_eq:12}},
+     stats:{avg:10.47,y26:7.75,y25:7.51,sd:11.50,sharpe:0.79},alloc:{sp500:67,europe_eq:21,em_eq:12}},
     {name:'גלובלי + הטיה לגודל וערך',author:'רונן מרגוליס',ira:false,fee:0.21,
      stats:{avg:10.49,y26:10.53,y25:9.39,sd:13.66,sharpe:0.67},alloc:{global_eq:70,small_value:30}},
   ]},
   {group:'מניות + אג"ח',items:[
     {name:'ירושת וורן באפט',author:'וורן באפט',ira:false,fee:0.05,
-     stats:{avg:10.84,y26:6.74,y25:2.93,sd:10.72,sharpe:0.88},alloc:{us_eq:90,gov_bond:10}},
+     stats:{avg:10.84,y26:6.74,y25:2.93,sd:10.72,sharpe:0.88},alloc:{sp500:90,gov_bond:10}},
     {name:'תיק לילד בכיתה ב',author:'פול פארל',ira:false,fee:0.08,
-     stats:{avg:9.63,y26:6.30,y25:7.73,sd:10.82,sharpe:0.76},alloc:{us_eq:60,europe_eq:30,gov_bond:10}},
+     stats:{avg:9.63,y26:6.30,y25:7.73,sd:10.82,sharpe:0.76},alloc:{sp500:60,europe_eq:30,gov_bond:10}},
     {name:'3 הקרנות של Bogleheads',author:'חסידי ג׳ון בוגל',ira:false,fee:0.08,
-     stats:{avg:9.04,y26:5.99,y25:6.50,sd:9.68,sharpe:0.79},alloc:{us_eq:60,europe_eq:20,gov_bond:20}},
+     stats:{avg:9.04,y26:5.99,y25:6.50,sd:9.68,sharpe:0.79},alloc:{sp500:60,europe_eq:20,gov_bond:20}},
     {name:'No Brainer',author:'ד״ר ביל ברנשטיין',ira:false,fee:0.26,
-     stats:{avg:7.38,y26:9.34,y25:7.60,sd:10.61,sharpe:0.56},alloc:{us_eq:25,small_value:25,europe_eq:25,gov_bond:25}},
+     stats:{avg:7.38,y26:9.34,y25:7.60,sd:10.61,sharpe:0.56},alloc:{sp500:25,small_value:25,europe_eq:25,gov_bond:25}},
     {name:'מרגריטה',author:'סקוט בורנס',ira:false,fee:0.15,
-     stats:{avg:7.18,y26:4.82,y25:8.41,sd:8.84,sharpe:0.66},alloc:{us_eq:34,europe_eq:33,linked_bond:33}},
+     stats:{avg:7.18,y26:4.82,y25:8.41,sd:8.84,sharpe:0.66},alloc:{sp500:34,europe_eq:33,linked_bond:33}},
     {name:'50-50 מרקוביץ',author:'הארי מרקוביץ',ira:false,fee:0.14,
      stats:{avg:5.70,y26:4.89,y25:6.87,sd:6.68,sharpe:0.65},alloc:{global_eq:50,gov_bond:50}},
   ]},
   {group:'דפנסיבי',items:[
     {name:'הצלחה לא קונבנציונלית',author:'דיוויד סוונסן',ira:false,fee:0.25,
-     stats:{avg:6.53,y26:6.61,y25:4.64,sd:9.66,sharpe:0.53},alloc:{us_eq:30,reit:20,europe_eq:15,gov_bond:15,linked_bond:15,em_eq:5}},
+     stats:{avg:6.53,y26:6.61,y25:4.64,sd:9.66,sharpe:0.53},alloc:{sp500:30,reit:20,europe_eq:15,gov_bond:15,linked_bond:15,em_eq:5}},
     {name:'תיק זיק',author:'זיק',ira:false,fee:0.14,
      stats:{avg:6.61,y26:4.37,y25:15.06,sd:6.44,sharpe:0.82},alloc:{global_eq:40,gov_bond:45,gold:15}},
     {name:'כל העונות',author:'ריי דאליו',ira:false,fee:0.17,
      stats:{avg:5.07,y26:3.56,y25:9.77,sd:5.40,sharpe:0.69},alloc:{gov_bond:55,global_eq:30,gold:7.5,commodities:7.5}},
     {name:'Permanent Portfolio',author:'הארי בראון',ira:false,fee:0.15,
-     stats:{avg:6.94,y26:3.20,y25:17.26,sd:5.51,sharpe:1.03},alloc:{us_eq:25,gov_bond:50,gold:25}},
+     stats:{avg:6.94,y26:3.20,y25:17.26,sd:5.51,sharpe:1.03},alloc:{sp500:25,gov_bond:50,gold:25}},
   ]},
   {group:'IRA',items:[
     {name:'חשבון IRA של זיק',author:'זיק',ira:true,fee:0.05,stats:null,
@@ -1518,17 +1528,17 @@ const GALLERY=[
     {name:'IRA פשוט — פיזור רחב',author:'קורא',ira:true,fee:0.20,stats:null,
      alloc:{global_eq:100}},
     {name:'תיק vadl18',author:'קורא',ira:true,fee:0.10,stats:null,
-     alloc:{us_eq:35,em_eq:25,global_eq:18,europe_eq:15,crypto:7}},
+     alloc:{sp500:35,em_eq:25,global_eq:18,europe_eq:15,crypto:7}},
     {name:'פורטפוליו — הטיית טכנולוגיה',author:'קורא',ira:true,fee:0.14,stats:null,
      alloc:{global_eq:40,us_tech:40,em_eq:10,europe_eq:10}},
     {name:'קרן השתלמות IRA',author:'קורא',ira:true,fee:0.18,stats:null,
-     alloc:{em_eq:28,us_tech:25,small_value:25,crypto:15,us_eq:7}},
+     alloc:{em_eq:28,us_tech:25,small_value:25,crypto:15,sp500:7}},
     {name:'תיק Hanomer',author:'קורא',ira:true,fee:0.17,stats:null,
      alloc:{global_eq:40,small_value:60}},
     {name:'תיק קובי ועדי',author:'קורא',ira:true,fee:0.13,stats:null,
-     alloc:{us_eq:40,europe_eq:15,il_eq:15,us_tech:12,global_eq:10,em_eq:5,alt:3}},
+     alloc:{sp500:40,europe_eq:15,il_eq:15,us_tech:12,global_eq:10,em_eq:5,alt:3}},
     {name:'פנסיה — S&P + אג"ח',author:'קורא',ira:true,fee:0.29,stats:null,
-     alloc:{us_eq:70,gov_bond:30}},
+     alloc:{sp500:70,gov_bond:30}},
   ]},
 ];
 
