@@ -254,6 +254,34 @@ body.light .hist-inp{background:#f1f5f9;border-color:#cbd5e1;color:#1e293b;}
 .hist-chip{font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:20px;border:1px solid;display:inline-flex;align-items:center;}
 body.dark .hist-chip{background:#07091a;border-color:#1e3a5f;color:#94a3b8;}
 body.light .hist-chip{background:#f8fafc;border-color:#e2e8f0;color:#475569;}
+
+.mp-del{position:absolute;top:8px;left:8px;font-size:.7rem;font-weight:800;cursor:pointer;color:#f87171;
+        padding:1px 6px;border-radius:5px;line-height:1.4;}
+body.dark .mp-del{background:#2a0a0a;}
+body.light .mp-del{background:#fef2f2;}
+.pf-card.selected .mp-del{top:8px;left:64px;}
+
+/* ===== REBALANCE ===== */
+.reb-strip{display:flex;gap:16px;flex-wrap:wrap;padding:10px 12px;border-radius:10px;margin-bottom:14px;font-size:.8rem;}
+body.dark .reb-strip{background:#07091a;border:1px solid #1a2540;}
+body.light .reb-strip{background:#f8fafc;border:1px solid #e2e8f0;}
+.reb-strip .muted{font-size:.68rem;margin-bottom:2px;}
+.reb-strip b{font-size:.92rem;}
+.reb-sec-title{font-size:.8rem;font-weight:800;margin:16px 0 8px;}
+.reb-card{border-radius:11px;border:1px solid;padding:11px 12px;margin-bottom:9px;}
+body.dark .reb-card{background:#07091a;border-color:#1a2540;}
+body.light .reb-card{background:#f8fafc;border-color:#e2e8f0;}
+.reb-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:9px;font-size:.85rem;}
+.reb-head .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.reb-line{display:flex;align-items:center;gap:10px;padding:7px 9px;border-radius:8px;margin-bottom:5px;border:1px solid;}
+body.dark .reb-line{background:#0d1628;border-color:#1e3a5f;}
+body.light .reb-line{background:#fff;border-color:#e2e8f0;}
+.reb-amt{font-weight:800;font-size:.88rem;white-space:nowrap;}
+.tag-ira,.tag-tax,.tag-harv,.tag-held{font-size:.63rem;font-weight:800;padding:1px 7px;border-radius:5px;margin-inline-start:5px;white-space:nowrap;}
+body.dark .tag-ira{background:#052e16;color:#4ade80;} body.light .tag-ira{background:#dcfce7;color:#15803d;}
+body.dark .tag-tax{background:#2d1a00;color:#fdba74;} body.light .tag-tax{background:#fff7ed;color:#c2410c;}
+body.dark .tag-harv{background:#0c2340;color:#60a5fa;} body.light .tag-harv{background:#dbeafe;color:#1d4ed8;}
+body.dark .tag-held{background:#1a2540;color:#94a3b8;} body.light .tag-held{background:#f1f5f9;color:#64748b;}
 </style>
 </head>
 <body class="dark">
@@ -422,7 +450,22 @@ body.light .hist-chip{background:#f8fafc;border-color:#e2e8f0;color:#475569;}
     <div style="display:flex;align-items:center;gap:10px;"><span style="font-weight:700;font-size:.9rem;color:#f59e0b;">🎯 תכנון אלוקציה יעד</span><span id="planner-sum-badge" style="background:#1c1917;color:#fdba74;border:1px solid #ea580c;border-radius:20px;padding:2px 10px;font-size:.75rem;font-weight:700;">100%</span></div>
     <span class="chevron" id="planner-ch">▼</span>
   </div>
-  <div id="planner" class="acc-body"><div style="padding:0 16px 16px;"><div class="muted" style="font-size:.75rem;margin-bottom:12px;">שנה את אחוזי היעד — הסכום חייב להיות 100%.</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;" id="planner-items"></div></div></div>
+  <div id="planner" class="acc-body"><div style="padding:0 16px 16px;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+        <button class="apply-btn" id="save-alloc-btn" onclick="toggleSaveForm()" style="background:linear-gradient(135deg,#0ea5e9,#2563eb);color:#fff;">💾 שמור הרכב לגלריה</button>
+        <span class="muted" style="font-size:.72rem;">התיק יישמר תחת "התיקים שלי"</span>
+      </div>
+      <div id="save-alloc-form" style="display:none;margin-bottom:14px;padding:12px;border-radius:10px;" class="inner-bg">
+        <div class="muted" style="font-size:.72rem;margin-bottom:8px;" id="sa-preview"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+          <input id="sa-name" class="hist-inp" placeholder="שם התיק" style="flex:1;min-width:150px;">
+          <input id="sa-date" type="date" class="hist-inp">
+          <input id="sa-note" class="hist-inp" placeholder="הערה (רשות)" style="flex:1;min-width:130px;">
+          <button class="calc-btn" style="padding:6px 16px;font-size:.8rem;" onclick="saveCurrentAlloc()">שמור</button>
+          <button class="help-btn" onclick="toggleSaveForm()">ביטול</button>
+        </div>
+        <div id="sa-warn" style="font-size:.72rem;margin-top:7px;"></div>
+      </div>
+      <div class="muted" style="font-size:.75rem;margin-bottom:12px;">שנה את אחוזי היעד — הסכום חייב להיות 100%.</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;" id="planner-items"></div></div></div>
 </div>
 
 <div class="card fu" style="margin-bottom:16px;">
@@ -470,6 +513,11 @@ body.light .hist-chip{background:#f8fafc;border-color:#e2e8f0;color:#475569;}
       <div id="action-summary" style="margin-bottom:16px;"></div>
       <!-- two columns -->
       <div id="action-columns"></div>
+      <div style="margin-top:20px;padding-top:16px;border-top:1px solid;" class="sep">
+        <div style="font-weight:800;font-size:.9rem;margin-bottom:4px;">🎯 איזון לתכנון</div>
+        <div class="muted" style="font-size:.75rem;margin-bottom:12px;">תוכנית קונקרטית להגעה לאלוקציית היעד — מה למכור, מה לקנות, ובאיזה חשבון.</div>
+        <div id="rebalance-body"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -694,27 +742,59 @@ async function parseXLSX(file, account) {
             '1185164':['WORLD \u05d0\u05d9\u05e0.\u05d7\u05d5\u05e5','global_eq'],
             '1183490':['MSCI EM \u05d0\u05d9\u05e0.\u05d7\u05d5\u05e5','em_eq'],
             '1209220':['FTSE AW \u05d0\u05d9\u05e0.\u05d7\u05d5\u05e5','global_eq'],
-            '1183441':['S&P 500 \u05d0\u05d9\u05e0.\u05d7\u05d5\u05e5','us_eq'],
+            '1183441':['S&P 500 \u05d0\u05d9\u05e0.\u05d7\u05d5\u05e5','sp500'],
             '5138409':['\u05d4\u05e8\u05dc.\u05d0\u05d9\u05e0 \u05ea\u05e2\u05e9 \u05d1\u05d9\u05d8','il_eq'],
             '5113063':['\u05ea"\u05d0 125 \u05de\u05d5\u05e8.\u05de','il_eq'],
+            '1159250':['S&P 500 איישרס','sp500'],
+            '5139282':['י.ל מחקה S&P 500','sp500'],
+            '5117601':['מור מחקה S&P 500','sp500'],
+            '1159094':['MSCI Europe אשס.חוץ','europe_eq'],
+            '1159235':['MSCI ACWI איישרס','global_eq'],
+            '1159169':['MSCI EM IMI איישרס','em_eq'],
+            '1146356':['קסם ETF תא 125','il_eq'],
+            '5130638':['ת"א 90 הראל מחקה','il_eq'],
+            '5131792':['הראל מחקה תל גוב-כללי','gov_bond'],
+            '1146166':['קסם ETF תל גוב-שקלי 0-2','gov_bond'],
+            '5111489':['איביאי מחקה תל גוב-שקלי 5+','gov_bond'],
+            '5111265':['איביאי מחקה תל גוב-מק"מ','gov_bond'],
+            '5113386':['קסם KTF תל גוב-צמודות','linked_bond'],
+            '5122692':['איביאי מחקה SOL US REIT','reit'],
+            '5133699':['קסם BB Agriculture KTF','commodities'],
+            '5132923':['תכלית ביגטק 30','us_tech'],
+            '1098920':['ריט 1','reit'],
+            '5137740':['קסם אקט כספ שקל','liquid'],
+            '5137757':['עציוני מניות ישראל','il_eq'],
+            '5111273':['הראל נבחרת מניות','il_eq'],
             
           };
           const SYMBOLS = {
-            'AMZN':['Amazon (AMZN)','us_eq'],'GOOGL':['Alphabet (GOOGL)','us_eq'],
-            'GOOG':['Alphabet (GOOG)','us_eq'],'MSFT':['Microsoft (MSFT)','us_eq'],
-            'META':['Meta (META)','us_eq'],'NVDA':['Nvidia (NVDA)','us_eq'],
-            'PLTR':['Palantir (PLTR)','us_eq'],'TSM':['Taiwan Semi (TSM)','us_eq'],
-            'IBIT':['IBIT Bitcoin','alt'],
-            '55749':['Amazon (AMZN)','us_eq'],'71028872':['Alphabet (GOOGL)','us_eq'],
-            '14514':['Microsoft (MSFT)','us_eq'],'71275010':['Meta (META)','us_eq'],
-            '67959':['Nvidia (NVDA)','us_eq'],'72748221':['Palantir (PLTR)','us_eq'],
-            '60988':['Taiwan Semi (TSM)','us_eq'],'72179336':['IBIT Bitcoin','alt'],'1159029':['הבורסה לניע בתא','il_eq'],
+            'AMZN':['Amazon (AMZN)','us_tech'],'GOOGL':['Alphabet (GOOGL)','us_tech'],
+            'GOOG':['Alphabet (GOOG)','us_tech'],'MSFT':['Microsoft (MSFT)','us_tech'],
+            'META':['Meta (META)','us_tech'],'NVDA':['Nvidia (NVDA)','us_tech'],
+            'PLTR':['Palantir (PLTR)','us_tech'],'TSM':['Taiwan Semi (TSM)','us_tech'],
+            'IBIT':['IBIT Bitcoin','crypto'],
+            '55749':['Amazon (AMZN)','us_tech'],'71028872':['Alphabet (GOOGL)','us_tech'],
+            '14514':['Microsoft (MSFT)','us_tech'],'71275010':['Meta (META)','us_tech'],
+            '67959':['Nvidia (NVDA)','us_tech'],'72748221':['Palantir (PLTR)','us_tech'],
+            '60988':['Taiwan Semi (TSM)','us_tech'],'72179336':['IBIT Bitcoin','crypto'],
+            'MAGS':['Magnificent 7 (MAGS)','us_eq'],'VTI':['Vanguard Total Market (VTI)','us_eq'],
+            'AVDV':['Avantis Intl Small Value (AVDV)','small_value'],'AVUV':['Avantis US Small Value (AVUV)','small_value'],
+            'SMH':['VanEck Semiconductor (SMH)','us_tech'],'QQQ':['Invesco QQQ','us_tech'],
+            'AAPL':['Apple (AAPL)','us_tech'],'AVGO':['Broadcom (AVGO)','us_tech'],
+            'SOFI':['SoFi (SOFI)','us_tech'],'LASR':['nLIGHT (LASR)','us_tech'],
+            'SEDG':['SolarEdge (SEDG)','us_tech'],'TSLA':['Tesla (TSLA)','us_tech'],
+            'BTC':['Grayscale Bitcoin (BTC)','crypto'],'ETHA':['iShares Ethereum (ETHA)','crypto'],
+            'GLD':['SPDR Gold (GLD)','gold'],'TQQQ':['ProShares UltraPro QQQ','alt'],
+            'ULTY':['YieldMax Ultra (ULTY)','alt'],'SCHD':['Schwab Dividend (SCHD)','us_eq'],
+            'MA':['Mastercard (MA)','us_eq'],'UNH':['UnitedHealth (UNH)','us_eq'],
+            'AMD':['AMD','us_tech'],'BABA':['Alibaba (BABA)','asia_eq'],'BYDDF':['BYD','asia_eq'],
+            'ARKK':['ARK Innovation (ARKK)','alt'],'BKCH':['Global X Blockchain (BKCH)','crypto'],'1159029':['הבורסה לניע בתא','il_eq'],
           };
           const NAME_FRAGS = [
-            ['AMAZON','Amazon (AMZN)','us_eq'],['ALPHABET','Alphabet (GOOGL)','us_eq'],
-            ['MICROSOFT','Microsoft (MSFT)','us_eq'],['META PLATFORM','Meta (META)','us_eq'],
-            ['NVIDIA','Nvidia (NVDA)','us_eq'],['PALANTIR','Palantir (PLTR)','us_eq'],
-            ['TAIWAN SEMI','Taiwan Semi (TSM)','us_eq'],['ISHARES BITCOIN','IBIT Bitcoin','alt'],
+            ['AMAZON','Amazon (AMZN)','us_tech'],['ALPHABET','Alphabet (GOOGL)','us_tech'],
+            ['MICROSOFT','Microsoft (MSFT)','us_tech'],['META PLATFORM','Meta (META)','us_tech'],
+            ['NVIDIA','Nvidia (NVDA)','us_tech'],['PALANTIR','Palantir (PLTR)','us_tech'],
+            ['TAIWAN SEMI','Taiwan Semi (TSM)','us_tech'],['ISHARES BITCOIN','IBIT Bitcoin','crypto'],
           ];
 
           const iName=1, iId=2, iSym=3, iQty=5, iPrice=6, iCurr=7,
@@ -1026,7 +1106,7 @@ function initDashboard(rows) {
   document.getElementById('dashboard').style.display = 'block';
   document.getElementById('modal-close-btn').style.display = 'flex';
   updateKPIs(); buildCharts(); renderReturns(); renderRetByAccount();
-  renderPlanner(); renderHoldings(); renderActions(); renderGallery(); renderHistory();
+  renderPlanner(); renderHoldings(); renderActions(); renderGallery(); renderHistory(); renderRebalance();
 }
 
 function resetDashboard() {
@@ -1176,7 +1256,7 @@ function renderPlanner() {
   });
   updSum();
 }
-function updTgt(el){targets[el.dataset.key]=parseFloat(el.value)||0;updSum();renderHoldings();}
+function updTgt(el){targets[el.dataset.key]=parseFloat(el.value)||0;updSum();renderHoldings();renderRebalance();}
 function updSum(){
   const sum=Object.values(targets).reduce((a,b)=>a+b,0),ok=Math.abs(sum-100)<0.01;
   const el=document.getElementById('planner-sum-badge');
@@ -1542,11 +1622,78 @@ const GALLERY=[
   ]},
 ];
 
+
+/* ================= MY PORTFOLIOS ================= */
+const MPKEY='pf_myportfolios_v1';
+function loadMine(){ try{const s=localStorage.getItem(MPKEY);return s?JSON.parse(s):[];}catch(e){return [];} }
+function saveMine(list){ try{localStorage.setItem(MPKEY,JSON.stringify(list));return true;}catch(e){return false;} }
+
+function toggleSaveForm(){
+  const f=document.getElementById('save-alloc-form');
+  if(!f)return;
+  const open=f.style.display==='none'||!f.style.display;
+  f.style.display=open?'block':'none';
+  if(open){
+    const sum=Object.values(targets).reduce((a,b)=>a+b,0);
+    document.getElementById('sa-name').value='';
+    document.getElementById('sa-date').value=new Date().toISOString().slice(0,10);
+    document.getElementById('sa-note').value='';
+    const w=document.getElementById('sa-warn');
+    w.innerHTML = Math.abs(sum-100)<0.01 ? '' :
+      `<span style="color:#f59e0b;">⚠ סכום היעדים כרגע ${sum}% (לא 100%) — אפשר לשמור, אבל שים לב.</span>`;
+    const parts=Object.keys(CATS).filter(k=>targets[k]>0)
+      .sort((a,b)=>targets[b]-targets[a]).map(k=>`${CATS[k].label} ${targets[k]}%`);
+    document.getElementById('sa-preview').textContent = parts.length?parts.join(' · '):'לא הוגדרו יעדים';
+    document.getElementById('sa-name').focus();
+  }
+}
+
+function saveCurrentAlloc(){
+  const name=(document.getElementById('sa-name').value||'').trim();
+  if(!name){alert('תן שם לתיק');return;}
+  const alloc={};
+  Object.keys(CATS).forEach(k=>{ if(targets[k]>0) alloc[k]=targets[k]; });
+  if(!Object.keys(alloc).length){alert('אין יעדים להקצאה');return;}
+  const list=loadMine();
+  const rec={id:'mp_'+Date.now(),name,
+             date:document.getElementById('sa-date').value||new Date().toISOString().slice(0,10),
+             note:(document.getElementById('sa-note').value||'').trim(),
+             alloc};
+  const dup=list.findIndex(x=>x.name===name);
+  if(dup>=0){ if(!confirm('כבר קיים תיק בשם "'+name+'". להחליף?'))return; list[dup]=rec; }
+  else list.push(rec);
+  if(!saveMine(list)){alert('שמירה נכשלה — ייתכן שאחסון הדפדפן חסום');return;}
+  document.getElementById('save-alloc-form').style.display='none';
+  galGroup=GALLERY.length;                 // jump to "התיקים שלי"
+  renderGallery();
+  const g=document.getElementById('gallery');
+  if(g&&!g.classList.contains('open'))toggleAcc('gallery');
+  const btn=document.getElementById('save-alloc-btn');
+  if(btn){const o=btn.textContent;btn.textContent='✓ נשמר';setTimeout(()=>btn.textContent=o,1400);}
+}
+
+function deleteMine(id,ev){
+  if(ev)ev.stopPropagation();
+  const list=loadMine(); const it=list.find(x=>x.id===id); if(!it)return;
+  if(!confirm('למחוק את "'+it.name+'"?'))return;
+  saveMine(list.filter(x=>x.id!==id));
+  galSel=null; renderGallery();
+}
+
+/* full gallery = built-in groups + user's own */
+function galleryAll(){
+  const mine=loadMine();
+  return [...GALLERY,{group:'התיקים שלי',mine:true,
+    items:mine.map(m=>({name:m.name,author:m.note||('נשמר '+m.date),ira:false,fee:null,
+                        stats:null,alloc:m.alloc,_id:m.id,_date:m.date}))}];
+}
+
 let galGroup=0, galSel=null;
 
 function renderGallery(){
   const el=document.getElementById('gallery-content'); if(!el)return;
-  el.innerHTML=`<div class="gallery-tabs">${GALLERY.map((g,gi)=>`<span class="gtab${gi===galGroup?' active':''}" onclick="setGalGroup(${gi})">${g.group}</span>`).join('')}</div>
+  const GA=galleryAll();
+  el.innerHTML=`<div class="gallery-tabs">${GA.map((g,gi)=>`<span class="gtab${gi===galGroup?' active':''}" onclick="setGalGroup(${gi})">${g.group}</span>`).join('')}</div>
     <div style="display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-bottom:10px;">
       <span id="gallery-selected-name" class="muted" style="font-size:.75rem;"></span>
       <button class="apply-btn" id="gallery-apply-btn" onclick="applyGallery()" style="display:none;">טען לפלאנר ↓</button>
@@ -1558,7 +1705,7 @@ function setGalGroup(gi){galGroup=gi;galSel=null;renderGallery();}
 
 function renderGalGrid(){
   const grid=document.getElementById('gal-grid'); if(!grid)return;
-  const grp=GALLERY[galGroup]; if(!grp)return;
+  const GA=galleryAll(); const grp=GA[galGroup]||GA[0]; if(!grp)return;
   grid.innerHTML=grp.items.map((it,i)=>{
     const parts=Object.entries(it.alloc).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]);
     const bar=parts.map(([k,v])=>`<span style="flex:${v};background:${(CATS[k]||{}).color||'#64748b'};"></span>`).join('');
@@ -1572,7 +1719,8 @@ function renderGalGrid(){
       <div class="pf-selected-banner">✓ נבחר</div>
       ${it.ira?'<span class="ira-tag">IRA</span>':''}
       <div class="pf-card-title">${it.name}</div>
-      <div class="pf-card-sub muted">${it.author} · דמי ניהול ${it.fee}%</div>
+      <div class="pf-card-sub muted">${it.author}${it.fee!=null?' · דמי ניהול '+it.fee+'%':''}</div>
+      ${it._id?`<b class="mp-del" onclick="deleteMine('${it._id}',event)" title="מחק">✕</b>`:''}
       <div class="pf-mini-bar">${bar}</div>
       <div class="muted" style="font-size:.66rem;margin-bottom:7px;line-height:1.45;">${desc}</div>
       ${statsHtml}</div>`;
@@ -1581,7 +1729,7 @@ function renderGalGrid(){
 
 function selGal(i){
   galSel=i;
-  const it=GALLERY[galGroup].items[i];
+  const it=galleryAll()[galGroup].items[i];
   const nm=document.getElementById('gallery-selected-name'),bt=document.getElementById('gallery-apply-btn');
   if(nm)nm.textContent=it.name;
   if(bt)bt.style.display='';
@@ -1590,9 +1738,9 @@ function selGal(i){
 
 function applyGallery(){
   if(galSel===null)return;
-  const it=GALLERY[galGroup].items[galSel];
+  const it=galleryAll()[galGroup].items[galSel];
   Object.keys(CATS).forEach(k=>targets[k]=it.alloc[k]||0);
-  renderPlanner();renderHoldings();updSum();
+  renderPlanner();renderHoldings();updSum();renderRebalance();
   const bt=document.getElementById('gallery-apply-btn');
   if(bt){const o=bt.textContent;bt.textContent='✓ נטען!';bt.style.background='#16a34a';setTimeout(()=>{bt.textContent=o;bt.style.background='';},1300);}
 }
@@ -1822,7 +1970,8 @@ function renderHistory(){
 }
 
 function exportHistory(){
-  const blob=new Blob([JSON.stringify(loadHistory(),null,1)],{type:'application/json'});
+  const payload={history:loadHistory(),portfolios:loadMine()};
+  const blob=new Blob([JSON.stringify(payload,null,1)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);
   a.download='portfolio_history.json';a.click();
 }
@@ -1831,15 +1980,167 @@ function importHistory(inp){
   const rd=new FileReader();
   rd.onload=e=>{
     try{
-      const inc=JSON.parse(e.target.result);
-      if(!Array.isArray(inc))throw 0;
-      const merged={}; [...loadHistory(),...inc].forEach(s=>{if(s&&s.d)merged[s.d]=s;});
+      const raw=JSON.parse(e.target.result);
+      const incH=Array.isArray(raw)?raw:(raw.history||[]);
+      const incP=Array.isArray(raw)?[]:(raw.portfolios||[]);
+      const merged={}; [...loadHistory(),...incH].forEach(s=>{if(s&&s.d)merged[s.d]=s;});
       saveUserHistory(Object.values(merged).sort((a,b)=>a.d<b.d?-1:1));
-      renderHistory();
+      if(incP.length){
+        const mp={}; [...loadMine(),...incP].forEach(p=>{if(p&&p.name)mp[p.name]=p;});
+        saveMine(Object.values(mp));
+      }
+      renderHistory(); renderGallery();
     }catch(err){alert('קובץ לא תקין');}
     inp.value='';
   };
   rd.readAsText(f);
+}
+
+
+/* ================= REBALANCE PLAN ================= */
+const REB_THRESHOLD=5000, TAX_RATE=0.25;
+/* how much an asset benefits from sitting in a tax-sheltered IRA (growth/turnover) */
+const IRA_FIT={crypto:5,alt:5,us_tech:4,small_value:4,em_eq:3,asia_eq:3,reit:3,
+  sp500:2,global_eq:2,us_eq:2,il_eq:2,europe_eq:2,gold:1,commodities:1,
+  gov_bond:0,corp_bond:0,linked_bond:0};
+function isIRAacct(a){return /ira|גמל|השתלמות|פנסי/i.test(a||'');}
+function ils(v){return '₪'+Math.round(Math.abs(v)).toLocaleString('he-IL');}
+
+/* rank holdings by how cheap they are to sell (tax first, then fee) */
+function sellRank(catId){
+  return invested.filter(d=>d.catId===catId&&d.val>0).map(d=>{
+    const cost=d.cost&&d.cost>0?d.cost:d.val;
+    const gain=Math.max(0,d.val-cost), loss=Math.max(0,cost-d.val);
+    const ira=isIRAacct(d.account);
+    const taxRate = ira?0:TAX_RATE*gain/d.val;     // tax paid per ₪ sold
+    const harvest = ira?0:TAX_RATE*loss/d.val;     // tax shield per ₪ sold
+    return {...d,ira,taxRate,harvest,net:taxRate-harvest,gain,loss};
+  }).sort((a,b)=>a.net-b.net || b.val-a.val);
+}
+function buyRank(catId){
+  const recs=(SECURITIES[catId]||[]).slice().sort((a,b)=>a.fee-b.fee);
+  const heldIds=new Set(invested.filter(d=>d.catId===catId)
+      .map(d=>{const m=(d.name||'').match(/\(([^)]+)\)\s*$/);return m?m[1].trim():'';}).filter(Boolean));
+  return recs.map(r=>({...r,held:heldIds.has(String(r.id))}));
+}
+
+function renderRebalance(){
+  const box=document.getElementById('rebalance-body'); if(!box)return;
+  if(!rawData.length){box.innerHTML='';return;}
+
+  const liquid=rawData.filter(d=>d.catId==='liquid').reduce((s,d)=>s+d.val,0);
+  const grand=totalInv+liquid;
+  let reserve=parseFloat((document.getElementById('reb-reserve')||{}).value);
+  if(isNaN(reserve)){reserve=Math.max(0,Math.round(liquid));}
+  reserve=Math.max(0,Math.min(reserve,grand));
+  const base=grand-reserve;
+
+  const sum=Object.values(targets).reduce((a,b)=>a+b,0);
+  if(sum<=0){box.innerHTML='<div class="muted" style="font-size:.8rem;padding:8px 0;">הגדר אלוקציית יעד בפלאנר או טען תיק מהגלריה כדי לקבל תוכנית איזון.</div>';return;}
+
+  const rows=Object.keys(CATS).map(k=>{
+    const cur=invested.filter(d=>d.catId===k).reduce((s,d)=>s+d.val,0);
+    const tgt=targets[k]/sum*100;              // normalise so plan works even if ≠100
+    const tgtVal=tgt/100*base;
+    return {k,cur,tgt,tgtVal,gap:tgtVal-cur};
+  }).filter(r=>r.cur>0||r.tgtVal>0);
+
+  const sells=rows.filter(r=>r.gap<=-REB_THRESHOLD).sort((a,b)=>a.gap-b.gap);
+  const buys =rows.filter(r=>r.gap>= REB_THRESHOLD).sort((a,b)=>b.gap-a.gap);
+  const small=rows.filter(r=>Math.abs(r.gap)<REB_THRESHOLD&&Math.abs(r.gap)>500);
+  const totSell=sells.reduce((s,r)=>s-r.gap,0), totBuy=buys.reduce((s,r)=>s+r.gap,0);
+  const cashDelta=liquid-reserve;   // cash freed (+) or needed (−) from the reserve change
+
+  const head=`
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+      <span class="muted" style="font-size:.8rem;font-weight:600;">מזומן להשאיר בצד (כולל קרן כספית):</span>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <span style="font-weight:700;">₪</span>
+        <input id="reb-reserve" class="hist-inp" type="number" min="0" step="10000" value="${Math.round(reserve)}"
+               oninput="renderRebalance()" style="width:130px;text-align:center;">
+      </div>
+      <span class="muted" style="font-size:.72rem;">נזיל כיום: ${ils(liquid)}</span>
+    </div>
+    <div class="reb-strip">
+      <div><div class="muted">שווי כולל</div><b>${ils(grand)}</b></div>
+      <div><div class="muted">רזרבת מזומן</div><b style="color:#a78bfa;">${ils(reserve)}</b></div>
+      <div><div class="muted">בסיס להשקעה</div><b style="color:#60a5fa;">${ils(base)}</b></div>
+      <div><div class="muted">למכירה</div><b class="neg">${totSell>0?ils(totSell):'—'}</b></div>
+      <div><div class="muted">לרכישה</div><b class="pos">${totBuy>0?ils(totBuy):'—'}</b></div>
+    </div>`;
+
+  if(!sells.length&&!buys.length){
+    box.innerHTML=head+`<div class="act-rec" style="border-radius:9px;padding:11px;font-size:.8rem;margin-top:12px;">
+      ✅ אין פער מעל ${ils(REB_THRESHOLD)} באף קטגוריה — התיק מיושר מספיק ליעד. פערים קטנים עדיף לסגור בהפקדה הבאה ולא במכירה.</div>`;
+    return;
+  }
+
+  /* ---- SELL cards ---- */
+  const sellHtml=sells.map(r=>{
+    const need=-r.gap; let left=need;
+    const picks=sellRank(r.k).map(h=>{
+      if(left<=500)return null;
+      const take=Math.min(h.val,left); left-=take;
+      const tax=take*h.taxRate, shield=take*h.harvest;
+      const tag=h.ira?'<span class="tag-ira">IRA · פטור ממס</span>'
+        : shield>0?`<span class="tag-harv">קיזוז מס ${ils(shield)}</span>`
+        : tax>0?`<span class="tag-tax">מס צפוי ${ils(tax)}</span>`:'';
+      return `<div class="reb-line"><div style="flex:1;min-width:0;">
+          <div class="pick-name">${h.name}</div>
+          <div class="pick-meta muted">${h.account} · תשואה ${h.ret>0?'+':''}${h.ret.toFixed(1)}% ${tag}</div>
+        </div><div class="reb-amt neg">−${ils(take)}</div></div>`;
+    }).filter(Boolean).join('');
+    return `<div class="reb-card">
+      <div class="reb-head"><span class="dot" style="background:${CATS[r.k].color}"></span>
+        <b>${CATS[r.k].label}</b>
+        <span class="muted" style="font-size:.72rem;">${(r.cur/base*100).toFixed(1)}% → יעד ${r.tgt.toFixed(1)}%</span>
+        <span class="reb-amt neg" style="margin-inline-start:auto;">מכור ${ils(need)}</span></div>
+      ${picks||'<div class="muted" style="font-size:.75rem;">אין החזקות למכירה בקטגוריה זו.</div>'}
+    </div>`;
+  }).join('');
+
+  /* ---- BUY cards ---- */
+  const buyHtml=buys.map(r=>{
+    const fit=IRA_FIT[r.k]??2;
+    const where= fit>=4?'<span class="tag-ira">מומלץ לרכוש ב-IRA</span>'
+               : fit<=1?'<span class="tag-tax">עדיף בחשבון ממוסה</span>':'';
+    const cands=buyRank(r.k).slice(0,3).map((c,i)=>
+      `<div class="reb-line"><div style="flex:1;min-width:0;">
+         <div class="pick-name">${c.name} ${c.held?'<span class="tag-held">כבר בתיק</span>':''}</div>
+         <div class="pick-meta muted">מס׳ נייר: <b>${c.id}</b> · ${c.cur==='ILS'?'₪ שקלי':c.cur==='EUR'?'€ יורו':'$ דולרי'} · דמי ניהול ${c.fee}%${i===0?' · <b style="color:#4ade80;">הזול ביותר</b>':''}</div>
+       </div><button class="copy-btn" onclick="copySec(this,'${c.id}')">העתק</button></div>`).join('');
+    return `<div class="reb-card">
+      <div class="reb-head"><span class="dot" style="background:${CATS[r.k].color}"></span>
+        <b>${CATS[r.k].label}</b> ${where}
+        <span class="muted" style="font-size:.72rem;">${(r.cur/base*100).toFixed(1)}% → יעד ${r.tgt.toFixed(1)}%</span>
+        <span class="reb-amt pos" style="margin-inline-start:auto;">קנה ${ils(r.gap)}</span></div>
+      ${cands||'<div class="muted" style="font-size:.75rem;">אין ניירות מומלצים מוגדרים לקטגוריה זו.</div>'}
+    </div>`;
+  }).join('');
+
+  /* ---- IRA placement note ---- */
+  const iraAccts=accountList.filter(isIRAacct);
+  let iraNote='';
+  if(iraAccts.length){
+    const iraVal=invested.filter(d=>isIRAacct(d.account)).reduce((s,d)=>s+d.val,0);
+    const misplaced=invested.filter(d=>isIRAacct(d.account)&&(IRA_FIT[d.catId]??2)<=1)
+      .map(d=>d.name).slice(0,3);
+    const growthOutside=buys.filter(r=>(IRA_FIT[r.k]??2)>=4).map(r=>CATS[r.k].label);
+    iraNote=`<div class="act-rec" style="border-radius:9px;padding:11px;font-size:.78rem;line-height:1.6;margin-top:6px;">
+      <b>🛡️ ניצול ה-IRA (${ils(iraVal)}):</b> מכירה ב-${iraAccts.join(' / ')} אינה אירוע מס, ולכן זה המקום הנכון להחזיק את הרכיבים התנודתיים שמצריכים איזון תכוף.
+      ${growthOutside.length?` כאן זה אומר להפנות לשם קודם את: <b>${growthOutside.join(', ')}</b>.`:''}
+      ${misplaced.length?` מנגד, ${misplaced.join(', ')} הם רכיבים סולידיים — הם "מבזבזים" את מגן המס ועדיף שיישבו בחשבון הממוסה.`:''}
+      התוכנית למעלה כבר מדרגת מכירות כך ש-IRA והפסדים ניתנים לקיזוז נמכרים לפני רווחים ממוסים.</div>`;
+  }
+
+  const smallNote=small.length?`<div class="muted" style="font-size:.72rem;margin-top:10px;line-height:1.5;">
+    פערים מתחת ל-${ils(REB_THRESHOLD)} לא נכללו בתוכנית (${small.map(r=>CATS[r.k].label).join(', ')}) — עלות העסקה והמס לרוב גדולות מהתועלת. סגור אותם בהפקדה הבאה.</div>`:'';
+
+  box.innerHTML=head+
+    (sells.length?`<div class="reb-sec-title">✂️ למכירה — לפי הסדר הזול ביותר במס</div>${sellHtml}`:'')+
+    (buys.length?`<div class="reb-sec-title">🛒 לרכישה — הנייר הזול ביותר בכל אפיק</div>${buyHtml}`:'')+
+    iraNote+smallNote+
+    `<div class="muted" style="font-size:.68rem;margin-top:10px;">מס רווחי הון מחושב לפי ${TAX_RATE*100}% על הרווח הנומינלי כהערכה בלבד — המס בפועל ריאלי וצמוד מדד. אינו ייעוץ מס או השקעות.</div>`;
 }
 
 /* ACCORDION */
