@@ -144,7 +144,7 @@
     box-shadow: 0 20px 50px -20px rgba(34,29,24,0.35);
   }
   .photo-frame.has-img img { height: auto; }
-  .hero-photo .photo-frame.has-img { max-width: 480px; margin: 0 auto; border-radius: 8px; }
+  .hero-photo .photo-frame.has-img { max-width: 480px; margin: 0 auto; border-radius: 8px; cursor: zoom-in; }
 
   /* ─── STORY ─── */
   .story {
@@ -218,23 +218,65 @@
     margin-bottom: 3vh;
   }
   .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 1rem;
+    columns: 3 240px;
+    column-gap: 1rem;
   }
-  .gallery-grid figure { margin: 0; }
+  .gallery-grid figure {
+    margin: 0 0 1.2rem;
+    break-inside: avoid;
+  }
   .gallery-grid .photo-frame {
-    aspect-ratio: 1 / 1;
+    aspect-ratio: auto;
     border-radius: 6px;
     border: none;
     box-shadow: 0 12px 30px -14px rgba(34,29,24,0.3);
+    cursor: zoom-in;
   }
-  .gallery-grid .photo-frame img { object-position: center 30%; }
+  .gallery-grid .photo-frame img { height: auto; }
   .gallery-grid figcaption {
     text-align: center;
     color: var(--mid);
     font-size: 0.9rem;
     margin-top: 0.5rem;
+  }
+
+  /* ─── LIGHTBOX ─── */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 4vh 4vw;
+    background: rgba(20,16,12,0.92);
+    cursor: zoom-out;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 100%;
+    max-height: 82vh;
+    border-radius: 6px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+  }
+  .lightbox .lb-caption {
+    color: #e8e2d8;
+    font-size: 1rem;
+    text-align: center;
+  }
+  .lightbox .lb-close {
+    position: absolute;
+    top: 1rem;
+    left: 1.2rem;
+    background: none;
+    border: none;
+    color: #e8e2d8;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    font-family: inherit;
   }
 
   /* ─── FOOTER ─── */
@@ -437,6 +479,40 @@
   <p class="memory">אתם הנכדים שלה. הרבה ממה שיש לכם היום התחיל ממנה, בגיל 16, בדלת של מספרה בתל אביב.</p>
   <p class="dates">8.9.1953 · 25.8.2007</p>
 </footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-label="תצוגת תמונה מוגדלת">
+  <button class="lb-close" aria-label="סגירה">&times;</button>
+  <img src="" alt="">
+  <div class="lb-caption"></div>
+</div>
+
+<script>
+  var lightbox = document.getElementById('lightbox');
+  var lbImg = lightbox.querySelector('img');
+  var lbCaption = lightbox.querySelector('.lb-caption');
+
+  document.querySelectorAll('.photo-frame img').forEach(function (img) {
+    img.closest('.photo-frame').addEventListener('click', function () {
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      var fig = img.closest('figure');
+      var cap = fig ? fig.querySelector('figcaption') : null;
+      lbCaption.textContent = cap ? cap.textContent : '';
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    lbImg.src = '';
+    document.body.style.overflow = '';
+  }
+  lightbox.addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
 
 </body>
 </html>
