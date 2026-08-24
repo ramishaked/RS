@@ -216,7 +216,20 @@
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 1rem;
   }
-  .gallery-grid .photo-frame { aspect-ratio: 1 / 1; border-radius: 6px; }
+  .gallery-grid figure { margin: 0; }
+  .gallery-grid .photo-frame {
+    aspect-ratio: 1 / 1;
+    border-radius: 6px;
+    border: none;
+    box-shadow: 0 12px 30px -14px rgba(34,29,24,0.3);
+  }
+  .gallery-grid .photo-frame img { object-position: center 30%; }
+  .gallery-grid figcaption {
+    text-align: center;
+    color: var(--mid);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
 
   /* ─── FOOTER ─── */
   footer {
@@ -360,16 +373,29 @@
 
 </main>
 
-<!-- גלריה: כשהתמונות יעלו, מחליפים כל ריבוע ב-<img> בתוך ה-photo-frame -->
 <section class="gallery" id="gallery">
   <h2>תמונות</h2>
   <div class="gallery-grid">
-    <div class="photo-frame"><span>תמונה</span></div>
-    <div class="photo-frame"><span>תמונה</span></div>
-    <div class="photo-frame"><span>תמונה</span></div>
-    <div class="photo-frame"><span>תמונה</span></div>
-    <div class="photo-frame"><span>תמונה</span></div>
-    <div class="photo-frame"><span>תמונה</span></div>
+    <figure>
+      <div class="photo-frame"><img src="images/photo-5.jpg" alt="יוני בצעירותה" loading="lazy"></div>
+      <figcaption>יוני בצעירותה</figcaption>
+    </figure>
+    <figure>
+      <div class="photo-frame"><img src="images/photo-3.jpg" alt="יוני בשנות השמונים" loading="lazy"></div>
+      <figcaption>יוני בשנות השמונים</figcaption>
+    </figure>
+    <figure>
+      <div class="photo-frame"><img src="images/photo-4.jpg" alt="יוני באירוע משפחתי" loading="lazy"></div>
+      <figcaption>באירוע משפחתי</figcaption>
+    </figure>
+    <figure>
+      <div class="photo-frame"><img src="images/photo-1.jpg" alt="יוני חוגגת חנוכה עם הנכדים" loading="lazy"></div>
+      <figcaption>חוגגים חנוכה ביחד</figcaption>
+    </figure>
+    <figure>
+      <div class="photo-frame"><img src="images/photo-2.jpg" alt="יוני בטיול בצפון" loading="lazy"></div>
+      <figcaption>בטיול בצפון</figcaption>
+    </figure>
   </div>
 </section>
 
