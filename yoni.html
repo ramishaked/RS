@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>יוני שקד | 1953–2007</title>
+<meta name="description" content="סיפור חייה של יוני שקד: הילדה מבת ים שבנתה מקצוע, עסק ומשפחה.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=Frank+Ruhl+Libre:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #221d18;
+    --paper: #faf7f2;
+    --cream: #f1ebe1;
+    --accent: #c05a2e;
+    --gold: #b98a3e;
+    --mid: #7a7168;
+    --border: rgba(34,29,24,0.12);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Heebo', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    direction: rtl;
+    line-height: 1.85;
+    font-weight: 300;
+    font-size: 1.08rem;
+  }
+
+  ::selection { background: rgba(192,90,46,0.2); }
+
+  /* ─── TOP BAR ─── */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 6vw;
+    font-size: 0.9rem;
+  }
+  .topbar a {
+    color: var(--mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .topbar a:hover { color: var(--accent); }
+  .topbar .mark {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 7vh 6vw 5vh;
+    text-align: center;
+  }
+  .hero .years {
+    font-size: 0.95rem;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 1.2rem;
+  }
+  .hero h1 {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: clamp(3rem, 9vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1.6rem;
+  }
+  .hero .sub {
+    font-size: clamp(1.1rem, 2.4vw, 1.35rem);
+    color: var(--mid);
+    max-width: 34em;
+    margin: 0 auto;
+  }
+  .hero-line {
+    width: 70px;
+    height: 3px;
+    background: var(--accent);
+    margin: 2.5rem auto 0;
+    border-radius: 2px;
+  }
+
+  /* ─── HERO PHOTO PLACEHOLDER ─── */
+  .hero-photo {
+    max-width: 720px;
+    margin: 5vh auto 0;
+    padding: 0 6vw;
+  }
+  .photo-frame {
+    background: var(--cream);
+    border: 1px dashed var(--border);
+    border-radius: 6px;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--mid);
+    font-size: 0.9rem;
+    overflow: hidden;
+  }
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .photo-frame svg { opacity: 0.45; }
+
+  /* ─── STORY ─── */
+  .story {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 6vh 6vw 4vh;
+  }
+  .story .intro {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: clamp(1.25rem, 2.8vw, 1.5rem);
+    line-height: 1.8;
+    text-align: center;
+    margin-bottom: 8vh;
+  }
+
+  .chapter { margin-bottom: 7vh; }
+  .chapter h2 {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: clamp(1.5rem, 3.5vw, 1.9rem);
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    position: relative;
+    padding-right: 1.1rem;
+  }
+  .chapter h2::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0.35em;
+    bottom: 0.35em;
+    width: 4px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+  .chapter p { margin-bottom: 1.1rem; }
+  .chapter p:last-child { margin-bottom: 0; }
+
+  /* ─── PULL QUOTE ─── */
+  .pull {
+    margin: 8vh auto;
+    max-width: 720px;
+    padding: 0 6vw;
+    text-align: center;
+  }
+  .pull blockquote {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: clamp(1.4rem, 3.6vw, 2rem);
+    font-weight: 500;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .pull .q-line {
+    width: 40px;
+    height: 3px;
+    background: var(--gold);
+    margin: 1.5rem auto 0;
+    border-radius: 2px;
+  }
+
+  /* ─── GALLERY ─── */
+  .gallery {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 4vh 6vw 8vh;
+  }
+  .gallery h2 {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: clamp(1.5rem, 3.5vw, 1.9rem);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3vh;
+  }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+  .gallery-grid .photo-frame { aspect-ratio: 1 / 1; border-radius: 6px; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--cream);
+    border-top: 1px solid var(--border);
+    padding: 6vh 6vw;
+    text-align: center;
+  }
+  footer .memory {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: clamp(1.1rem, 2.6vw, 1.35rem);
+    max-width: 30em;
+    margin: 0 auto 1.5rem;
+    line-height: 1.8;
+  }
+  footer .dates {
+    color: var(--mid);
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+  }
+  footer .back {
+    display: inline-block;
+    margin-top: 2.5rem;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+  footer .back:hover { border-color: var(--accent); }
+
+  @media (max-width: 600px) {
+    body { font-size: 1rem; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="mark">יוני שקד</span>
+  <a href="index.html">לעמוד הראשי ←</a>
+</div>
+
+<header class="hero">
+  <div class="years">2007 – 1953</div>
+  <h1>יוני שקד</h1>
+  <p class="sub">ילדה מבת ים שבנתה לעצמה מקצוע, עסק, בית ומשפחה. זה הסיפור שלה, בשביל הילדים והנכדים, ובשביל כל מי שרוצה להכיר.</p>
+  <div class="hero-line"></div>
+</header>
+
+<!-- תמונה ראשית: כשהתמונות יעלו, מחליפים את התוכן של הריבוע ב-<img src="..." alt="יוני שקד"> -->
+<div class="hero-photo">
+  <div class="photo-frame">
+    <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.8"/><path d="M21 15l-5-5-9 9"/></svg>
+    <span>כאן תבוא תמונה של יוני</span>
+  </div>
+</div>
+
+<main class="story">
+
+  <p class="intro">לסבתא שלכם קראו יוני. חלק מכם הספיקו להכיר אותה, חלק לא.</p>
+
+  <section class="chapter">
+    <h2>הילדה מבת ים</h2>
+    <p>יוני נולדה ב־8.9.1953, הבת הצעירה במשפחה שעלתה מלוב. ההורים שלה, רחמים ומסעודה ברכה, היו דתיים, לא למדו בבית ספר ולא דיברו עברית טובה. בבית לא היה כסף, והדירה בבת ים הייתה קטנה לכולם.</p>
+    <p>כשהייתה בת 12 אבא שלה, רחמים, נפטר ממחלה. ניסים, האח הבוגר, ניסה למלא את מקומו. הוא היה המשכיל של המשפחה, רואה חשבון, מבוסס כלכלית, וגם לו הייתה משפחה משלו. יוני גדלה בלי מבוגר שהיה פנוי בשבילה, והחזיקה בו כעוגן כי לא היה אחר.</p>
+  </section>
+
+  <section class="chapter">
+    <h2>בגיל 16 היא נסעה לתל אביב</h2>
+    <p>במקום לסיים בית ספר, יוני יצאה לעבוד. תל אביב הייתה בעיניה העיר הגדולה, המקום שבו קורים דברים. היא נכנסה למספרה בתור עובדת שכירה, שעות ארוכות ומשכורת קטנה, ולמדה את המקצוע מהיסוד.</p>
+    <p>מהמשכורת הקטנה הזאת היא חסכה. בלי ידע עסקי, בלי מישהו שיסביר לה איך עושים את זה, היא פתחה מספרה משלה בחולון. אישה צעירה בשנות השבעים, עם עסק על השם שלה.</p>
+  </section>
+
+  <section class="chapter">
+    <h2>משפחה ועבודה, באותן שנים</h2>
+    <p>בגיל 18 היא התחתנה עם אלי. שנה אחר כך נולד רמי, הבן הבכור. אחריו הגיעו שי ב־1980 ולינוי ב־1987.</p>
+    <p>הדירה הראשונה שלהם בבת ים נקנתה מכסף שחסכו פרוטה פרוטה, ליד ההורים של שניהם, בתקווה שיהיה מי שיעזור עם הילד.</p>
+    <p>אלי היה איש טוב לב שאהב מאוד את המשפחה. הוא גם היה נכה צה"ל: נפצע קשה במלחמה וחזר הביתה עם פוסט־טראומה שנשארה איתו כל החיים. זה היה כבד על הבית, והעבודה אצלו לא תמיד החזיקה מעמד. יוני לקחה על עצמה את הפרנסה של כולם ולא ויתרה על המשפחה. בשלב מסוים היא לימדה אותו את מקצוע הספרוּת והכניסה אותו למספרה כשותף, כדי שיהיה לו מקום משלו.</p>
+  </section>
+
+  <section class="chapter">
+    <h2>חולון</h2>
+    <p>כשרמי היה בן 6 המשפחה עברה לחולון, קרוב יותר למספרה. גרו בדירה קטנה ברחוב יבנה, ומשם העסק רק גדל. שלוש פעמים היא העבירה את המספרה למקום גדול יותר בעיר, ובשנת 1988 בנתה בית למשפחה.</p>
+    <p>היא עבדה שישה ימים בשבוע, בלי חופשות חוץ מהחגים, שנה אחרי שנה.</p>
+  </section>
+
+</main>
+
+<div class="pull">
+  <blockquote>בחולון של אותן שנים לא היה צריך להסביר למי מתכוונים כשאמרו יוני.</blockquote>
+  <div class="q-line"></div>
+</div>
+
+<main class="story">
+
+  <section class="chapter">
+    <h2>המספרה</h2>
+    <p>יוני התמחתה בתסרוקות לנשים. אירועים, חתונות, בר מצוות, ערבי שבת.</p>
+    <p>מי שנכנס אליה למספרה לא בא רק להסתפר. היא הייתה שם עם חיוך, עם שיחה, עם עניין אמיתי באנשים. לקוחות חזרו אליה עשרות שנים, וחלקן הפכו לחברות.</p>
+  </section>
+
+  <section class="chapter">
+    <h2>היא לא הפסיקה ללמוד</h2>
+    <p>היא לא סיימה 12 שנות לימוד, ולא הפסיקה ללמוד. אנגלית לימדה את עצמה. היא הלכה לקורסים ברוחניות ובתחומים אלטרנטיביים, קראה, שאלה שאלות.</p>
+    <p>אמא שלה רצתה שתהיה דתייה. יוני בחרה דרך אחרת, בלי לריב ובלי להתנתק: היא שמרה על הכבוד למסורת ולמדה בדיוק את מה שסיקרן אותה.</p>
+  </section>
+
+  <section class="chapter">
+    <h2>המשפחה קודם</h2>
+    <p>את סבתא מסעודה היא ליוותה עד היום האחרון, ותקופה מסוימת אפילו גרה איתה. את המסורת הטריפוליטאית שהמשפחה הביאה מלוב היא שמרה בבית: האוכל, החגים, השפה.</p>
+    <p>הילדים היו העיקר. סופי שבוע בטבריה או באילת, בלי טיסות לחו"ל ובלי הפקות. על שטויות היא לא בזבזה, אבל על אוכל טוב ועל בילוי עם המשפחה אהבה להוציא, וזה לא היה מובן מאליו בבית הזה. בילדים היא התגאתה בקול, ועל מה שהיא עצמה עשתה כמעט לא דיברה.</p>
+    <p>היא לא התביישה מכלום ולא נבהלה מאף אחד. מי שדיבר לא יפה אל הילדים שלה גילה את זה מהר, בלי קשר לכמה חשוב הוא היה. המשפחה קדמה אצלה לכל דבר אחר, כולל לעצמה.</p>
+  </section>
+
+  <section class="chapter">
+    <h2>לשמוח ולשמח</h2>
+    <p>החיים לא היו קלים לה, והיא בחרה בשמחה בכל זאת.</p>
+    <p>היא צחקה הרבה, אהבה חגיגות, אהבה שיהיו אנשים בבית. עצב היא לא הרשתה לעצמה להחזיק הרבה זמן. גם ביום קשה היא נכנסה למספרה עם חיוך, וזה מה שמשך אליה אנשים במשך שנים.</p>
+    <p>מוזיקה מזרחית קצבית הייתה הפסקול של החיים שלה. זוהר ארגוב, אייל גולן, שרית חדד. היא לא הייתה צריכה אירוע מיוחד כדי לקום ולרקוד, ולא היה אכפת לה מי רואה.</p>
+    <p>הנכדים היו סיפור בפני עצמו. לפנק, להצחיק, לקנות, לשבת איתם, להיות לידם. אחרי חיים שלמים של עבודה בלי הפסקה, הם היו הדבר שבשבילו היא עצרה באמצע היום.</p>
+  </section>
+
+  <section class="chapter">
+    <h2>השנתיים האחרונות</h2>
+    <p>יוני עישנה הרבה, שנים ארוכות, וזה מה שהביא את המחלה. ב־2005 היא אובחנה עם סרטן ריאות.</p>
+    <p>במשך שנתיים היא עברה ניתוחים, כימותרפיה וטיפולים אלטרנטיביים, והמשיכה להאמין. גם כשידעה מה הסיכויים, היא המשיכה לשדר למשפחה שיהיה בסדר.</p>
+    <p>יוני נפטרה ב־25.8.2007, בגיל 54.</p>
+  </section>
+
+  <section class="chapter">
+    <h2>מה היא השאירה</h2>
+    <p>היא מעולם לא קראה לעצמה יזמית. באותן שנים אף אחד לא השתמש במילה הזאת על ספרית מחולון. אבל זה מה שהיא הייתה: ילדה בלי כסף ובלי גב, שבנתה לעצמה מקצוע, עסק, בית ומשפחה, בתקופה שבה הרבה נשים לא ניהלו אפילו את הכסף שלהן.</p>
+    <p>שלושת הילדים שלה יצאו משכילים, עומדים על הרגליים, עם משפחות משלהם. זאת הייתה המטרה שלה מההתחלה, והיא הגיעה אליה.</p>
+    <p>הדבר היחיד שהיא לא הבינה עד הסוף הוא כמה זה היה גדול. היא באמת חשבה שזה מה שכל אחת הייתה עושה במקומה.</p>
+  </section>
+
+</main>
+
+<!-- גלריה: כשהתמונות יעלו, מחליפים כל ריבוע ב-<img> בתוך ה-photo-frame -->
+<section class="gallery">
+  <h2>תמונות</h2>
+  <div class="gallery-grid">
+    <div class="photo-frame"><span>תמונה</span></div>
+    <div class="photo-frame"><span>תמונה</span></div>
+    <div class="photo-frame"><span>תמונה</span></div>
+    <div class="photo-frame"><span>תמונה</span></div>
+    <div class="photo-frame"><span>תמונה</span></div>
+    <div class="photo-frame"><span>תמונה</span></div>
+  </div>
+</section>
+
+<footer>
+  <p class="memory">אתם הנכדים שלה. הרבה ממה שיש לכם היום התחיל ממנה, בגיל 16, בדלת של מספרה בתל אביב.</p>
+  <p class="dates">8.9.1953 · 25.8.2007</p>
+  <a class="back" href="index.html">לעמוד הראשי ←</a>
+</footer>
+
+</body>
+</html>
