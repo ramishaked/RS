@@ -7,7 +7,7 @@
 <meta name="description" content="סיפור חייה של יוני שקד: הילדה מבת ים שבנתה מקצוע, עסק ומשפחה.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=Frank+Ruhl+Libre:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&family=Varela+Round&display=swap" rel="stylesheet">
 <style>
   :root {
     --ink: #221d18;
@@ -24,7 +24,7 @@
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'Heebo', sans-serif;
+    font-family: 'Rubik', sans-serif;
     background: var(--paper);
     color: var(--ink);
     direction: rtl;
@@ -50,7 +50,7 @@
   }
   .topbar a:hover { color: var(--accent); }
   .topbar .mark {
-    font-family: 'Frank Ruhl Libre', serif;
+    font-family: 'Rubik', 'Varela Round', sans-serif;
     font-weight: 700;
     color: var(--ink);
     letter-spacing: 0.02em;
@@ -71,9 +71,9 @@
     margin-bottom: 1.2rem;
   }
   .hero h1 {
-    font-family: 'Frank Ruhl Libre', serif;
-    font-size: clamp(3rem, 9vw, 5.5rem);
-    font-weight: 900;
+    font-family: 'Rubik', 'Varela Round', sans-serif;
+    font-size: clamp(2.6rem, 9vw, 5rem);
+    font-weight: 800;
     line-height: 1.1;
     margin-bottom: 1.6rem;
   }
@@ -126,7 +126,7 @@
     padding: 6vh 6vw 4vh;
   }
   .story .intro {
-    font-family: 'Frank Ruhl Libre', serif;
+    font-family: 'Rubik', 'Varela Round', sans-serif;
     font-size: clamp(1.25rem, 2.8vw, 1.5rem);
     line-height: 1.8;
     text-align: center;
@@ -135,7 +135,7 @@
 
   .chapter { margin-bottom: 7vh; }
   .chapter h2 {
-    font-family: 'Frank Ruhl Libre', serif;
+    font-family: 'Rubik', 'Varela Round', sans-serif;
     font-size: clamp(1.5rem, 3.5vw, 1.9rem);
     font-weight: 700;
     margin-bottom: 1.2rem;
@@ -163,7 +163,7 @@
     text-align: center;
   }
   .pull blockquote {
-    font-family: 'Frank Ruhl Libre', serif;
+    font-family: 'Rubik', 'Varela Round', sans-serif;
     font-size: clamp(1.4rem, 3.6vw, 2rem);
     font-weight: 500;
     line-height: 1.6;
@@ -184,7 +184,7 @@
     padding: 4vh 6vw 8vh;
   }
   .gallery h2 {
-    font-family: 'Frank Ruhl Libre', serif;
+    font-family: 'Rubik', 'Varela Round', sans-serif;
     font-size: clamp(1.5rem, 3.5vw, 1.9rem);
     font-weight: 700;
     text-align: center;
@@ -205,7 +205,7 @@
     text-align: center;
   }
   footer .memory {
-    font-family: 'Frank Ruhl Libre', serif;
+    font-family: 'Rubik', 'Varela Round', sans-serif;
     font-size: clamp(1.1rem, 2.6vw, 1.35rem);
     max-width: 30em;
     margin: 0 auto 1.5rem;
@@ -228,8 +228,19 @@
   footer .back:hover { border-color: var(--accent); }
 
   @media (max-width: 600px) {
-    body { font-size: 1rem; }
-    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    body { font-size: 1rem; line-height: 1.75; }
+    .topbar { padding: 1rem 5vw; }
+    .hero { padding: 5vh 6vw 3vh; }
+    .hero .years { letter-spacing: 0.22em; font-size: 0.85rem; }
+    .hero-line { margin-top: 1.8rem; }
+    .hero-photo { margin-top: 3vh; }
+    .story { padding: 5vh 7vw 3vh; }
+    .story .intro { margin-bottom: 6vh; }
+    .chapter { margin-bottom: 5vh; }
+    .pull { margin: 6vh auto; }
+    .gallery { padding: 3vh 5vw 6vh; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+    footer { padding: 5vh 7vw; }
   }
 </style>
 </head>
