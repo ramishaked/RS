@@ -22,6 +22,7 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   html { scroll-behavior: smooth; }
+  [id] { scroll-margin-top: 4.5rem; }
 
   body {
     font-family: 'Rubik', sans-serif;
@@ -37,24 +38,36 @@
 
   /* ─── TOP BAR ─── */
   .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.2rem 6vw;
-    font-size: 0.9rem;
+    gap: 1rem;
+    padding: 1rem 6vw;
+    font-size: 0.95rem;
+    background: rgba(250,247,242,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
   }
-  .topbar a {
-    color: var(--mid);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .topbar a:hover { color: var(--accent); }
   .topbar .mark {
     font-family: 'Rubik', 'Varela Round', sans-serif;
     font-weight: 700;
     color: var(--ink);
     letter-spacing: 0.02em;
   }
+  .topbar nav {
+    display: flex;
+    gap: 1.6rem;
+  }
+  .topbar nav a {
+    color: var(--mid);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+  .topbar nav a:hover { color: var(--accent); }
 
   /* ─── HERO ─── */
   .hero {
@@ -216,20 +229,10 @@
     font-size: 0.9rem;
     letter-spacing: 0.15em;
   }
-  footer .back {
-    display: inline-block;
-    margin-top: 2.5rem;
-    color: var(--accent);
-    text-decoration: none;
-    font-size: 0.9rem;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.2s;
-  }
-  footer .back:hover { border-color: var(--accent); }
-
   @media (max-width: 600px) {
     body { font-size: 1rem; line-height: 1.75; }
-    .topbar { padding: 1rem 5vw; }
+    .topbar { padding: 0.9rem 5vw; font-size: 0.88rem; }
+    .topbar nav { gap: 1rem; }
     .hero { padding: 5vh 6vw 3vh; }
     .hero .years { letter-spacing: 0.22em; font-size: 0.85rem; }
     .hero-line { margin-top: 1.8rem; }
@@ -248,7 +251,11 @@
 
 <div class="topbar">
   <span class="mark">יוני שקד</span>
-  <a href="index.html">לעמוד הראשי ←</a>
+  <nav>
+    <a href="#story">הסיפור</a>
+    <a href="#legacy">מה היא השאירה</a>
+    <a href="#gallery">תמונות</a>
+  </nav>
 </div>
 
 <header class="hero">
@@ -266,7 +273,7 @@
   </div>
 </div>
 
-<main class="story">
+<main class="story" id="story">
 
   <p class="intro">לסבתא שלכם קראו יוני. חלק מכם הספיקו להכיר אותה, חלק לא.</p>
 
@@ -338,7 +345,7 @@
     <p>יוני נפטרה ב־25.8.2007, בגיל 54.</p>
   </section>
 
-  <section class="chapter">
+  <section class="chapter" id="legacy">
     <h2>מה היא השאירה</h2>
     <p>היא מעולם לא קראה לעצמה יזמית. באותן שנים אף אחד לא השתמש במילה הזאת על ספרית מחולון. אבל זה מה שהיא הייתה: ילדה בלי כסף ובלי גב, שבנתה לעצמה מקצוע, עסק, בית ומשפחה, בתקופה שבה הרבה נשים לא ניהלו אפילו את הכסף שלהן.</p>
     <p>שלושת הילדים שלה יצאו משכילים, עומדים על הרגליים, עם משפחות משלהם. זאת הייתה המטרה שלה מההתחלה, והיא הגיעה אליה.</p>
@@ -348,7 +355,7 @@
 </main>
 
 <!-- גלריה: כשהתמונות יעלו, מחליפים כל ריבוע ב-<img> בתוך ה-photo-frame -->
-<section class="gallery">
+<section class="gallery" id="gallery">
   <h2>תמונות</h2>
   <div class="gallery-grid">
     <div class="photo-frame"><span>תמונה</span></div>
@@ -363,7 +370,6 @@
 <footer>
   <p class="memory">אתם הנכדים שלה. הרבה ממה שיש לכם היום התחיל ממנה, בגיל 16, בדלת של מספרה בתל אביב.</p>
   <p class="dates">8.9.1953 · 25.8.2007</p>
-  <a class="back" href="index.html">לעמוד הראשי ←</a>
 </footer>
 
 </body>
