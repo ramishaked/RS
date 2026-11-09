@@ -227,6 +227,20 @@ details.ex:hover{border-color:var(--mark)}
 .lvl.l2{border-color:var(--s3)}.lvl.l2 .lvl-tag{background:var(--s3)}
 .lvl p+ul,.lvl p+.say,.lvl .say+p{margin-top:8px}
 .proc{margin:6px 0 10px;padding-inline-start:1.4rem}.proc li+li{margin-top:6px}
+.stack{margin:14px 0;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--bg)}
+.stack svg{display:block;width:100%;max-width:460px;height:auto;margin-inline:auto;font-family:var(--font-body)}
+.dg-b{stroke-width:2.5}
+.dg-u{fill:var(--s1-soft);stroke:var(--s1)}
+.dg-c{fill:var(--s2-soft);stroke:var(--s2)}
+.dg-d{fill:var(--s4-soft);stroke:var(--s4)}
+.dg-k{fill:var(--s3-soft);stroke:var(--s3)}
+.dg-l{stroke:var(--muted);stroke-width:2.5;fill:none}
+.dg-ar{fill:var(--muted)}
+.dg-t{font-weight:800;font-size:22px;fill:var(--ink)}
+.dg-s{font-size:17px;fill:var(--muted)}
+.stack figcaption{margin-top:12px}
+.stack figcaption ul{margin:6px 0 0;padding-inline-start:1.2rem}
+.stack figcaption li+li{margin-top:3px}
 .lvl ul{margin:6px 0 0;padding-inline-start:1.2rem}
 </style>
 
@@ -717,6 +731,50 @@ details.ex:hover{border-color:var(--mark)}
         <li><b>בודקים עם מידע לא אמיתי.</b> רושמים שמות בדויים וניקוד לדוגמה, ובודקים שהכול נשמר גם אחרי שסוגרים את הדף ופותחים שוב.</li>
         <li><b>מפרסמים.</b> מקבלים קישור קבוע, ושולחים אותו. מעכשיו כל מי שנכנס רואה את אותו מידע.</li>
       </ol>
+      <figure class="stack">
+        <svg viewBox="0 0 440 440" role="img" aria-labelledby="stk-t" xmlns="http://www.w3.org/2000/svg">
+          <title id="stk-t">תרשים: מי שפותח את הקישור מדבר עם הקוד, והקוד מדבר עם בסיס הנתונים ועם מערכת הכניסה, כל אחד במקום נפרד</title>
+          <defs>
+            <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" class="dg-ar"/></marker>
+          </defs>
+          <rect class="dg-b dg-u" x="110" y="10" width="220" height="68" rx="14"/>
+          <text class="dg-t" x="220" y="40" text-anchor="middle" direction="rtl">מי שפותח את הקישור</text>
+          <text class="dg-s" x="220" y="62" text-anchor="middle" direction="rtl">דפדפן או טלפון</text>
+
+          <line class="dg-l" x1="220" y1="80" x2="220" y2="142" marker-start="url(#ah)" marker-end="url(#ah)"/>
+          <text class="dg-s" x="350" y="116" text-anchor="middle" direction="rtl">מבקש ומקבל</text>
+
+          <rect class="dg-b dg-c" x="60" y="144" width="320" height="92" rx="14"/>
+          <text class="dg-t" x="220" y="178" text-anchor="middle" direction="rtl">הקוד</text>
+          <text class="dg-s" x="220" y="202" text-anchor="middle" direction="rtl">מה שבנינו: המסך והחוקים</text>
+          <text class="dg-s" x="220" y="222" text-anchor="middle" direction="rtl">גר במקום אחד</text>
+
+          <line class="dg-l" x1="320" y1="238" x2="320" y2="298" marker-start="url(#ah)" marker-end="url(#ah)"/>
+          <line class="dg-l" x1="120" y1="238" x2="120" y2="298" marker-start="url(#ah)" marker-end="url(#ah)"/>
+          <text class="dg-s" x="220" y="274" text-anchor="middle" direction="rtl">שואל ושומר</text>
+
+          <rect class="dg-b dg-d" x="230" y="300" width="190" height="92" rx="14"/>
+          <text class="dg-t" x="325" y="334" text-anchor="middle" direction="rtl">בסיס נתונים</text>
+          <text class="dg-s" x="325" y="358" text-anchor="middle" direction="rtl">המידע: ניקוד, שמות</text>
+          <text class="dg-s" x="325" y="378" text-anchor="middle" direction="rtl">גר במקום אחר</text>
+
+          <rect class="dg-b dg-k" x="20" y="300" width="190" height="92" rx="14"/>
+          <text class="dg-t" x="115" y="334" text-anchor="middle" direction="rtl">כניסה למערכת</text>
+          <text class="dg-s" x="115" y="358" text-anchor="middle" direction="rtl">מי רשאי להיכנס</text>
+          <text class="dg-s" x="115" y="378" text-anchor="middle" direction="rtl">גר במקום נוסף</text>
+
+          <text class="dg-s" x="220" y="418" text-anchor="middle" direction="rtl">דוגמה: ב-Base44 כל המקומות האלה מחוברים</text>
+          <text class="dg-s" x="220" y="436" text-anchor="middle" direction="rtl">ומנוהלים בפלטפורמה אחת.</text>
+        </svg>
+        <figcaption>
+          <p><b>הקוד יושב במקום אחד, והמידע במקום אחר.</b> הם מדברים זה עם זה כל הזמן: הקוד שואל "מה הניקוד הגבוה?" ובסיס הנתונים עונה.</p>
+          <ul>
+            <li>הקוד זהה לכל מי שפותח את הקישור, והמידע משתנה: לכל אחד שם וניקוד משלו.</li>
+            <li>אפשר להחליף עיצוב בקוד בלי לאבד ניקוד, כי הניקוד שמור במקום אחר.</li>
+            <li>מי שיש לו גישה למידע אחראי עליו, ולכן בשיעור לא שומרים מידע אישי.</li>
+          </ul>
+        </figcaption>
+      </figure>
       <div class="say">"אני רוצה שהניקוד הגבוה יישמר גם אחרי שסוגרים את הדף, ושכולם יראו אותו."</div>
     </div>
   </div>
