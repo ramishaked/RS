@@ -253,8 +253,24 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
 #slide-2 .pcard .note{font-size:clamp(.9rem,1.5vw,1.1rem);margin-top:8px}
 #slide-13 h2{font-size:clamp(1.9rem,4.2vw,3rem);margin-bottom:10px}
 #slide-13 .big{font-size:clamp(1.4rem,2.8vw,2.1rem);margin-bottom:14px!important}
-#slide-19 .pcard p{font-size:clamp(1.05rem,2vw,1.5rem)}
-#slide-19 p.st{font-size:clamp(1.05rem,2vw,1.5rem)}
+#slide-19 .pcard{padding:10px 18px}
+#slide-19 .pcard h3{font-size:clamp(1.1rem,2vw,1.5rem);margin-bottom:2px}
+#slide-19 .stk{margin-top:12px}
+#slide-19 h2{font-size:clamp(1.5rem,3.4vw,2.3rem);margin-bottom:10px}
+#slide-19 .badge{margin-bottom:8px}
+#slide-19 .stk svg{display:block;width:100%;max-width:620px;height:auto;margin-inline:auto;font-family:var(--font-body)}
+@media (max-height:640px){#slide-19 .stk svg{max-width:440px}#slide-19 h2{font-size:1.5rem;margin-bottom:6px}}
+.dg-b{stroke-width:3}
+.dg-u{fill:var(--s1-soft);stroke:var(--s1)}
+.dg-c{fill:var(--s2-soft);stroke:var(--s2)}
+.dg-d{fill:var(--s4-soft);stroke:var(--s4)}
+.dg-k{fill:var(--s3-soft);stroke:var(--s3)}
+.dg-l{stroke:var(--muted);stroke-width:3;fill:none}
+.dg-ar{fill:var(--muted)}
+.dg-t{font-weight:800;font-size:28px;fill:var(--ink)}
+.dg-s{font-size:22px;fill:var(--muted)}
+#slide-19 .pcard p{font-size:clamp(1rem,1.7vw,1.25rem);line-height:1.45}
+#slide-19 p.st{font-size:clamp(1rem,1.7vw,1.25rem);line-height:1.45}
 #slide-13 .pcard{padding:18px 22px}
 #slide-13 .pcard h3{font-size:clamp(1.2rem,2.3vw,1.7rem)}
 #slide-13 .pcard p,#slide-13 p.st{font-size:clamp(1.05rem,2vw,1.5rem)}
@@ -572,15 +588,36 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
   <h2>איך אחרים יראו מה שבנינו?</h2>
   <div class="two">
     <div class="pcard strong st">
-      <h3>רמה 1: שולחים קישור</h3>
-      <p>לוחצים על שיתוף, מעתיקים את הקישור, ושולחים. כל מי שמקבל אותו יכול לפתוח ולשחק.</p>
+      <h3>רמה 1: שיתוף בקישור</h3>
+      <p>לוחצים על שיתוף ושולחים את הקישור. מתאים לרוב מה שבונים.</p>
     </div>
     <div class="pcard hl st">
-      <h3>רמה 2: כשרוצים משהו רציני</h3>
-      <p>רוצים שהמשחק יזכור את הניקוד של כולם? צריך מחברת גדולה שלא נמחקת, ופלטפורמה נוספת שנותנת אותה.</p>
+      <h3>רמה 2: כשצריך לשמור מידע</h3>
+      <p>אפליקציה אמיתית בנויה ממספר חלקים. כל חלק יושב במקום אחר, והם מדברים ביניהם.</p>
     </div>
   </div>
-  <p class="st" style="margin-top:18px"><b>גאווה ישראלית:</b> Base44 היא פלטפורמה ישראלית שבונים בה אפליקציות בשיחה, בדיוק כמו שעשינו היום. לפני שנרשמים, שואלים מורה או הורה.</p>
+  <div class="stk st">
+    <svg viewBox="0 0 900 180" role="img" aria-labelledby="s19t" xmlns="http://www.w3.org/2000/svg">
+      <title id="s19t">תרשים: משתמש מדבר עם הקוד, והקוד מדבר עם בסיס נתונים ועם מערכת כניסה</title>
+      <defs><marker id="ah2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9z" class="dg-ar"/></marker></defs>
+      <rect class="dg-b dg-u" x="670" y="45" width="220" height="90" rx="16"/>
+      <text class="dg-t" x="780" y="85" text-anchor="middle" direction="rtl">המשתמש</text>
+      <text class="dg-s" x="780" y="112" text-anchor="middle" direction="rtl">דפדפן או טלפון</text>
+      <line class="dg-l" x1="668" y1="90" x2="552" y2="90" marker-start="url(#ah2)" marker-end="url(#ah2)"/>
+      <rect class="dg-b dg-c" x="330" y="45" width="220" height="90" rx="16"/>
+      <text class="dg-t" x="440" y="85" text-anchor="middle" direction="rtl">הקוד</text>
+      <text class="dg-s" x="440" y="112" text-anchor="middle" direction="rtl">המסך והחוקים</text>
+      <path class="dg-l" d="M328 72 H280 V38 H232" marker-start="url(#ah2)" marker-end="url(#ah2)"/>
+      <path class="dg-l" d="M328 108 H280 V142 H232" marker-start="url(#ah2)" marker-end="url(#ah2)"/>
+      <rect class="dg-b dg-d" x="10" y="8" width="220" height="62" rx="14"/>
+      <text class="dg-t" x="120" y="36" text-anchor="middle" direction="rtl">בסיס נתונים</text>
+      <text class="dg-s" x="120" y="58" text-anchor="middle" direction="rtl">ניקוד ושמות</text>
+      <rect class="dg-b dg-k" x="10" y="110" width="220" height="62" rx="14"/>
+      <text class="dg-t" x="120" y="138" text-anchor="middle" direction="rtl">כניסה למערכת</text>
+      <text class="dg-s" x="120" y="160" text-anchor="middle" direction="rtl">מי רשאי להיכנס</text>
+    </svg>
+  </div>
+  <p class="st" style="margin-top:10px"><b>הקוד במקום אחד והמידע במקום אחר.</b> אפשר לשנות עיצוב בלי לאבד ניקוד. דוגמה לפלטפורמה ישראלית שמחברת את כל החלקים: Base44. לפני שנרשמים, שואלים מורה או הורה.</p>
 </section>
 
 </div>
