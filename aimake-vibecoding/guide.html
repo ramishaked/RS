@@ -261,7 +261,7 @@ footer.ft{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);f
   <h2>מסלול השיעור</h2>
   <p class="sub">שישה קטעים. לחצו על קטע בציר הזמן כדי לפתוח אותו. בכל קטע יש דוגמאות שאפשר להקריא, להקרין או לחלק, וקישור לשקפים של אותו קטע.</p>
   <div class="bar" id="bar" role="group" aria-label="ציר זמן של השיעור">
-    <button type="button" style="--m:10" data-seg="1" title="הדגמה חיה, 10 דקות">10</button>
+    <button type="button" style="--m:10" data-seg="1" title="פתיחה והדגמה חיה, 10 דקות">10</button>
     <button type="button" style="--m:10" data-seg="2" title="אנטומיה של פרומפט, 10 דקות">10</button>
     <button type="button" style="--m:15" data-seg="3" title="אפיון ועיצוב על נייר, 15 דקות">15</button>
     <button type="button" class="build" style="--m:35" data-seg="4" title="בנייה באיטרציות, 35 דקות">35</button>
@@ -271,8 +271,20 @@ footer.ft{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);f
   <p class="barnote">הרוחב פרופורציונלי לזמן, והמספרים הם דקות. הקטע הצבוע הוא הבנייה, שם מתרחשת רוב הלמידה.</p>
 
   <details class="seg" id="seg-1">
-    <summary><span class="mins" dir="ltr">0-10</span><span class="seg-title">הדגמה חיה</span></summary>
+    <summary><span class="mins" dir="ltr">0-10</span><span class="seg-title">פתיחה והדגמה חיה</span></summary>
     <div class="seg-body">
+      <p class="k">פתיחה מוטיבציונית (כ-2 דקות)</p>
+      <p>לפני ההדגמה מראים שאנשים בגיל שלהם, בנות ובנים, כבר בונים דברים עם VibeCoding. המטרה היא לייצר חשק ולא להסביר טכנולוגיה. בשקף חושפים כרטיס אחרי כרטיס.</p>
+      <div class="ex"><b class="lab">דוגמאות אמיתיות</b>
+        <ul>
+          <li><b>פיי, בת 8:</b> בנתה לעצמה משחקים עם Cursor, כולל סימולטור של פארק מים. מקור: <a href="https://girlswhocode.com/news/vibecodingforstudents" target="_blank" rel="noopener">Girls Who Code</a>. העמוד לא מפרט איך הסימולטור עובד.</li>
+          <li><b>ארג'אן, בן 13:</b> בנה בשבוע משחק תלת-ממדי על דולפינים, Dolphin Quest, בלי ניסיון בקוד. מדגירים ביצים, אוספים דולפינים ונלחמים בבוסים. הוא השתמש ב-Replit Agent, ועיצוב הדולפינים נעשה ב-Gemini וב-ChatGPT. המסקנה שלו מתאימה בדיוק לשיעור: פרומפט מעורפל נותן תוצאה מעורפלת, ולכן עובדים על דבר או שניים בכל פעם. מקור: <a href="https://www.superpowers.school/p/vibe-coding-for-kids" target="_blank" rel="noopener">Superpowers School</a>.</li>
+          <li><b>משחקי דפדפן קטנים לנסות בכיתה:</b> <a href="https://wildlife-game.netlify.app/" target="_blank" rel="noopener">Wildlife</a> (מקישים על קבוצות של אריחים באותו צבע, 25 תורות), <a href="https://emojisim.com/" target="_blank" rel="noopener">Emoji Sim</a> (אוספים עץ, צמר ובשר ובונים כפר של אימוג'ים) ו-<a href="https://gridgolf.netlify.app/" target="_blank" rel="noopener">Grid Golf</a> (גולף על רשת, בוחרים כיוון ועוצמה). שלושתם מופיעים באוסף המשחקים שנבנו בכלי AI לקוד, <a href="https://github.com/lappemic/awesome-ai-built-games" target="_blank" rel="noopener">awesome-ai-built-games</a>.</li>
+          <li><b>למבוגרים, לספר בקצרה:</b> פיטר לבלס בנה משחק טיסה בדפדפן בכ-30 דקות עם כלי AI, לפי <a href="https://404media.co/this-game-created-by-ai-vibe-coding-makes-50-000-a-month-yours-probably-wont" target="_blank" rel="noopener">404 Media</a>.</li>
+        </ul>
+        <p><b>לפני ההקרנה:</b> לפתוח כל משחק ולשחק בו דקה. באתרי המשחקים עצמם לא כתוב שנבנו ב-AI, והמידע הזה מגיע מהאוסף ב-GitHub. ב-Wildlife יש טבלת שיאים שמזמינה להירשם, ולא נרשמים. בעדות על פיי וארג'אן אין פרטים נוספים על אף משחק, ולכן אנחנו מתארים רק מה שפורסם.</p>
+        <p>שאלה לכיתה: איזה משחק קטן הייתן והייתם רוצים לבנות? אפשר לאסוף 2 עד 3 רעיונות על הלוח ולחזור אליהם בקטע האפיון.</p>
+      </div>
       <p class="k">מה קורה</p>
       <p>המנחה כותב ל-Gemini על המקרן משפט אחד ומקבל משהו שרץ. ההדגמה יכולה להיות בינונית, כי הפער בין מה שרצינו למה שקיבלנו הוא פתח השיעור.</p>
       <p class="k">שאלות לכיתה</p>
@@ -294,7 +306,7 @@ footer.ft{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);f
         </ul>
         <p>תגובת מנחה אפשרית: "בדיוק. הוא החליט הכול כי לא אמרנו כלום. היום אנחנו נחליט."</p>
       </div>
-      <a class="show" href="present.html#s-2">שקפים 2 ו-3</a><span class="out">תוצר: הגדרה במשפט אחד</span>
+      <a class="show" href="present.html#s-2">שקפים 2 עד 4</a><span class="out">תוצר: הגדרה במשפט אחד</span>
     </div>
   </details>
 
@@ -327,7 +339,7 @@ footer.ft{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);f
           <tr><td>הנחיות טכניות</td><td>איך זה בנוי</td><td>קובץ HTML יחיד, בלי תמונות חיצוניות</td><td>אותו דבר, ועובד גם בטלפון</td></tr>
         </tbody>
       </table></div>
-      <a class="show" href="present.html#s-4">שקפים 4 עד 6</a><span class="out">תוצר: פרומפט ראשון בבונה הפרומפט</span>
+      <a class="show" href="present.html#s-5">שקפים 5 עד 7</a><span class="out">תוצר: פרומפט ראשון בבונה הפרומפט</span>
     </div>
   </details>
 
@@ -365,7 +377,7 @@ footer.ft{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);f
           <li>הצלחה: אחרי שלוש החמצות המשחק נגמר והניקוד מוצג.</li>
         </ul>
       </div>
-      <a class="show" href="present.html#s-7">שקפים 7 ו-8</a><span class="out">תוצר: בריף וסקיצה של מסך אחד</span>
+      <a class="show" href="present.html#s-8">שקפים 8 ו-9</a><span class="out">תוצר: בריף וסקיצה של מסך אחד</span>
     </div>
   </details>
 
@@ -439,7 +451,7 @@ footer.ft{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);f
         <p>שאלה לדיון: אם שני זוגות מקבלים אותו כלי ואותה משימה, למה המוצרים יוצאים שונים? תשובה צפויה: "כי כל אחד ביקש דברים אחרים". תגובת מנחה: "בדיוק, וזה מה שהופך את זה לשלכם."</p>
       </div>
       <p style="margin-top:14px"><a class="btn ghost" href="https://youtu.be/oxHIQg6C20s" target="_blank" rel="noopener">סרטון על AI slop, נפתח ב-YouTube</a></p>
-      <a class="show" href="present.html#s-9">שקפים 9 עד 13</a><span class="out">תוצר: יומן איטרציות ומוצר שרץ</span>
+      <a class="show" href="present.html#s-10">שקפים 10 עד 14</a><span class="out">תוצר: יומן איטרציות ומוצר שרץ</span>
     </div>
   </details>
 
@@ -462,7 +474,7 @@ footer.ft{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);f
         <p>סימן למשוב טוב: הוא מנוסח כפרומפט שאפשר להעתיק, ולא כ"היה יפה" או "לא אהבתי".</p>
       </div>
       <p>המוצרים מוצגים רק בתוך הכיתה, ובלי פרטים אישיים.</p>
-      <a class="show" href="present.html#s-13">שקף 13</a><span class="out">תוצר: כרטיס משוב לכל זוג</span>
+      <a class="show" href="present.html#s-15">שקף 15</a><span class="out">תוצר: כרטיס משוב לכל זוג</span>
     </div>
   </details>
 
@@ -489,7 +501,7 @@ footer.ft{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);f
       </div>
       <p class="k">אם נשאר זמן</p>
       <p>חידון נכון או לא נכון של שמונה טענות. הוא מופיע בשקף האחרון של עמוד ההקרנה, וכל תשובה מלווה בהסבר.</p>
-      <a class="show" href="present.html#s-15">שקפים 15 עד 17</a><span class="out">תוצר: פרומפט לפרויקט הסיום</span>
+      <a class="show" href="present.html#s-16">שקפים 16 עד 18</a><span class="out">תוצר: פרומפט לפרויקט הסיום</span>
     </div>
   </details>
 </section>
