@@ -8,7 +8,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&family=Rubik:wght@600;800&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
-/* Layout concept: one reading column, a to-scale timeline as the only loud element, everything else quiet and bordered. */
 :root{
   --bg:#F4F6F8;
   --surface:#FFFFFF;
@@ -44,15 +43,16 @@
   --mark:#F0B429;--mark-soft:#3A2F10;--good:#4CC07C;--good-soft:#14301F;--bad:#F0715F;--bad-soft:#3A1B16;
   color-scheme:dark;
 }
+:root[data-theme="light"]{color-scheme:light}
 
 *,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
 body{
   margin:0;direction:rtl;background:var(--bg);color:var(--ink);
   font:16px/1.7 var(--font-body);
   padding-left:max(16px,env(safe-area-inset-left,0px));
   padding-right:max(16px,env(safe-area-inset-right,0px));
   padding-block:0 56px;
-  -webkit-text-size-adjust:100%;
 }
 .wrap{max-width:880px;margin-inline:auto}
 h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0}
@@ -60,129 +60,65 @@ p{margin:0}
 a{color:var(--accent-deep)}
 :focus-visible{outline:3px solid var(--mark);outline-offset:2px;border-radius:4px}
 
-/* header */
-header.top{padding-block:44px 28px}
+/* top bar with day/night dual button */
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-block:14px;border-bottom:1px solid var(--line)}
+.crumbs{display:flex;gap:6px 18px;flex-wrap:wrap;font-size:.95rem}
+.crumbs a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line)}
+.crumbs a:hover,.crumbs a[aria-current]{color:var(--ink);border-color:var(--accent)}
+.dual{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface);flex:none}
+.dual button{
+  font:inherit;font-weight:700;font-size:.92rem;padding:6px 14px;border:0;background:transparent;color:var(--muted);
+  cursor:pointer;display:inline-flex;align-items:center;gap:6px;
+}
+.dual button svg{width:16px;height:16px;flex:none}
+.dual button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+
+header.top{padding-block:40px 24px}
 .eyebrow{color:var(--muted);font-size:.95rem;margin-bottom:12px}
 h1{font-weight:800;font-size:clamp(2rem,5.4vw,3rem);line-height:1.14;letter-spacing:-.01em}
-.lede{margin-top:16px;max-width:62ch;font-size:1.12rem;color:var(--ink)}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.lede{margin-top:16px;max-width:62ch;font-size:1.1rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
 .chip{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:4px 12px;font-size:.9rem}
-.toc{display:flex;flex-wrap:wrap;gap:6px 20px;margin-top:26px;font-size:.95rem}
+.toc{display:flex;flex-wrap:wrap;gap:6px 20px;margin-top:24px;font-size:.95rem}
 .toc a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:1px}
 .toc a:hover{color:var(--ink);border-color:var(--accent)}
 
-/* sections */
-section{padding-block:36px;border-top:1px solid var(--line)}
-section h2{font-weight:600;font-size:clamp(1.4rem,3.4vw,1.8rem);line-height:1.25;margin-bottom:8px}
-.sub{color:var(--muted);max-width:64ch;margin-bottom:22px}
+section.blk{padding-block:34px;border-top:1px solid var(--line)}
+section.blk h2{font-weight:600;font-size:clamp(1.4rem,3.4vw,1.8rem);line-height:1.25;margin-bottom:8px}
+.sub{color:var(--muted);max-width:64ch;margin-bottom:20px}
 
 .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
 .card{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:16px 18px;min-width:0}
 .card h3{font-weight:600;font-size:1.05rem;margin-bottom:6px}
-.card p,.card li{color:var(--ink)}
 .card ul{margin:0;padding-inline-start:1.1rem}
 .card li+li{margin-top:4px}
+.card.key{border-color:var(--accent)}
 
-/* timeline */
-.bar{display:flex;gap:3px;direction:rtl;margin-bottom:8px}
-.bar button{
-  flex:var(--m) 1 0;min-width:0;padding:12px 0;border:0;border-radius:4px;cursor:pointer;
-  background:var(--accent-soft);color:var(--accent-deep);font:500 .85rem var(--font-mono);text-align:center;
-}
-.bar button.build{background:var(--accent);color:var(--accent-ink)}
-.bar button:hover{filter:brightness(.95)}
-.barnote{color:var(--muted);font-size:.88rem;margin-bottom:22px}
-
-.seg{border:1px solid var(--line);background:var(--surface);border-radius:8px;margin-bottom:8px}
-.seg summary{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;list-style:none}
-.seg summary::-webkit-details-marker{display:none}
-.seg summary::after{
-  content:"";margin-inline-start:auto;width:8px;height:8px;flex:none;
-  border-inline-end:2px solid var(--muted);border-bottom:2px solid var(--muted);
-  transform:rotate(45deg);transition:transform .15s;
-}
-.seg[open] summary::after{transform:rotate(-135deg)}
-.mins{font:500 .82rem var(--font-mono);background:var(--accent-soft);color:var(--accent-deep);padding:2px 8px;border-radius:4px;min-width:3.8rem;text-align:center;flex:none}
-.seg.build .mins{background:var(--accent);color:var(--accent-ink)}
-.seg-title{font-weight:700;min-width:0}
-.seg-body{padding:0 16px 16px;min-width:0}
-.k{font-size:.82rem;font-weight:700;color:var(--muted);margin:14px 0 4px}
-.seg-body ul{margin:0;padding-inline-start:1.2rem}
-.seg-body li+li{margin-top:3px}
-.out{display:inline-block;margin-top:14px;background:var(--mark-soft);border:1px solid var(--mark);border-radius:6px;padding:3px 12px;font-size:.92rem}
-.say{border-inline-start:3px solid var(--accent);padding:2px 12px;margin:6px 0;color:var(--ink)}
-
-/* buttons and fields */
 .btn{
-  font:inherit;font-weight:700;padding:9px 18px;border-radius:8px;cursor:pointer;
+  font:inherit;font-weight:700;padding:9px 18px;border-radius:8px;cursor:pointer;text-decoration:none;display:inline-block;
   border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);
 }
 .btn.ghost{background:transparent;color:var(--accent-deep)}
 .btn:disabled{opacity:.55;cursor:default}
 .btn.big{font-size:1.1rem;padding:12px 28px;min-width:8rem}
-textarea,input[type="text"]{
-  width:100%;font:inherit;color:var(--ink);background:var(--surface);direction:rtl;
-  border:1px solid var(--line);border-radius:8px;padding:10px 12px;resize:vertical;
-}
-label.f{display:block;font-weight:700;font-size:.92rem;margin-bottom:4px}
-.hint{font-weight:400;color:var(--muted)}
-
-/* prompt builder */
-.modes{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
-.modes button{
-  font:inherit;font-weight:700;padding:8px 18px;border-radius:8px;cursor:pointer;
-  border:1px solid var(--line);background:var(--surface);color:var(--ink);
-}
-.modes button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-deep)}
-.pb{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-.pb>*{min-width:0}
-.fields{display:grid;gap:14px}
-.prompt{
-  margin:0;white-space:pre-wrap;word-break:break-word;background:var(--surface-2);border:1px solid var(--line);
-  border-radius:8px;padding:16px;font:inherit;font-size:.96rem;line-height:1.7;min-height:12rem;
-}
-.meter{display:flex;gap:4px;margin:14px 0 6px}
-.meter i{flex:1;height:6px;border-radius:3px;background:var(--line)}
-.meter i.on{background:var(--accent)}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
 .msg{color:var(--muted);font-size:.9rem}
 
-/* quiz */
-.qcard{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:22px;min-width:0}
-.qtop{display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--muted);font-size:.92rem}
-.dots{display:flex;gap:5px}
-.dot{width:10px;height:10px;border-radius:50%;background:var(--line)}
-.dot.cur{background:var(--muted)}
-.dot.ok{background:var(--good)}
-.dot.bad{background:var(--bad)}
-.qtext{font-family:var(--font-display);font-weight:600;font-size:clamp(1.15rem,3vw,1.45rem);line-height:1.5;margin:18px 0 22px;text-wrap:balance}
-.qbtns{display:flex;gap:12px;flex-wrap:wrap}
-.qbtns .chosen{outline:3px solid var(--ink);outline-offset:2px}
-.fb{margin-top:18px;padding:12px 16px;border-radius:8px;border:1px solid var(--line)}
-.fb.ok{border-color:var(--good);background:var(--good-soft)}
-.fb.bad{border-color:var(--bad);background:var(--bad-soft)}
-.fb strong{display:block;margin-bottom:2px}
-.qnext{margin-top:16px}
-.miss{margin:14px 0 0;padding-inline-start:1.2rem}
-.miss li+li{margin-top:10px}
-.miss small{display:block;color:var(--muted)}
+/* example blocks */
+.ex{border:1px solid var(--line);border-inline-start:4px solid var(--mark);background:var(--surface);border-radius:8px;padding:12px 16px;margin-top:12px;min-width:0}
+.ex>b.lab{display:inline-block;font-size:.8rem;background:var(--mark-soft);border:1px solid var(--mark);border-radius:4px;padding:0 8px;margin-bottom:6px}
+.pr{margin:6px 0 0;white-space:pre-wrap;word-break:break-word;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:10px 14px;font:inherit;font-size:.95rem;line-height:1.7}
+.ex p+p,.ex p+.pr,.ex .pr+p{margin-top:8px}
+.ex ul{margin:6px 0 0;padding-inline-start:1.2rem}
+.ex li+li{margin-top:3px}
+.say{border-inline-start:3px solid var(--accent);padding:2px 12px;margin:6px 0}
 
-/* iteration log */
-.iters{display:grid;gap:12px}
-.iter{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:14px 16px;min-width:0}
-.iter h3{font-size:1rem;font-weight:600;margin-bottom:10px}
-.iter .cols{display:grid;gap:10px;grid-template-columns:repeat(3,1fr)}
-.iter .cols>div{min-width:0}
-.iter textarea{min-height:76px}
-.tag{font:500 .78rem var(--font-mono);background:var(--mark-soft);border:1px solid var(--mark);border-radius:4px;padding:1px 8px;margin-inline-start:8px;font-family:var(--font-body)}
-.ex .cols p{background:var(--surface-2);border-radius:8px;padding:10px 12px;font-size:.95rem}
-
-/* checklist */
-.checks{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-.checks label{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:12px 14px;cursor:pointer}
-.checks input{margin-top:.4rem;accent-color:var(--accent);width:18px;height:18px;flex:none}
-.checks input:checked+span{color:var(--muted);text-decoration:line-through}
-.risk{border-color:var(--mark)!important;background:var(--mark-soft)!important}
+/* tables */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:.95rem}
+th,td{text-align:right;padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{background:var(--surface-2);font-weight:700}
 
 /* links */
 .links{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
@@ -190,534 +126,77 @@ label.f{display:block;font-weight:700;font-size:.92rem;margin-bottom:4px}
 .links a:hover{border-color:var(--accent)}
 .links b{display:block;color:var(--accent-deep)}
 .links span{color:var(--muted);font-size:.9rem}
-.note{color:var(--muted);font-size:.92rem;margin-top:14px;max-width:64ch}
 
-ol.story{margin:0;padding-inline-start:1.4rem;display:grid;gap:12px;max-width:68ch}
-ol.story li::marker{font-weight:700;color:var(--accent-deep)}
-footer{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);font-size:.9rem}
+footer.ft{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);font-size:.9rem}
 
-@media (max-width:760px){
-  .pb{grid-template-columns:1fr}
-  .iter .cols{grid-template-columns:1fr}
-}
-@media (prefers-reduced-motion: reduce){
-  .seg summary::after{transition:none}
-}
+@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto!important;transition:none!important}}
 </style>
-
 </head>
 <body>
+<style>
+.pick{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:8px}
+.pick a{display:block;text-decoration:none;color:var(--ink);border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:22px 24px;min-width:0}
+.pick a:hover{border-color:var(--accent)}
+.pick h2{font-weight:600;font-size:1.4rem;margin-bottom:8px;color:var(--accent-deep)}
+.pick p{color:var(--muted)}
+.pick .go{display:inline-block;margin-top:14px;font-weight:700;color:var(--accent-deep)}
+</style>
 <main class="wrap" dir="rtl" lang="he">
+<div class="topbar">
+  <nav class="crumbs" aria-label="ניווט">
+    <a href="index.html" aria-current="page">פתיחה</a>
+    <a href="guide.html">עמוד המנחה</a>
+    <a href="present.html">עמוד ההקרנה</a>
+  </nav>
+  <div class="dual" role="group" aria-label="תצוגת יום או לילה">
+  <button type="button" data-t="light" aria-pressed="true"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3 3l1.4 1.4M11.6 11.6L13 13M13 3l-1.4 1.4M4.4 11.6L3 13"/></g></svg>יום</button>
+  <button type="button" data-t="dark" aria-pressed="false"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 9.6A5.8 5.8 0 0 1 6.4 2.5a5.8 5.8 0 1 0 7.1 7.1z" fill="currentColor"/></svg>לילה</button>
+</div>
 
+</div>
 <header class="top">
   <p class="eyebrow">AiMake, חט"ב נס ציונה, שכבה ז', שבוע 10</p>
   <h1>לבנות מוצר דיגיטלי בשיחה</h1>
-  <p class="lede">שיעור כפול ב-VibeCoding. התלמידים מאפיינים, מעצבים ומנסחים, ו-Gemini כותב את הקוד. המטרה היא להכיר את הגישה, להתנסות בקטן ולצאת עם חשק להמשיך.</p>
-  <div class="chips">
-    <span class="chip">90 דקות</span>
-    <span class="chip">עבודה בזוגות, עד 20 תלמידים</span>
-    <span class="chip">Gemini</span>
-    <span class="chip">תוצר: משחק או אתר בקובץ HTML אחד</span>
-  </div>
-  <nav class="toc" aria-label="תוכן העמוד">
-    <a href="#route">מסלול השיעור</a>
-    <a href="#task">המשימה</a>
-    <a href="#builder">בונה פרומפט</a>
-    <a href="#quiz-sec">נכון או לא נכון</a>
-    <a href="#log">יומן איטרציות</a>
-    <a href="#materials">חומרים</a>
-    <a href="#prep">הכנה למנחה</a>
-    <a href="#how">איך נבנה העמוד</a>
-  </nav>
+  <p class="lede">שיעור כפול של 90 דקות ב-VibeCoding. שני עמודים: אחד למנחה להכנה ולהנחיה, ואחד להקרנה לתלמידים על המקרן.</p>
 </header>
-
-<section id="goals">
-  <h2>מה מקבלים מהשיעור</h2>
-  <p class="sub">השיעור בא אחרי אוריינות AI ושיעורי המיקרוביט, ולפני היזמות ופרויקט הסיום. התלמידים כבר מכירים פרומפטים ועבדו עם Gemini.</p>
-  <div class="grid">
-    <div class="card">
-      <h3>מה התלמידים עושים</h3>
-      <p>בונים בזוגות מוצר שרץ בדפדפן, משחק או אתר עם פונקציה אחת, ומתעדים איך הניסוח שלהם הוביל לתוצאה.</p>
-    </div>
-    <div class="card">
-      <h3>מיומנויות במוקד</h3>
-      <ul>
-        <li>חשיבה מחשובית: פירוק רעיון לחוקים ולפעולות</li>
-        <li>חשיבה ביקורתית: האם התוצאה תואמת את הכוונה</li>
-        <li>למידה עצמאית: ניסוי וטעייה</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>כשירות AI</h3>
-      <ul>
-        <li>שימוש יוזם ויוצר ערך</li>
-        <li>שימוש יעיל ומושכל, כולל הנדסת פרומפט</li>
-      </ul>
-    </div>
+<section class="blk" style="border-top:0;padding-top:0">
+  <div class="pick">
+    <a href="guide.html">
+      <h2>עמוד המנחה</h2>
+      <p>מטרות, הכנה לפני השיעור, דגשים להעביר, מסלול מפורט עם דוגמאות, סרטונים וחומרים נוספים.</p>
+      <span class="go">לעמוד המנחה</span>
+    </a>
+    <a href="present.html">
+      <h2>עמוד ההקרנה</h2>
+      <p>שקפים גדולים לכיתה: הדגמה, בונה פרומפט, משימה, יומן איטרציות, גלריה וחידון נכון או לא נכון.</p>
+      <span class="go">לעמוד ההקרנה</span>
+    </a>
   </div>
+  <p class="sub" style="margin-top:20px">בכל עמוד יש כפתור יום ולילה בפינה. בכיתה מוארת תצוגת יום קריאה יותר. בעמוד ההקרנה אפשר לעבור בין שקפים עם חצי המקלדת.</p>
 </section>
-
-<section id="route">
-  <h2>מסלול השיעור</h2>
-  <p class="sub">שישה קטעים. לחצו על קטע בציר הזמן כדי לפתוח את הפירוט שלו.</p>
-  <div class="bar" id="bar" role="group" aria-label="ציר זמן של השיעור">
-    <button type="button" style="--m:10" data-seg="1" title="הדגמה חיה, 10 דקות">10</button>
-    <button type="button" style="--m:10" data-seg="2" title="אנטומיה של פרומפט, 10 דקות">10</button>
-    <button type="button" style="--m:15" data-seg="3" title="אפיון ועיצוב על נייר, 15 דקות">15</button>
-    <button type="button" class="build" style="--m:35" data-seg="4" title="בנייה באיטרציות, 35 דקות">35</button>
-    <button type="button" style="--m:12" data-seg="5" title="גלריה, 12 דקות">12</button>
-    <button type="button" style="--m:8" data-seg="6" title="רפלקציה וגשר, 8 דקות">8</button>
-  </div>
-  <p class="barnote">הרוחב פרופורציונלי לזמן, והמספרים הם דקות. הקטע הצבוע הוא הבנייה, שם מתרחשת רוב הלמידה.</p>
-
-  <details class="seg" id="seg-1">
-    <summary><span class="mins" dir="ltr">0-10</span><span class="seg-title">הדגמה חיה</span></summary>
-    <div class="seg-body">
-      <p class="k">מה קורה</p>
-      <p>המנחה כותב ל-Gemini על המקרן משפט אחד, למשל "תבנה לי משחק קטן בדפדפן", ומקבל משהו שרץ. ההדגמה יכולה להיות בינונית, כי הפער בין מה שרצינו למה שקיבלנו הוא פתח השיעור.</p>
-      <p class="k">שאלות לכיתה</p>
-      <ul>
-        <li>מי כתב כאן את הקוד?</li>
-        <li>מי החליט על הצבעים, החוקים והניקוד?</li>
-        <li>מה היינו צריכים לומר כדי לקבל בדיוק את מה שרצינו?</li>
-      </ul>
-      <p class="k">המושג</p>
-      <p class="say">VibeCoding הוא פיתוח תוכנה שבו מתארים ל-AI בשפה טבעית מה רוצים, וה-AI מתרגם את זה לקוד. המפתח הוא "ארכיטקט" ולא "בנאי".</p>
-      <p>את המונח טבע אנדריי קרפתי בפברואר 2025, ומילון קולינס בחר בו כמילת השנה של 2025 (לפי מצגת המשרד).</p>
-      <span class="out">תוצר: הגדרה במשפט אחד בלשון התלמידים</span>
-    </div>
-  </details>
-
-  <details class="seg" id="seg-2">
-    <summary><span class="mins" dir="ltr">10-20</span><span class="seg-title">אנטומיה של פרומפט</span></summary>
-    <div class="seg-body">
-      <p class="k">מה קורה</p>
-      <p>הזוגות מקבלים שני פרומפטים לאותו משחק, חלש וחזק, ומנחשים מה ייצא מכל אחד. אחר כך עוברים על ארבעת השלבים של יחידת המשרד.</p>
-      <ul>
-        <li>תפקיד: מי ה-AI בשיחה, למשל מומחה לפיתוח משחקים</li>
-        <li>אווירה: סגנון עיצובי ותחושה כללית</li>
-        <li>חוקים ופעולה: מה המטרה, איך שולטים, מה המכשולים או מה הפונקציה</li>
-        <li>הנחיות טכניות: קובץ HTML יחיד, בלי תמונות חיצוניות</li>
-      </ul>
-      <p class="k">פרומפט חלש לדוגמה</p>
-      <p class="say">תכין משחק.</p>
-      <p>הפרומפט החזק מופיע ב<a href="#builder">בונה הפרומפט</a> שבהמשך העמוד, אפשר להקרין אותו ולשחק איתו.</p>
-      <span class="out">תוצר: כרטיס "בונה הפרומפט"</span>
-    </div>
-  </details>
-
-  <details class="seg" id="seg-3">
-    <summary><span class="mins" dir="ltr">20-35</span><span class="seg-title">אפיון ועיצוב על נייר</span></summary>
-    <div class="seg-body">
-      <p class="k">מה קורה</p>
-      <p>בלי מחשב. כל זוג בוחר משחק או אתר וממלא בריף של עמוד אחד. רק אחרי זה פותחים את Gemini.</p>
-      <p class="k">שאלות הבריף</p>
-      <ul>
-        <li>מי ישתמש במוצר?</li>
-        <li>מה הדבר האחד שהמוצר עושה?</li>
-        <li>איך נראה המסך הראשון? (סקיצה)</li>
-        <li>מה קורה כשלוחצים או מזיזים?</li>
-        <li>איך נדע שהמוצר הצליח?</li>
-      </ul>
-      <p class="k">שאלה להנחיה בזמן הסיבוב בין הזוגות</p>
-      <p class="say">אם אתן את הבריף הזה למישהו שלא מכיר אתכם, הוא יבין מה לבנות?</p>
-      <span class="out">תוצר: בריף וסקיצה של מסך אחד</span>
-    </div>
-  </details>
-
-  <details class="seg build" id="seg-4">
-    <summary><span class="mins" dir="ltr">35-70</span><span class="seg-title">בנייה באיטרציות</span></summary>
-    <div class="seg-body">
-      <p class="k">מה קורה</p>
-      <p>הזוג מנסח פרומפט ראשון מתוך הבריף ומריץ. נדרשות לפחות שלוש גרסאות. בכל גרסה משנים דבר אחד בלבד, ורושמים ב<a href="#log">יומן האיטרציות</a>: מה ביקשנו, מה קיבלנו, מה נשנה בניסוח.</p>
-      <p class="k">קצב מומלץ</p>
-      <ul>
-        <li>גרסה ראשונה: כ-10 דקות</li>
-        <li>גרסה שנייה ושלישית: כ-10 דקות כל אחת</li>
-        <li>5 דקות מרווח לתקלות והתחברות</li>
-      </ul>
-      <p class="k">שאלות למנחה בזמן הסיבוב</p>
-      <ul>
-        <li>מה ביקשת ומה קיבלת?</li>
-        <li>איזו שורה בפרומפט הייתה צריכה להיות שונה?</li>
-        <li>איזה דבר אחד תשנו עכשיו?</li>
-      </ul>
-      <p class="k">זוג תקוע</p>
-      <p>לתאר ל-Gemini מה רואים ומה ציפו לראות. "זה לא עובד" לבדו לא נותן ל-AI כלום לעבוד איתו.</p>
-      <p class="k">הרחבה לזוגות מהירים</p>
-      <p>להוסיף פונקציה שנייה ואחר כך לשנות את העיצוב.</p>
-      <span class="out">תוצר: יומן איטרציות ומוצר שרץ</span>
-    </div>
-  </details>
-
-  <details class="seg" id="seg-5">
-    <summary><span class="mins" dir="ltr">70-82</span><span class="seg-title">גלריה</span></summary>
-    <div class="seg-body">
-      <p class="k">מה קורה</p>
-      <p>מחליפים עמדות. כל זוג משחק או משתמש במוצר של זוג אחר, שלוש עד ארבע דקות בכל עמדה, וממלא כרטיס משוב.</p>
-      <p class="k">כרטיס משוב</p>
-      <ul>
-        <li>מה עובד טוב במוצר?</li>
-        <li>איזה פרומפט הייתי נותן כדי לשפר אותו?</li>
-      </ul>
-      <p>המוצרים מוצגים רק בתוך הכיתה, ובלי פרטים אישיים.</p>
-      <span class="out">תוצר: כרטיס משוב לכל זוג</span>
-    </div>
-  </details>
-
-  <details class="seg" id="seg-6">
-    <summary><span class="mins" dir="ltr">82-90</span><span class="seg-title">רפלקציה וגשר לפרויקט הסיום</span></summary>
-    <div class="seg-body">
-      <p class="k">דיון קצר</p>
-      <ul>
-        <li>איזה שינוי בניסוח שינה הכי הרבה?</li>
-        <li>איפה ה-AI נתקע?</li>
-        <li>איפה VibeCoding נעצר, ומה עדיין צריך לדעת בעצמנו?</li>
-      </ul>
-      <p class="k">גשר</p>
-      <p>בשבוע 12 הקבוצות מתחילות את פרויקט הסיום, שכולל אב-טיפוס ופיץ'. כל זוג כותב פרומפט אחד לרעיון שיכול לשרת את הפרויקט, למשל דף נחיתה למוצר, סימולטור או חידון, ושומר אותו ב-Classroom.</p>
-      <p class="k">כרטיס יציאה</p>
-      <ul>
-        <li>מה למדתי על ניסוח פרומפט?</li>
-        <li>מה הפתיע אותי?</li>
-        <li>מה הייתי רוצה לבנות בפעם הבאה?</li>
-      </ul>
-      <span class="out">תוצר: פרומפט לפרויקט הסיום</span>
-    </div>
-  </details>
-</section>
-
-<section id="task">
-  <h2>המשימה</h2>
-  <p class="sub">כל הזוגות עושים אותו תרגיל: מוצר דיגיטלי קטן בקובץ HTML יחיד שרץ בדפדפן, בלי שרת ובלי התחברות. בוחרים אחת משתי אפשרויות.</p>
-  <div class="grid">
-    <div class="card">
-      <h3>אפשרות 1: משחק</h3>
-      <p>חוקים ברורים, ניקוד ותנאי סיום. למשל תופסים חפצים נופלים, מתחמקים ממכשולים או חידון מהיר.</p>
-    </div>
-    <div class="card">
-      <h3>אפשרות 2: אתר עם פונקציה</h3>
-      <p>דף אחד שעושה דבר אחד שימושי באמת. למשל טיימר ללמידה, מחשבון ציונים, גלגל החלטות או חידון בנושא לימודי.</p>
-    </div>
-    <div class="card">
-      <h3>כללים לשתי האפשרויות</h3>
-      <ul>
-        <li>פונקציה עיקרית אחת</li>
-        <li>אין שמירה בין משתמשים</li>
-        <li>בלי פרטים אישיים של אף אחד</li>
-        <li>משתפים רק בתוך הכיתה</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section id="builder">
-  <h2>בונה פרומפט</h2>
-  <p class="sub">המבנה לפי יחידת משרד החינוך: תפקיד, אווירה, חוקים והנחיה טכנית. בחרו סוג מוצר, ערכו את החלקים וראו איך הפרומפט מתחבר. אפשר גם להתחיל מאפס.</p>
-  <div class="modes" role="group" aria-label="סוג מוצר">
-    <button type="button" id="m-game" aria-pressed="true">משחק</button>
-    <button type="button" id="m-site" aria-pressed="false">אתר עם פונקציה</button>
-    <button type="button" id="m-empty" aria-pressed="false">התחלה מאפס</button>
-  </div>
-  <div class="pb">
-    <div class="fields">
-      <div>
-        <label class="f" for="pb-role">תפקיד <span class="hint">מי ה-AI בשיחה הזו</span></label>
-        <textarea id="pb-role" rows="2" placeholder="למשל: מומחה לפיתוח משחקי דפדפן"></textarea>
-      </div>
-      <div>
-        <label class="f" for="pb-vibe">אווירה ועיצוב <span class="hint">סגנון, צבעים, תחושה</span></label>
-        <textarea id="pb-vibe" rows="2" placeholder="למשל: רגוע, גווני ים, כתב גדול וברור"></textarea>
-      </div>
-      <div>
-        <label class="f" for="pb-rules">חוקים ופעולה <span class="hint">מה המטרה, מה עושים, מה קורה אחר כך</span></label>
-        <textarea id="pb-rules" rows="4" placeholder="תארו שלב אחר שלב מה המשתמש עושה ומה המוצר עושה בתגובה"></textarea>
-      </div>
-      <div>
-        <label class="f" for="pb-tech">הנחיות טכניות <span class="hint">איך זה צריך להיות בנוי</span></label>
-        <textarea id="pb-tech" rows="3" placeholder="למשל: קובץ HTML יחיד, בלי תמונות חיצוניות"></textarea>
-      </div>
-    </div>
-    <div>
-      <label class="f" for="pb-out">הפרומפט שיישלח ל-Gemini</label>
-      <pre class="prompt" id="pb-out" tabindex="0"></pre>
-      <div class="meter" id="pb-meter" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-      <p class="msg" id="pb-note" aria-live="polite"></p>
-      <div class="row">
-        <button type="button" class="btn" id="pb-copy">העתקת הפרומפט</button>
-        <span class="msg" id="pb-msg" aria-live="polite"></span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="quiz-sec">
-  <h2>נכון או לא נכון</h2>
-  <p class="sub">שמונה טענות על VibeCoding. מתאים לסוף קטע האנטומיה של פרומפט או לחזרה בסוף השיעור. בכיתה אפשר להקרין, לבקש הצבעה ביד ואז ללחוץ.</p>
-  <div class="qcard" id="quiz" aria-live="polite"></div>
-</section>
-
-<section id="log">
-  <h2>יומן איטרציות</h2>
-  <p class="sub">כך נראה יומן של זוג. שימו לב שבכל גרסה השתנה דבר אחד. הגרסאות הריקות הן הדגמה של הכרטיס שיקבלו התלמידים, והן לא נשמרות כשסוגרים את העמוד.</p>
-  <div class="iters" id="iters">
-    <div class="iter ex">
-      <h3>גרסה 1 <span class="tag">דוגמה</span></h3>
-      <div class="cols">
-        <div><p class="k" style="margin-top:0">מה ביקשתי</p><p>משחק שבו סירה תופסת כוכבי ים נופלים, עם ניקוד.</p></div>
-        <div><p class="k" style="margin-top:0">מה קיבלתי</p><p>הסירה זזה והניקוד עובד, אבל הכוכבים נופלים מהר מדי.</p></div>
-        <div><p class="k" style="margin-top:0">מה אשנה בניסוח</p><p>הכוכבים נופלים לאט בהתחלה ומאיצים כל עשר נקודות.</p></div>
-      </div>
-    </div>
-  </div>
-  <div class="row"><button type="button" class="btn ghost" id="it-add">הוספת גרסה</button><span class="msg" id="it-msg"></span></div>
-</section>
-
-<section id="materials">
-  <h2>חומרים</h2>
-  <p class="sub">חומרי משרד החינוך שעליהם נשען השיעור. הקישורים נפתחים בלשונית חדשה.</p>
-  <div class="links">
-    <a href="https://meyda.education.gov.il/files/Pop/0files/lemida-metukshevet/AI/GAME-Coding-Vibes-M.pdf" target="_blank" rel="noopener">
-      <b>יוצרים משחק ב-VibeCoding</b><span>מצגת היחידה: ההגדרה, ארבעת שלבי הפרומפט</span></a>
-    <a href="https://meyda.education.gov.il/files/Pop/0files/lemida-metukshevet/AI/summer-vibe-coding-game.pdf" target="_blank" rel="noopener">
-      <b>Summer Vibe Coding, מדריך למורה</b><span>מהלך הפעילות בתחנות והמיומנויות</span></a>
-    <a href="https://meyda.education.gov.il/files/Pop/0files/lemida-metukshevet/AI/vibe-coding-presentation.pdf" target="_blank" rel="noopener">
-      <b>מצגת Vibe Coding של המשרד</b><span>הסבר מורחב על המושג</span></a>
-    <a href="https://www.youtube.com/watch?v=PyrGexm-QnE" target="_blank" rel="noopener">
-      <b>סרטון 1</b><span>YouTube, מחומרי היחידה</span></a>
-    <a href="https://www.youtube.com/watch?v=Sbc0q7W6cXo&amp;list=PLvOBUEO1Dk23exL24LSCstbxt8UkegfyZ&amp;index=5" target="_blank" rel="noopener">
-      <b>סרטון 2</b><span>YouTube, מחומרי היחידה</span></a>
-    <a href="https://www.youtube.com/watch?v=AI5uh-p94h8" target="_blank" rel="noopener">
-      <b>סרטון 3</b><span>YouTube, מחומרי היחידה</span></a>
-  </div>
-  <p class="note">תוכן הסרטונים לא נבדק בעת בניית העמוד. כדאי לצפות בהם לפני שמקרינים לכיתה ולבחור את המתאים. אי אפשר להטמיע אותם כאן, ולכן הם נפתחים ב-YouTube.</p>
-</section>
-
-<section id="prep">
-  <h2>הכנה למנחה</h2>
-  <p class="sub">רשימת בדיקה לפני השיעור. הסימונים לא נשמרים.</p>
-  <ul class="checks">
-    <li><label class="risk"><input type="checkbox"><span>לבדוק מראש עם חשבון תלמיד שהכניסה ל-Gemini עובדת ושקוד HTML מוצג בתצוגה מקדימה. זה הסיכון המרכזי של השיעור ולא נבדק. אם לא עובד, עובדים דרך המקרן והתלמידים מכתיבים פרומפטים.</span></label></li>
-    <li><label><input type="checkbox"><span>לוודא שחשבונות משרד החינוך של התלמידים פעילים, כפי שהסילבוס מזכיר בשיעורים קודמים.</span></label></li>
-    <li><label><input type="checkbox"><span>להכין הדגמה חיה על המקרן ולשמור גרסת גיבוי שרצה.</span></label></li>
-    <li><label><input type="checkbox"><span>להדפיס לכל זוג בריף מוצר, יומן איטרציות וכרטיס משוב, או להעלות ל-Classroom.</span></label></li>
-    <li><label><input type="checkbox"><span>לחלק לזוגות מראש, עם ערבוב של רמות.</span></label></li>
-    <li><label><input type="checkbox"><span>לזכור את שלוש השאלות לזוג תקוע: מה ביקשת, מה קיבלת, מה חסר?</span></label></li>
-  </ul>
-</section>
-
-<section id="how">
-  <h2>איך נבנה העמוד הזה</h2>
-  <p class="sub">גם היחידה הזו נבנתה ב-VibeCoding, בשיחה עם Claude ובלי שורת קוד שנכתבה ביד. זו דוגמה להצגה בכיתה: ארבעה סבבים, ובכל סבב שינוי אחד.</p>
-  <ol class="story">
-    <li>ביקשתי שיעור אחד של 90 דקות בנושא VibeCoding לתלמידי ז' בנס ציונה שעובדים עם Gemini, והבאתי יחידה של משרד החינוך כהשראה.</li>
-    <li>קיבלתי הצעה ראשונה. כתבתי שקטע של "שבור ותקן וקרא את הקוד" מורכב מדי, והוא יצא.</li>
-    <li>ביקשתי שכולם יבנו אותו פרויקט, משחק או אתר עם פונקציה, ושהדגש יהיה על תהליך החשיבה: אפיון, עיצוב, ניסוח וניסוי וטעייה. ציינתי שהתלמידים כבר למדו AI ומייקרינג.</li>
-    <li>ביקשתי להפוך את כל היחידה לעמוד מעוצב, עם קישורים לסרטונים ותרגילי נכון ולא נכון.</li>
-  </ol>
-</section>
-
-<footer>
-  <p>נבנה ב-09.11.2026 בשיחה עם Claude. חומרי המשרד שייכים למשרד החינוך.</p>
-</footer>
-
+<footer class="ft"><p>נבנה ב-09.11.2026 בשיחה עם Claude. חומרי המשרד שייכים למשרד החינוך.</p></footer>
 </main>
-
 <script>
 (function(){
-  /* timeline: open the matching segment */
-  var bar=document.getElementById('bar');
-  bar.addEventListener('click',function(e){
-    var b=e.target.closest('button[data-seg]');
-    if(!b)return;
-    var d=document.getElementById('seg-'+b.getAttribute('data-seg'));
-    if(!d)return;
-    d.open=true;
-    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    d.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+  var root=document.documentElement;
+  var btns=document.querySelectorAll('.dual button');
+  var mq=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)'):null;
+  function eff(){
+    var a=root.getAttribute('data-theme');
+    if(a==='dark'||a==='light')return a;
+    return (mq&&mq.matches)?'dark':'light';
+  }
+  function sync(){
+    var e=eff();
+    Array.prototype.forEach.call(btns,function(b){b.setAttribute('aria-pressed',b.getAttribute('data-t')===e?'true':'false');});
+  }
+  Array.prototype.forEach.call(btns,function(b){
+    b.addEventListener('click',function(){root.setAttribute('data-theme',b.getAttribute('data-t'));sync();});
   });
+  if(mq&&mq.addEventListener){mq.addEventListener('change',sync);}
+  sync();
 })();
 
-(function(){
-  /* prompt builder */
-  var ids=['role','vibe','rules','tech'];
-  var names={role:'תפקיד',vibe:'אווירה ועיצוב',rules:'חוקים ופעולה',tech:'הנחיות טכניות'};
-  var tech='קובץ HTML יחיד, בלי תמונות חיצוניות ובלי ספריות חיצוניות, עם הכול בקוד אחד. שירוץ בדפדפן במחשב ובטלפון.';
-  var P={
-    game:{
-      role:'מומחה לפיתוח משחקי דפדפן לילדים בני 12.',
-      vibe:'צבעוני ורגוע, גווני ים, אנימציות חלקות וכתב גדול וברור.',
-      rules:'השחקן מזיז סירה ימינה ושמאלה במקשי המקלדת או בנגיעה במסך, ותופס כוכבי ים נופלים. כל כוכב נותן נקודה. אחרי שלוש החמצות המשחק נגמר. הניקוד הגבוה ביותר מוצג על המסך, ויש כפתור להתחלה מחדש.',
-      tech:tech
-    },
-    site:{
-      role:'מפתח אתרים שמתמחה באתרים פשוטים ונוחים לתלמידים.',
-      vibe:'מינימליסטי, רקע בהיר, כפתורים גדולים ופונט קריא.',
-      rules:'אתר של טיימר ללמידה. בוחרים מספר דקות ולוחצים על התחלה. רואים ספירה לאחור גדולה. בסיום מופיעה הודעה ומתחילה הפסקה של חמש דקות. אפשר לעצור ולאפס בכל רגע.',
-      tech:tech
-    },
-    empty:{role:'',vibe:'',rules:'',tech:''}
-  };
-  var out=document.getElementById('pb-out');
-  var note=document.getElementById('pb-note');
-  var msg=document.getElementById('pb-msg');
-  var bars=document.querySelectorAll('#pb-meter i');
-  var modeBtns={game:document.getElementById('m-game'),site:document.getElementById('m-site'),empty:document.getElementById('m-empty')};
-
-  function val(k){return document.getElementById('pb-'+k).value.trim();}
-  function compose(){
-    var parts=[];
-    ids.forEach(function(k){var v=val(k);if(v)parts.push(names[k]+': '+v);});
-    return parts.join('\n\n');
-  }
-  function update(){
-    var t=compose();
-    out.textContent=t||'הפרומפט יופיע כאן אחרי שתכתבו את החלקים.';
-    var n=0,miss=[];
-    ids.forEach(function(k,i){
-      var ok=val(k).length>=12;
-      if(ok)n++;else miss.push(names[k]);
-      bars[i].className=ok?'on':'';
-    });
-    note.textContent=n===4?'כל ארבעת החלקים קיימים. אפשר להריץ ב-Gemini.':'חסר: '+miss.join(', ')+'.';
-    msg.textContent='';
-  }
-  function setMode(m){
-    Object.keys(modeBtns).forEach(function(k){modeBtns[k].setAttribute('aria-pressed',k===m?'true':'false');});
-    ids.forEach(function(k){document.getElementById('pb-'+k).value=P[m][k];});
-    update();
-  }
-  Object.keys(modeBtns).forEach(function(k){modeBtns[k].addEventListener('click',function(){setMode(k);});});
-  ids.forEach(function(k){document.getElementById('pb-'+k).addEventListener('input',update);});
-
-  document.getElementById('pb-copy').addEventListener('click',function(){
-    var t=compose();
-    if(!t){msg.textContent='אין עדיין מה להעתיק.';return;}
-    function fallback(){
-      try{
-        var r=document.createRange();r.selectNodeContents(out);
-        var s=window.getSelection();s.removeAllRanges();s.addRange(r);
-        msg.textContent='הפרומפט סומן. לחצו Ctrl+C להעתקה.';
-      }catch(e){msg.textContent='סמנו את הפרומפט והעתיקו ידנית.';}
-    }
-    try{
-      if(navigator.clipboard&&navigator.clipboard.writeText){
-        navigator.clipboard.writeText(t).then(function(){msg.textContent='הועתק.';},fallback);
-      }else{fallback();}
-    }catch(e){fallback();}
-  });
-
-  setMode('game');
-})();
-
-(function(){
-  /* true or false quiz */
-  var Q=[
-    {t:'ב-VibeCoding מתארים במילים מה רוצים, וה-AI כותב את הקוד.',a:true,
-     why:'זו ההגדרה. המפתח הוא ארכיטקט שמנחה וה-AI הוא הבנאי. האחריות לתוצאה נשארת אצל מי שניסח.'},
-    {t:'אם Gemini כתב שהמשחק מוכן, אין צורך לשחק בו כדי לבדוק.',a:false,
-     why:'AI יכול לכתוב שהכול עובד בזמן שהמקשים לא מגיבים. בודקים בעצמנו: משחקים, לוחצים ומנסים לשבור.'},
-    {t:'פרומפט של משפט אחד נותן אותה תוצאה כמו פרומפט עם תפקיד, אווירה, חוקים והנחיה טכנית.',a:false,
-     why:'כשחסר פירוט, ה-AI משלים בניחוש שלו. פרומפט מפורט נותן לנו שליטה בתוצאה.'},
-    {t:'כדאי לשנות רק דבר אחד בכל גרסה, כדי להבין מה גרם לשינוי.',a:true,
-     why:'אם שינינו חמישה דברים והמוצר השתפר או התקלקל, אי אפשר לדעת איזה שינוי עשה את זה.'},
-    {t:'ההנחיה "קובץ HTML יחיד, בלי תמונות חיצוניות" עוזרת שהמוצר ירוץ בדפדפן בלי התקנות.',a:true,
-     why:'הכול נמצא בקובץ אחד, אין קישורים שנשברים, וקל לשתף ולפתוח.'},
-    {t:'בעידן VibeCoding אין צורך לחשוב מראש מה המוצר צריך לעשות.',a:false,
-     why:'ה-AI מזרז את הכתיבה ולא את ההחלטות. מי שלא החליט מה הפונקציה ואיך זה נראה יקבל מוצר מקרי.'},
-    {t:'כשמשהו לא עובד, מועיל לתאר ל-Gemini מה ראינו ומה ציפינו לראות.',a:true,
-     why:'תיאור של הפער נותן ל-AI מידע שאפשר לעבוד איתו. "זה לא עובד" לבדו לא אומר לו כלום.'},
-    {t:'מותר לשים בתוך המשחק שבנינו שם מלא, תמונה וטלפון של חברים, כי הוא נשאר במחשב.',a:false,
-     why:'לא מכניסים פרטים אישיים של אף אחד לכלי AI או למוצר שמשתפים. מציגים רק בתוך הכיתה.'}
-  ];
-  var root=document.getElementById('quiz');
-  var i=0,results=[],locked=false;
-
-  function dots(){
-    return Q.map(function(_,k){
-      var c='dot';
-      if(results[k]===true)c+=' ok';
-      else if(results[k]===false)c+=' bad';
-      else if(k===i)c+=' cur';
-      return '<span class="'+c+'"></span>';
-    }).join('');
-  }
-  function render(){
-    if(i>=Q.length){summary();return;}
-    var q=Q[i];
-    locked=false;
-    root.innerHTML=
-      '<div class="qtop"><span>טענה <bdi dir="ltr">'+(i+1)+' / '+Q.length+'</bdi></span><span class="dots" aria-hidden="true">'+dots()+'</span></div>'+
-      '<p class="qtext">'+q.t+'</p>'+
-      '<div class="qbtns"><button type="button" class="btn big" data-v="true">נכון</button><button type="button" class="btn big ghost" data-v="false">לא נכון</button></div>'+
-      '<div class="fb" hidden></div>'+
-      '<div class="qnext"><button type="button" class="btn" data-next="1" hidden>'+(i===Q.length-1?'לתוצאה':'הטענה הבאה')+'</button></div>';
-  }
-  function answer(btn){
-    if(locked)return;
-    locked=true;
-    var q=Q[i];
-    var said=btn.getAttribute('data-v')==='true';
-    var ok=(said===q.a);
-    results[i]=ok;
-    Array.prototype.forEach.call(root.querySelectorAll('.qbtns button'),function(b){b.disabled=true;});
-    btn.classList.add('chosen');
-    var fb=root.querySelector('.fb');
-    fb.className='fb '+(ok?'ok':'bad');
-    fb.innerHTML='<strong>'+(ok?'תשובה נכונה':'תשובה שגויה, הטענה '+(q.a?'נכונה':'לא נכונה'))+'</strong>'+q.why;
-    fb.hidden=false;
-    root.querySelector('.dots').innerHTML=dots();
-    var nx=root.querySelector('[data-next]');
-    nx.hidden=false;
-    nx.focus();
-  }
-  function summary(){
-    var good=results.filter(Boolean).length;
-    var missed=[];
-    results.forEach(function(r,k){if(!r)missed.push(k);});
-    var html='<p class="qtext">'+good+' מתוך '+Q.length+' תשובות נכונות.</p>';
-    if(missed.length){
-      html+='<p>כדאי לחזור על הטענות שהוחמצו:</p><ol class="miss">'+missed.map(function(k){
-        return '<li>'+Q[k].t+'<small>'+Q[k].why+'</small></li>';
-      }).join('')+'</ol>';
-    }else{
-      html+='<p>כל הטענות נענו נכון.</p>';
-    }
-    html+='<div class="qnext"><button type="button" class="btn" data-restart="1">התחלה מחדש</button></div>';
-    root.innerHTML=html;
-  }
-  root.addEventListener('click',function(e){
-    var t=e.target.closest('button');
-    if(!t)return;
-    if(t.hasAttribute('data-v')){answer(t);}
-    else if(t.hasAttribute('data-next')){i++;render();}
-    else if(t.hasAttribute('data-restart')){i=0;results=[];render();}
-  });
-  render();
-})();
-
-(function(){
-  /* iteration log cards */
-  var list=document.getElementById('iters');
-  var addBtn=document.getElementById('it-add');
-  var msg=document.getElementById('it-msg');
-  var n=1,max=8;
-  function add(){
-    if(n>=max){msg.textContent='זה מספיק גרסאות להדגמה.';return;}
-    n++;
-    var el=document.createElement('div');
-    el.className='iter';
-    el.innerHTML=
-      '<h3>גרסה '+n+'</h3><div class="cols">'+
-      '<div><label class="f" for="it'+n+'a">מה ביקשתי</label><textarea id="it'+n+'a" rows="3"></textarea></div>'+
-      '<div><label class="f" for="it'+n+'b">מה קיבלתי</label><textarea id="it'+n+'b" rows="3"></textarea></div>'+
-      '<div><label class="f" for="it'+n+'c">מה אשנה בניסוח</label><textarea id="it'+n+'c" rows="3"></textarea></div>'+
-      '</div>';
-    list.appendChild(el);
-  }
-  addBtn.addEventListener('click',add);
-  add();add();
-})();
 </script>
 
 </body>
