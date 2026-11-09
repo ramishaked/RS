@@ -178,6 +178,55 @@ footer.ft{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);f
 .seg[open]>summary{background:var(--cs);border-radius:8px 8px 0 0}
 .seg .show{border-color:var(--c);color:var(--ink)}
 .seg .show:hover{background:var(--cs)}
+
+/* collapsible chapters */
+details.blk{--nc:var(--s2);--nc-soft:var(--s2-soft);border:1px solid var(--line);background:var(--surface);border-radius:18px;margin-bottom:12px;overflow:clip}
+details.blk[data-n="1"]{--nc:var(--s2);--nc-soft:var(--s2-soft)}
+details.blk[data-n="2"]{--nc:var(--s1);--nc-soft:var(--s1-soft)}
+details.blk[data-n="3"]{--nc:var(--s4);--nc-soft:var(--s4-soft)}
+details.blk[data-n="4"]{--nc:var(--s5);--nc-soft:var(--s5-soft)}
+details.blk[data-n="5"]{--nc:var(--s6);--nc-soft:var(--s6-soft)}
+details.blk[data-n="6"]{--nc:var(--s3);--nc-soft:var(--s3-soft)}
+details.blk[data-n="7"]{--nc:var(--mark);--nc-soft:var(--mark-soft)}
+details.blk>summary{display:flex;align-items:center;gap:16px;padding:16px 20px;min-height:76px;cursor:pointer;list-style:none;transition:background .15s}
+details.blk>summary::-webkit-details-marker{display:none}
+details.blk>summary:hover{background:var(--nc-soft)}
+details.blk[open]>summary{background:var(--nc-soft);border-bottom:2px solid var(--nc)}
+.num{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-weight:800;font-size:1.35rem;background:var(--nc);color:var(--s-ink);flex:none}
+details.blk[data-n="7"] .num{color:#1F1300}
+.st-t{display:flex;flex-direction:column;gap:2px;min-width:0}
+.st-t .h2{font-weight:800;font-size:clamp(1.2rem,3.2vw,1.55rem);line-height:1.25}
+.st-t .hint{color:var(--muted);font-size:.95rem}
+summary.chev::after,details.blk>summary::after{content:"";margin-inline-start:auto;width:34px;height:34px;flex:none;border-radius:50%;background:var(--surface-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") center/18px no-repeat;border:1px solid var(--line);transition:transform .2s}
+:root[data-mode="dark"] details.blk>summary::after{background-color:var(--surface)}
+details.blk[open]>summary::after{transform:rotate(180deg)}
+.blk-body{padding:22px 20px 24px}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.toc{gap:8px!important}
+.toc a{border:1px solid var(--line)!important;background:var(--surface);border-radius:999px;padding:6px 14px!important;font-weight:500;color:var(--ink)!important}
+.toc a:hover{border-color:var(--accent)!important;background:var(--accent-soft)}
+/* folded examples */
+details.ex>summary{display:flex;align-items:center;gap:10px;cursor:pointer;list-style:none;min-height:34px}
+details.ex>summary::-webkit-details-marker{display:none}
+details.ex>summary::after{content:"";margin-inline-start:auto;width:26px;height:26px;border-radius:50%;flex:none;border:1px solid var(--line);background:var(--surface-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") center/14px no-repeat;transition:transform .2s}
+details.ex[open]>summary::after{transform:rotate(180deg)}
+details.ex[open]>summary{margin-bottom:8px}
+details.ex>summary .lab{font-size:.85rem;font-weight:700;background:var(--mark-soft);border:1px solid var(--mark);border-radius:6px;padding:1px 10px}
+details.ex>summary .tip{color:var(--muted);font-size:.88rem}
+details.ex:hover{border-color:var(--mark)}
+/* seg polish */
+.seg{border-radius:14px;margin-bottom:10px}
+.seg summary{padding:14px 16px;min-height:62px}
+.seg summary:hover{background:var(--cs)}
+.seg-title{font-size:1.1rem}
+/* publish section */
+.steps2{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.lvl{border-width:2px;border-radius:16px;padding:18px 20px}
+.lvl-tag{display:inline-block;font-weight:800;font-size:.85rem;border-radius:999px;padding:2px 12px;margin-bottom:8px;color:var(--s-ink)}
+.lvl.l1{border-color:var(--s4)}.lvl.l1 .lvl-tag{background:var(--s4)}
+.lvl.l2{border-color:var(--s3)}.lvl.l2 .lvl-tag{background:var(--s3)}
+.lvl p+ul,.lvl p+.say,.lvl .say+p{margin-top:8px}
+.lvl ul{margin:6px 0 0;padding-inline-start:1.2rem}
 </style>
 
 <main class="wrap" dir="rtl" lang="he">
@@ -208,6 +257,10 @@ footer.ft{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);f
   <div class="cta">
     <a class="btn" href="present.html">פתיחת עמוד ההקרנה</a>
   </div>
+  <div class="tools">
+    <button type="button" class="btn ghost" id="openall">פתיחת כל הפרקים</button>
+    <button type="button" class="btn ghost" id="closeall">סגירת הכול</button>
+  </div>
   <nav class="toc" aria-label="תוכן העמוד">
     <a href="#goals">מטרות</a>
     <a href="#route">מסלול השיעור</a>
@@ -215,11 +268,13 @@ footer.ft{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);f
     <a href="#videos">סרטונים</a>
     <a href="#materials">חומרים רלוונטיים נוספים</a>
     <a href="#stress">דגשים להעביר</a>
+    <a href="#publish">למתקדמים: פרסום</a>
   </nav>
 </header>
 
-<section class="blk" id="goals">
-  <h2>מטרות</h2>
+<details class="blk" id="goals" data-n="1">
+<summary><span class="num" aria-hidden="true">1</span><span class="st-t"><span class="h2">מטרות</span><span class="hint">מה התלמידים ילמדו ואיך רואים את זה</span></span></summary>
+<div class="blk-body">
   <p class="sub">השיעור בא אחרי אוריינות AI ושיעורי המיקרוביט, ולפני היזמות ופרויקט הסיום. התלמידים מכירים פרומפטים ועבדו עם Gemini, ולכן השיעור בונה על ידע קיים ומעביר אותם משימוש בשיחה לבנייה של מוצר.</p>
 
   <div class="card key" style="margin-bottom:14px">
@@ -282,10 +337,12 @@ footer.ft{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);f
       </ul>
     </div>
   </div>
-</section>
+</div>
+</details>
 
-<section class="blk" id="route">
-  <h2>מסלול השיעור</h2>
+<details class="blk" id="route" data-n="2">
+<summary><span class="num" aria-hidden="true">2</span><span class="st-t"><span class="h2">מסלול השיעור</span><span class="hint">שישה קטעים, 90 דקות, עם דוגמאות</span></span></summary>
+<div class="blk-body">
   <p class="sub">שישה קטעים. לחצו על קטע בציר הזמן כדי לפתוח אותו. בכל קטע יש דוגמאות שאפשר להקריא, להקרין או לחלק, וקישור לשקפים של אותו קטע.</p>
   <div class="bar" id="bar" role="group" aria-label="ציר זמן של השיעור">
     <button type="button" style="--m:10" data-seg="1" title="פתיחה והדגמה חיה, 10 דקות">10</button>
@@ -526,14 +583,16 @@ footer.ft{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);f
         <div class="pr">אנחנו קבוצה שמפתחת אפליקציה לצמצום בזבוז אוכל בבית הספר. תבנה דף נחיתה בעברית, מיושר לימין, עם כותרת, שלושה יתרונות וכפתור "אני רוצה להצטרף". סגנון ירוק ונקי. קובץ HTML יחיד.</div>
       </div>
       <p class="k">אם נשאר זמן</p>
-      <p>חידון נכון או לא נכון של שמונה טענות. הוא מופיע בשקף האחרון של עמוד ההקרנה, וכל תשובה מלווה בהסבר.</p>
+      <p>חידון נכון או לא נכון של שמונה טענות. הוא מופיע בשקף 18 של עמוד ההקרנה, וכל תשובה מלווה בהסבר. אחריו יש שקף 19 למתקדמים, ראו "למתקדמים: איך מפרסמים".</p>
       <a class="show" href="present.html#s-16">שקפים 16 עד 18</a><span class="out">תוצר: פרומפט לפרויקט הסיום</span>
     </div>
   </details>
-</section>
+</div>
+</details>
 
-<section class="blk" id="prep">
-  <h2>הכנה לפני השיעור</h2>
+<details class="blk" id="prep" data-n="3">
+<summary><span class="num" aria-hidden="true">3</span><span class="st-t"><span class="h2">הכנה לפני השיעור</span><span class="hint">רשימת בדיקה</span></span></summary>
+<div class="blk-body">
   <p class="sub">רשימת בדיקה. הסימונים לא נשמרים כשסוגרים את העמוד.</p>
   <ul class="checks">
     <li><label class="risk"><input type="checkbox"><span>לבדוק מראש עם חשבון תלמיד שהכניסה ל-Gemini עובדת ושקוד HTML מוצג בתצוגה מקדימה. זה הסיכון המרכזי של השיעור ולא נבדק. אם לא עובד, עובדים דרך המקרן והתלמידים מכתיבים פרומפטים.</span></label></li>
@@ -545,10 +604,12 @@ footer.ft{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);f
     <li><label><input type="checkbox"><span>לחלק לזוגות מראש, עם ערבוב של רמות.</span></label></li>
     <li><label><input type="checkbox"><span>לבחור אם להקרין סרטון קצר על VibeCoding (שתי אפשרויות, אחת מהן באנגלית, ראו "סרטונים") ולפתוח אותו מראש בלשונית נפרדת.</span></label></li>
   </ul>
-</section>
+</div>
+</details>
 
-<section class="blk" id="videos">
-  <h2>סרטונים</h2>
+<details class="blk" id="videos" data-n="4">
+<summary><span class="num" aria-hidden="true">4</span><span class="st-t"><span class="h2">סרטונים</span><span class="hint">שלושה סרטונים, כולם אופציונליים</span></span></summary>
+<div class="blk-body">
   <div class="grid">
     <div class="card vid">
       <div>
@@ -573,10 +634,12 @@ footer.ft{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);f
     </div>
   </div>
   <p class="sub" style="margin-top:14px">אי אפשר להטמיע סרטוני YouTube בעמוד הזה, ולכן הם נפתחים בלשונית חדשה. כדאי לפתוח אותם מראש.</p>
-</section>
+</div>
+</details>
 
-<section class="blk" id="materials">
-  <h2>חומרים רלוונטיים נוספים</h2>
+<details class="blk" id="materials" data-n="5">
+<summary><span class="num" aria-hidden="true">5</span><span class="st-t"><span class="h2">חומרים רלוונטיים נוספים</span><span class="hint">שלושה מסמכים של משרד החינוך</span></span></summary>
+<div class="blk-body">
   <p class="sub">חומרי משרד החינוך שעליהם נשען השיעור. הקישורים נפתחים בלשונית חדשה.</p>
   <div class="links">
     <a href="https://meyda.education.gov.il/files/Pop/0files/lemida-metukshevet/AI/GAME-Coding-Vibes-M.pdf" target="_blank" rel="noopener">
@@ -586,11 +649,13 @@ footer.ft{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);f
     <a href="https://meyda.education.gov.il/files/Pop/0files/lemida-metukshevet/AI/vibe-coding-presentation.pdf" target="_blank" rel="noopener">
       <b>מצגת Vibe Coding של המשרד</b><span>הסבר מורחב על המושג</span></a>
   </div>
-</section>
+</div>
+</details>
 
-<section class="blk" id="stress">
-  <h2>דגשים להעביר בשיעור</h2>
-  <p class="sub">חמישה רעיונות שכדאי לחזור אליהם לאורך השיעור, בכל קטע בניסוח אחר.</p>
+<details class="blk" id="stress" data-n="6">
+<summary><span class="num" aria-hidden="true">6</span><span class="st-t"><span class="h2">דגשים להעביר בשיעור</span><span class="hint">שישה רעיונות לחזור אליהם</span></span></summary>
+<div class="blk-body">
+  <p class="sub">שישה רעיונות שכדאי לחזור אליהם לאורך השיעור, בכל קטע בניסוח אחר.</p>
   <div class="grid">
     <div class="card key">
       <h3>גם היחידה הזו נבנתה ב-VibeCoding</h3>
@@ -619,7 +684,58 @@ footer.ft{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);f
       <p>בלי שמות, תמונות או טלפונים של אנשים בפרומפטים ובמוצרים. משתפים רק בתוך הכיתה.</p>
     </div>
   </div>
-</section>
+</div>
+</details>
+
+
+<details class="blk" id="publish" data-n="7">
+<summary><span class="num" aria-hidden="true">7</span><span class="st-t"><span class="h2">למתקדמים: איך מפרסמים מה שבנינו</span><span class="hint">שיתוף בלינק, ומה עושים כשרוצים משהו רציני</span></span></summary>
+<div class="blk-body">
+  <p class="sub">אופציונלי. לתלמידים שסיימו מוקדם או שמתלהבים ושואלים "ואיך אחרים יראו את זה?". לא חלק מ-90 הדקות.</p>
+
+  <div class="steps2">
+    <div class="card lvl l1">
+      <span class="lvl-tag">רמה 1</span>
+      <h3>שולחים קישור</h3>
+      <p>כמו ששולחים לחבר סרטון: לוחצים על שיתוף, מעתיקים את הקישור, וכל מי שמקבל אותו יכול לפתוח ולשחק. זה מספיק לכמעט כל מה שבונים בשיעור.</p>
+      <ul>
+        <li><b>ב-Gemini:</b> במסך של ה-Canvas לוחצים על שיתוף, ומעתיקים את הקישור.</li>
+        <li><b>ב-Claude:</b> מפרסמים את התוצר כ-artifact ומשתפים את הקישור שלו.</li>
+        <li><b>בכיתה:</b> אפשר לשתף ל-Classroom, אם בית הספר איפשר את זה.</li>
+      </ul>
+    </div>
+    <div class="card lvl l2">
+      <span class="lvl-tag">רמה 2</span>
+      <h3>כשרוצים משהו רציני</h3>
+      <p>נניח שרוצים שהמשחק יזכור את הניקוד הגבוה של כל החברים, או שכל אחד יכנס עם שם משלו. בשביל זה צריך מחברת גדולה שכולם כותבים בה והיא לא נמחקת. מחברת כזו נקראת <b>בסיס נתונים</b>, והיא לא חלק מהקובץ שבנינו. צריך פלטפורמה נוספת שמספקת אותה.</p>
+      <div class="say">"אני רוצה שהניקוד הגבוה יישמר גם אחרי שסוגרים את הדף, ושכולם יראו אותו."</div>
+      <p>זה בדיוק משפט שאפשר לכתוב כבקשה לכלי שבונה אפליקציות שלמות.</p>
+    </div>
+  </div>
+
+  <div class="card key" style="margin-top:14px">
+    <h3>האם זה הזמן לספר על Base44?</h3>
+    <p><b>כן, אבל כמבט קדימה ולא בתוך השיעור.</b> בקטע הסיכום אפשר להזכיר במשפט אחד שיש פלטפורמה ישראלית שעובדת כמו מה שעשינו (מתארים בשיחה, והיא בונה), ושיש בה גם בסיס נתונים, כניסה עם משתמש ופרסום, הכול במקום אחד. יש לה תוכנית חינמית.</p>
+    <ul>
+      <li><b>גאווה ישראלית:</b> Base44 נוסדה ב-2024 על ידי מעוז שלמה, ו-Wix הישראלית הודיעה על רכישתה ב-18.06.2025, בסכום ראשוני של כ-80 מיליון דולר (לפי Globes).</li>
+      <li><b>גיל:</b> לפי תנאי השימוש שלה, הגיל המינימלי הוא 13, והשירות לא מיועד למי שמתחת לכך. תלמידי כיתה ז' בגילאי 12 עד 13, ולכן לא מבקשים מהם להירשם בשיעור.</li>
+      <li><b>פרטיות:</b> בסיס נתונים הוא איסוף מידע, וזה מתנגש עם הכלל שלנו בלי פרטים אישיים. שימוש בכיתה דורש אישור של בית הספר והרשות.</li>
+      <li><b>המלצה:</b> המנחה מדגים בעצמו או מראה סרטון, והתלמידים המתקדמים בודקים בבית עם ההורים.</li>
+    </ul>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <h3>דברים שכדאי לדעת על שיתוף קישור</h3>
+    <ul>
+      <li>מי שיש לו את הקישור יכול לפתוח אותו, גם מחוץ לכיתה. לכן משתפים רק מוצרים בלי פרטים אישיים.</li>
+      <li>לפי הגדרות Google, באפליקציה משותפת מי שיש לו את הקישור יכול גם לראות ולערוך את המידע ששמור בה.</li>
+      <li>למשתמשים מתחת לגיל 18 אין ב-Gemini אפשרות להעתיק Canvas ששותף איתם, ולהוסיף לאפליקציה יכולות AI של Gemini נדרש גיל 18.</li>
+      <li>השיתוף ל-Classroom תלוי בהגדרות מנהל המערכת בבית הספר. כדאי לבדוק מראש.</li>
+    </ul>
+  </div>
+  <a class="show" style="--c:var(--s6);--cs:var(--s6-soft)" href="present.html#s-19">שקף 19</a>
+</div>
+</details>
 
 <footer class="ft">
   <p>נבנה ע"י רמי שקד ב-09.11.2026 בשיחה עם Claude. חומרי המשרד שייכים למשרד החינוך.</p>
@@ -629,16 +745,44 @@ footer.ft{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);f
 
 <script>
 (function(){
+  function openUp0(el){for(var n=el;n;n=n.parentElement){if(n.tagName==='DETAILS')n.open=true;}}
   var bar=document.getElementById('bar');
   bar.addEventListener('click',function(e){
     var b=e.target.closest('button[data-seg]');
     if(!b)return;
     var d=document.getElementById('seg-'+b.getAttribute('data-seg'));
     if(!d)return;
-    d.open=true;
+    openUp0(d);
     var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     d.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
   });
+})();
+
+(function(){
+  /* fold every example block into a closed details */
+  document.querySelectorAll('.ex').forEach(function(ex){
+    var lab=ex.querySelector(':scope>b.lab');
+    var d=document.createElement('details');d.className='ex';
+    var sm=document.createElement('summary');
+    var l=document.createElement('span');l.className='lab';l.textContent=lab?lab.textContent:'דוגמה';
+    var t=document.createElement('span');t.className='tip';t.textContent='לחצו לפתיחה';
+    sm.appendChild(l);sm.appendChild(t);d.appendChild(sm);
+    Array.prototype.slice.call(ex.childNodes).forEach(function(n){if(n!==lab)d.appendChild(n);});
+    ex.parentNode.replaceChild(d,ex);
+  });
+  function openUp(el){for(var n=el;n;n=n.parentElement){if(n.tagName==='DETAILS')n.open=true;}}
+  function goto(id){
+    var el=document.getElementById(id);if(!el)return false;
+    openUp(el);
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});return true;
+  }
+  document.querySelectorAll('.toc a').forEach(function(a){
+    a.addEventListener('click',function(e){var id=a.getAttribute('href').slice(1);if(goto(id)){e.preventDefault();history.replaceState(null,'','#'+id);}});
+  });
+  document.getElementById('openall').addEventListener('click',function(){document.querySelectorAll('details.blk,details.seg').forEach(function(d){d.open=true;});});
+  document.getElementById('closeall').addEventListener('click',function(){document.querySelectorAll('details').forEach(function(d){d.open=false;});window.scrollTo(0,0);});
+  if(location.hash.length>1){setTimeout(function(){goto(location.hash.slice(1));},50);}
 })();
 (function(){
   var root=document.documentElement;
