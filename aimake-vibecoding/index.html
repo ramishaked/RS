@@ -6,7 +6,7 @@
 <title>AiMake VibeCoding</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&family=Rubik:wght@600;800&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap">
 <style>
 :root{
   --bg:#F4F6F8;
@@ -26,8 +26,8 @@
   --bad:#B83A2B;
   --bad-soft:#FBE7E4;
   --font-body:"Heebo",system-ui,"Segoe UI",Arial,sans-serif;
-  --font-display:"Rubik","Heebo",system-ui,sans-serif;
-  --font-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --font-display:var(--font-body);
+  --font-mono:var(--font-body);
 }
 :root[data-theme="dark"]{
   --bg:#0E151B;--surface:#151E26;--surface-2:#1B2630;--ink:#E6EDF3;--muted:#95A6B5;--line:#26333F;
@@ -76,12 +76,12 @@ h1{font-weight:800;font-size:clamp(2rem,5.4vw,3rem);line-height:1.14;letter-spac
 .toc a:hover{color:var(--ink);border-color:var(--accent)}
 
 section.blk{padding-block:34px;border-top:1px solid var(--line)}
-section.blk h2{font-weight:600;font-size:clamp(1.4rem,3.4vw,1.8rem);line-height:1.25;margin-bottom:8px}
+section.blk h2{font-weight:700;font-size:clamp(1.4rem,3.4vw,1.8rem);line-height:1.25;margin-bottom:8px}
 .sub{color:var(--muted);max-width:64ch;margin-bottom:20px}
 
 .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
 .card{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:16px 18px;min-width:0}
-.card h3{font-weight:600;font-size:1.05rem;margin-bottom:6px}
+.card h3{font-weight:700;font-size:1.05rem;margin-bottom:6px}
 .card ul{margin:0;padding-inline-start:1.1rem}
 .card li+li{margin-top:4px}
 .card.key{border-color:var(--accent)}
@@ -171,6 +171,7 @@ footer.ft{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);f
 <script>
 (function(){
   var root=document.documentElement;
+  root.setAttribute('data-theme','light');
   var btns=document.querySelectorAll('.dual button');
   var mq=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)'):null;
   function eff(){
