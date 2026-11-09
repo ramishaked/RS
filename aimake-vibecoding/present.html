@@ -29,13 +29,12 @@
   --font-display:var(--font-body);
   --font-mono:var(--font-body);
 }
-:root[data-theme="dark"]{
+:root[data-mode="dark"]{
   --bg:#0E151B;--surface:#151E26;--surface-2:#1B2630;--ink:#E6EDF3;--muted:#95A6B5;--line:#26333F;
   --accent:#3CC4B4;--accent-deep:#7FE0D3;--accent-soft:#133A36;--accent-ink:#06201D;
   --mark:#F0B429;--mark-soft:#3A2F10;--good:#4CC07C;--good-soft:#14301F;--bad:#F0715F;--bad-soft:#3A1B16;
   color-scheme:dark;
 }
-:root[data-theme="light"]{color-scheme:light}
 
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -231,6 +230,11 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
 .count{font:700 1.1rem var(--font-body)}
 .btn,.modes button{font-family:var(--font-body)}
 
+#slide-12 h2{font-size:clamp(1.9rem,4.2vw,3rem);margin-bottom:10px}
+#slide-12 .big{font-size:clamp(1.4rem,2.8vw,2.1rem);margin-bottom:14px!important}
+#slide-12 .pcard{padding:18px 22px}
+#slide-12 .pcard h3{font-size:clamp(1.2rem,2.3vw,1.7rem)}
+#slide-12 .pcard p,#slide-12 p.st{font-size:clamp(1.05rem,2vw,1.5rem)}
 @media (max-width:820px){
   .two,.three,.four,.pb{grid-template-columns:1fr}
   .deck{min-height:0}
@@ -416,11 +420,24 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
       <li>אפשר להחליף בו את השם ולקבל מוצר זהה של מישהו אחר?</li>
     </ul>
   </div>
-  <a class="btn ghost vlink st" href="https://youtu.be/oxHIQg6C20s" target="_blank" rel="noopener">סרטון על AI slop, נפתח ב-YouTube</a>
+  <a class="btn ghost vlink st" href="https://youtu.be/oxHIQg6C20s" target="_blank" rel="noopener">סרטון על AI slop, אלגוריה על יצירה בעידן ה-AI</a>
 </section>
 
 <!-- 12 -->
 <section class="slide" id="slide-12" data-n="12" hidden>
+  <p class="badge" dir="ltr">35-70 | בנייה באיטרציות</p>
+  <h2>"זה לא שלך, ה-AI עשה את זה"</h2>
+  <p class="big" style="margin-bottom:22px">למה זו לא ביקורת נכונה?</p>
+  <div class="three">
+    <div class="pcard hl st"><h3>יצירה היא החלטות</h3><p>במאי לא מפעיל את המצלמה ואדריכל לא מניח לבנים. מי שהחליט מה בונים הוא היוצר.</p></div>
+    <div class="pcard hl st"><h3>אותו כלי, מוצרים שונים</h3><p>שני זוגות עם אותו Gemini יקבלו שני מוצרים. ההבדל הוא אנחנו.</p></div>
+    <div class="pcard hl st"><h3>אנחנו אחראים</h3><p>בדקנו, תיקנו ועומדים מאחורי התוצאה. אם יש טעות, היא שלנו.</p></div>
+  </div>
+  <p class="st" style="margin-top:22px"><b>המבחן:</b> אם מישהו יכול לקבל את אותו מוצר מפרומפט של שורה אחת, הוא לא שלנו. אם הוא משקף את ההחלטות שלנו, הוא שלנו.</p>
+</section>
+
+<!-- 12 -->
+<section class="slide" id="slide-13" data-n="13" hidden>
   <p class="badge" dir="ltr">35-70 | בנייה באיטרציות</p>
   <h2>תקועים? מתארים את הפער</h2>
   <div class="tw"><table>
@@ -434,7 +451,7 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
 </section>
 
 <!-- 13 -->
-<section class="slide" id="slide-13" data-n="13" hidden>
+<section class="slide" id="slide-14" data-n="14" hidden>
   <p class="badge" dir="ltr">70-82 | גלריה</p>
   <h2>מחליפים עמדות ונותנים משוב</h2>
   <div class="two">
@@ -456,7 +473,7 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
 </section>
 
 <!-- 14 -->
-<section class="slide" id="slide-14" data-n="14" hidden>
+<section class="slide" id="slide-15" data-n="15" hidden>
   <p class="badge" dir="ltr">82-90 | רפלקציה וגשר</p>
   <h2>מה למדנו</h2>
   <ul class="big" style="font-size:clamp(1.4rem,3.2vw,2.4rem)">
@@ -467,7 +484,7 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
 </section>
 
 <!-- 15 -->
-<section class="slide" id="slide-15" data-n="15" hidden>
+<section class="slide" id="slide-16" data-n="16" hidden>
   <p class="badge" dir="ltr">82-90 | רפלקציה וגשר</p>
   <h2>הגשר לפרויקט הסיום</h2>
   <div class="two">
@@ -488,7 +505,7 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
 </section>
 
 <!-- 16 -->
-<section class="slide" id="slide-16" data-n="16" hidden>
+<section class="slide" id="slide-17" data-n="17" hidden>
   <p class="badge" dir="ltr">82-90 | אם נשאר זמן</p>
   <h2>נכון או לא נכון</h2>
   <div class="qcard" id="quiz" aria-live="polite"></div>
@@ -503,8 +520,8 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
       <button type="button" style="--m:10" data-go="4" title="אנטומיה של פרומפט">פרומפט</button>
       <button type="button" style="--m:15" data-go="7" title="אפיון ועיצוב על נייר">אפיון</button>
       <button type="button" style="--m:35" data-go="9" title="בנייה באיטרציות">בנייה</button>
-      <button type="button" style="--m:12" data-go="13" title="גלריה">גלריה</button>
-      <button type="button" style="--m:8" data-go="14" title="רפלקציה וגשר">סיכום</button>
+      <button type="button" style="--m:12" data-go="14" title="גלריה">גלריה</button>
+      <button type="button" style="--m:8" data-go="15" title="רפלקציה וגשר">סיכום</button>
     </div>
     <div class="ctrl">
       <div class="grp">
@@ -759,11 +776,10 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
 })();
 (function(){
   var root=document.documentElement;
-  root.setAttribute('data-theme','light');
   var btns=document.querySelectorAll('.dual button');
   var mq=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)'):null;
   function eff(){
-    var a=root.getAttribute('data-theme');
+    var a=root.getAttribute('data-mode');
     if(a==='dark'||a==='light')return a;
     return 'light';
   }
@@ -772,7 +788,7 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
     Array.prototype.forEach.call(btns,function(b){b.setAttribute('aria-pressed',b.getAttribute('data-t')===e?'true':'false');});
   }
   Array.prototype.forEach.call(btns,function(b){
-    b.addEventListener('click',function(){root.setAttribute('data-theme',b.getAttribute('data-t'));sync();});
+    b.addEventListener('click',function(){root.setAttribute('data-mode',b.getAttribute('data-t'));sync();});
   });
   if(mq&&mq.addEventListener){mq.addEventListener('change',sync);}
   sync();

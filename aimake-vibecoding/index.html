@@ -29,13 +29,12 @@
   --font-display:var(--font-body);
   --font-mono:var(--font-body);
 }
-:root[data-theme="dark"]{
+:root[data-mode="dark"]{
   --bg:#0E151B;--surface:#151E26;--surface-2:#1B2630;--ink:#E6EDF3;--muted:#95A6B5;--line:#26333F;
   --accent:#3CC4B4;--accent-deep:#7FE0D3;--accent-soft:#133A36;--accent-ink:#06201D;
   --mark:#F0B429;--mark-soft:#3A2F10;--good:#4CC07C;--good-soft:#14301F;--bad:#F0715F;--bad-soft:#3A1B16;
   color-scheme:dark;
 }
-:root[data-theme="light"]{color-scheme:light}
 
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -171,11 +170,10 @@ footer.ft{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);f
 <script>
 (function(){
   var root=document.documentElement;
-  root.setAttribute('data-theme','light');
   var btns=document.querySelectorAll('.dual button');
   var mq=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)'):null;
   function eff(){
-    var a=root.getAttribute('data-theme');
+    var a=root.getAttribute('data-mode');
     if(a==='dark'||a==='light')return a;
     return 'light';
   }
@@ -184,7 +182,7 @@ footer.ft{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);f
     Array.prototype.forEach.call(btns,function(b){b.setAttribute('aria-pressed',b.getAttribute('data-t')===e?'true':'false');});
   }
   Array.prototype.forEach.call(btns,function(b){
-    b.addEventListener('click',function(){root.setAttribute('data-theme',b.getAttribute('data-t'));sync();});
+    b.addEventListener('click',function(){root.setAttribute('data-mode',b.getAttribute('data-t'));sync();});
   });
   if(mq&&mq.addEventListener){mq.addEventListener('change',sync);}
   sync();
