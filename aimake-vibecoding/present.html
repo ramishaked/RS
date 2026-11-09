@@ -158,6 +158,8 @@ details.rv summary{cursor:pointer;font-weight:700;color:var(--accent-deep);font-
 details.rv p{font-size:clamp(1rem,1.9vw,1.4rem);margin-top:8px}
 .big{font-family:var(--font-display);font-weight:700;font-size:clamp(1.6rem,3.8vw,2.8rem);line-height:1.35;text-wrap:balance}
 .vlink{display:inline-block;margin-top:18px;font-size:1.05rem}
+.vids{display:flex;gap:12px;flex-wrap:wrap}
+.count{min-width:9rem}
 .note{color:var(--muted);font-size:1rem}
 
 /* bottom control bar */
@@ -253,11 +255,11 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
 <section class="slide" id="slide-2" data-n="2" hidden>
   <p class="badge" dir="ltr">0-10 | הדגמה חיה</p>
   <h2>משפט אחד ל-Gemini</h2>
-  <div class="pr big" style="font-family:var(--font-display)">תבנה לי משחק קטן בדפדפן.</div>
+  <div class="pr big st" style="font-family:var(--font-display)">תבנה לי משחק קטן בדפדפן.</div>
   <ul style="margin-top:24px">
-    <li>מי כתב כאן את הקוד?</li>
-    <li>מי החליט על הצבעים, החוקים והניקוד?</li>
-    <li>מה היינו צריכים לומר כדי לקבל בדיוק את מה שרצינו?</li>
+    <li class="st">מי כתב כאן את הקוד?</li>
+    <li class="st">מי החליט על הצבעים, החוקים והניקוד?</li>
+    <li class="st">מה היינו צריכים לומר כדי לקבל בדיוק את מה שרצינו?</li>
   </ul>
 </section>
 
@@ -265,13 +267,16 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
 <section class="slide" id="slide-3" data-n="3" hidden>
   <p class="badge" dir="ltr">0-10 | הדגמה חיה</p>
   <h2>מה זה VibeCoding</h2>
-  <p class="big">מתארים ל-AI במילים מה רוצים, והוא מתרגם את זה לקוד.</p>
+  <p class="big st">מתארים ל-AI במילים מה רוצים, והוא מתרגם את זה לקוד.</p>
   <div class="two" style="margin-top:24px">
-    <div class="pcard hl"><h3>ארכיטקט</h3><p>מחליט מה בונים, איך זה נראה ואיך זה אמור לעבוד. זה התפקיד שלנו.</p></div>
-    <div class="pcard"><h3>בנאי</h3><p>מבצע לפי התוכנית. זה התפקיד של Gemini.</p></div>
+    <div class="pcard hl st"><h3>ארכיטקט</h3><p>מחליט מה בונים, איך זה נראה ואיך זה אמור לעבוד. זה התפקיד שלנו.</p></div>
+    <div class="pcard st"><h3>בנאי</h3><p>מבצע לפי התוכנית. זה התפקיד של Gemini.</p></div>
   </div>
-  <p class="note" style="margin-top:18px">המונח הופיע בפברואר 2025 (אנדריי קרפתי), ומילון קולינס בחר בו כמילת השנה של 2025.</p>
-  <a class="btn ghost vlink" href="https://www.youtube.com/watch?v=PyrGexm-QnE" target="_blank" rel="noopener">סרטון קצר על VibeCoding, נפתח ב-YouTube</a>
+  <p class="note st" style="margin-top:18px">המונח הופיע בפברואר 2025 (אנדריי קרפתי), ומילון קולינס בחר בו כמילת השנה של 2025.</p>
+  <div class="vids st">
+    <a class="btn ghost vlink" href="https://www.youtube.com/watch?v=PyrGexm-QnE" target="_blank" rel="noopener">סרטון קצר על VibeCoding, נפתח ב-YouTube</a>
+    <a class="btn ghost vlink" href="https://youtube.com/shorts/t-OL9Zp32_M" target="_blank" rel="noopener">סרטון קצר לילדים (באנגלית), SmartNonsense</a>
+  </div>
 </section>
 
 <!-- 4 -->
@@ -279,18 +284,18 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
   <p class="badge" dir="ltr">10-20 | אנטומיה של פרומפט</p>
   <h2>אותו משחק, שני פרומפטים. מה ייצא?</h2>
   <div class="two">
-    <div class="pcard weak">
+    <div class="pcard weak st">
       <h3>פרומפט א</h3>
       <div class="pr">תכין משחק.</div>
       <details class="rv"><summary>מה סביר שיקרה</summary><p>Gemini ימלא את החסר בניחוש: חוקים, סגנון וסוף שלא בחרנו.</p></details>
     </div>
-    <div class="pcard strong">
+    <div class="pcard strong st">
       <h3>פרומפט ב</h3>
       <div class="pr">תפקיד: מומחה לפיתוח משחקי דפדפן לילדים. אווירה: גווני ים, כתב גדול. חוקים: סירה תופסת כוכבי ים נופלים, שלוש החמצות והמשחק נגמר. טכני: קובץ HTML יחיד.</div>
       <details class="rv"><summary>מה סביר שיקרה</summary><p>תוצאה קרובה למה שתיארנו, שאפשר לשפר צעד אחר צעד.</p></details>
     </div>
   </div>
-  <p style="margin-top:20px">מה חסר בפרומפט א?</p>
+  <p class="st" style="margin-top:20px">מה חסר בפרומפט א?</p>
 </section>
 
 <!-- 5 -->
@@ -298,10 +303,10 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
   <p class="badge" dir="ltr">10-20 | אנטומיה של פרומפט</p>
   <h2>ארבעה חלקים בפרומפט</h2>
   <div class="four">
-    <div class="pcard hl"><h3>1. תפקיד</h3><p>מי ה-AI בשיחה.</p><div class="pr">מומחה לפיתוח משחקי דפדפן לילדים.</div></div>
-    <div class="pcard hl"><h3>2. אווירה</h3><p>איך זה נראה ומרגיש.</p><div class="pr">גווני ים, אנימציות חלקות, כתב גדול.</div></div>
-    <div class="pcard hl"><h3>3. חוקים</h3><p>מה עושים ומה קורה.</p><div class="pr">סירה תופסת כוכבי ים. שלוש החמצות והמשחק נגמר.</div></div>
-    <div class="pcard hl"><h3>4. טכני</h3><p>איך זה בנוי.</p><div class="pr">קובץ HTML יחיד, בלי תמונות חיצוניות.</div></div>
+    <div class="pcard hl st"><h3>1. תפקיד</h3><p>מי ה-AI בשיחה.</p><div class="pr">מומחה לפיתוח משחקי דפדפן לילדים.</div></div>
+    <div class="pcard hl st"><h3>2. אווירה</h3><p>איך זה נראה ומרגיש.</p><div class="pr">גווני ים, אנימציות חלקות, כתב גדול.</div></div>
+    <div class="pcard hl st"><h3>3. חוקים</h3><p>מה עושים ומה קורה.</p><div class="pr">סירה תופסת כוכבי ים. שלוש החמצות והמשחק נגמר.</div></div>
+    <div class="pcard hl st"><h3>4. טכני</h3><p>איך זה בנוי.</p><div class="pr">קובץ HTML יחיד, בלי תמונות חיצוניות.</div></div>
   </div>
 </section>
 
@@ -336,10 +341,10 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
   <p class="badge" dir="ltr">20-35 | אפיון ועיצוב על נייר</p>
   <h2>המשימה: בוחרים אחת משתיים</h2>
   <div class="two">
-    <div class="pcard hl"><h3>1. משחק</h3><p>חוקים ברורים, ניקוד ותנאי סיום.</p><ul><li>תופסים חפצים נופלים</li><li>מתחמקים ממכשולים</li><li>חידון מהיר</li></ul></div>
-    <div class="pcard hl"><h3>2. אתר עם פונקציה</h3><p>דף אחד שעושה דבר אחד שימושי באמת.</p><ul><li>טיימר ללמידה</li><li>מחשבון ציונים</li><li>גלגל החלטות</li></ul></div>
+    <div class="pcard hl st"><h3>1. משחק</h3><p>חוקים ברורים, ניקוד ותנאי סיום.</p><ul><li>תופסים חפצים נופלים</li><li>מתחמקים ממכשולים</li><li>חידון מהיר</li></ul></div>
+    <div class="pcard hl st"><h3>2. אתר עם פונקציה</h3><p>דף אחד שעושה דבר אחד שימושי באמת.</p><ul><li>טיימר ללמידה</li><li>מחשבון ציונים</li><li>גלגל החלטות</li></ul></div>
   </div>
-  <p style="margin-top:20px">קובץ HTML יחיד, בלי שמירה בין משתמשים, בלי פרטים אישיים, משתפים רק בכיתה.</p>
+  <p class="st" style="margin-top:20px">קובץ HTML יחיד, בלי שמירה בין משתמשים, בלי פרטים אישיים, משתפים רק בכיתה.</p>
 </section>
 
 <!-- 8 -->
@@ -357,7 +362,7 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
         <li>איך נדע שהצליח?</li>
       </ol>
     </div>
-    <div class="pcard hl">
+    <div class="pcard hl st">
       <h3>דוגמה: טיימר ללמידה</h3>
       <ol>
         <li>תלמידי ז' שמכינים שיעורי בית</li>
@@ -368,7 +373,7 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
       </ol>
     </div>
   </div>
-  <p style="margin-top:18px">הבדיקה: אם אתן את הבריף למישהו שלא מכיר אתכם, הוא יבין מה לבנות?</p>
+  <p class="st" style="margin-top:18px">הבדיקה: אם אתן את הבריף למישהו שלא מכיר אתכם, הוא יבין מה לבנות?</p>
 </section>
 
 <!-- 9 -->
@@ -376,11 +381,11 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
   <p class="badge" dir="ltr">35-70 | בנייה באיטרציות</p>
   <h2>שלושה כללים לבנייה</h2>
   <div class="three">
-    <div class="pcard hl"><h3>לפחות 3 גרסאות</h3><p>הגרסה הראשונה כמעט אף פעם לא הסופית.</p></div>
-    <div class="pcard hl"><h3>שינוי אחד בכל גרסה</h3><p>כך מבינים מה גרם למה.</p></div>
-    <div class="pcard hl"><h3>רושמים ביומן</h3><p>מה ביקשנו, מה קיבלנו, מה נשנה בניסוח.</p></div>
+    <div class="pcard hl st"><h3>לפחות 3 גרסאות</h3><p>הגרסה הראשונה כמעט אף פעם לא הסופית.</p></div>
+    <div class="pcard hl st"><h3>שינוי אחד בכל גרסה</h3><p>כך מבינים מה גרם למה.</p></div>
+    <div class="pcard hl st"><h3>רושמים ביומן</h3><p>מה ביקשנו, מה קיבלנו, מה נשנה בניסוח.</p></div>
   </div>
-  <p style="margin-top:22px">קצב: כ-10 דקות לגרסה, ו-5 דקות לתקלות.</p>
+  <p class="st" style="margin-top:22px">קצב: כ-10 דקות לגרסה, ו-5 דקות לתקלות.</p>
 </section>
 
 <!-- 10 -->
@@ -390,12 +395,12 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
   <div class="tw"><table>
     <thead><tr><th>גרסה</th><th>מה ביקשנו</th><th>מה קיבלנו</th><th>מה נשנה</th></tr></thead>
     <tbody>
-      <tr><td>1</td><td>הפרומפט המלא מהבריף</td><td>הסירה זזה והניקוד עובד, אבל הכוכבים מהירים מדי</td><td>המהירות</td></tr>
-      <tr><td>2</td><td>הכוכבים לאט בהתחלה ומאיצים כל עשר נקודות</td><td>עובד, אבל הרקע לבן ומשעמם</td><td>העיצוב</td></tr>
-      <tr><td>3</td><td>רקע כחול כהה עם גלים וכתב לבן גדול</td><td>יפה, אבל הניקוד קטן בפינה</td><td>גודל הניקוד</td></tr>
+      <tr class="st"><td>1</td><td>הפרומפט המלא מהבריף</td><td>הסירה זזה והניקוד עובד, אבל הכוכבים מהירים מדי</td><td>המהירות</td></tr>
+      <tr class="st"><td>2</td><td>הכוכבים לאט בהתחלה ומאיצים כל עשר נקודות</td><td>עובד, אבל הרקע לבן ומשעמם</td><td>העיצוב</td></tr>
+      <tr class="st"><td>3</td><td>רקע כחול כהה עם גלים וכתב לבן גדול</td><td>יפה, אבל הניקוד קטן בפינה</td><td>גודל הניקוד</td></tr>
     </tbody>
   </table></div>
-  <p style="margin-top:18px">בכל שורה השתנה דבר אחד בלבד.</p>
+  <p class="st" style="margin-top:18px">בכל שורה השתנה דבר אחד בלבד.</p>
 </section>
 
 <!-- 11 -->
@@ -403,7 +408,7 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
   <p class="badge" dir="ltr">35-70 | בנייה באיטרציות</p>
   <h2>AI slop: לא לפרסם דברים ריקים</h2>
   <p class="big">תוכן שנוצר ב-AI בכמויות ובלי מחשבה. נראה מלוטש, אבל גנרי, ריק או שגוי.</p>
-  <div class="pcard" style="margin-top:22px">
+  <div class="pcard st" style="margin-top:22px">
     <h3>שלוש שאלות לבדיקה של המוצר שלנו</h3>
     <ul>
       <li>שיחקנו או השתמשנו בו בעצמנו עד הסוף?</li>
@@ -411,7 +416,7 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
       <li>אפשר להחליף בו את השם ולקבל מוצר זהה של מישהו אחר?</li>
     </ul>
   </div>
-  <a class="btn ghost vlink" href="https://youtu.be/oxHIQg6C20s" target="_blank" rel="noopener">סרטון על AI slop, נפתח ב-YouTube</a>
+  <a class="btn ghost vlink st" href="https://youtu.be/oxHIQg6C20s" target="_blank" rel="noopener">סרטון על AI slop, נפתח ב-YouTube</a>
 </section>
 
 <!-- 12 -->
@@ -421,9 +426,9 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
   <div class="tw"><table>
     <thead><tr><th>במקום</th><th>עדיף</th></tr></thead>
     <tbody>
-      <tr><td>"זה לא עובד"</td><td>"לוחצים על התחלה ושום דבר לא קורה. ציפיתי שהסירה תזוז כשאני לוחץ על החצים"</td></tr>
-      <tr><td>"תעשה את זה יפה"</td><td>"רקע כחול כהה, כתב לבן בגודל 32 פיקסלים, כפתורים מעוגלים"</td></tr>
-      <tr><td>הטקסט באנגלית או משמאל לימין</td><td>"כל הטקסט בעברית, מיושר לימין (RTL)"</td></tr>
+      <tr class="st"><td>"זה לא עובד"</td><td>"לוחצים על התחלה ושום דבר לא קורה. ציפיתי שהסירה תזוז כשאני לוחץ על החצים"</td></tr>
+      <tr class="st"><td>"תעשה את זה יפה"</td><td>"רקע כחול כהה, כתב לבן בגודל 32 פיקסלים, כפתורים מעוגלים"</td></tr>
+      <tr class="st"><td>הטקסט באנגלית או משמאל לימין</td><td>"כל הטקסט בעברית, מיושר לימין (RTL)"</td></tr>
     </tbody>
   </table></div>
 </section>
@@ -441,7 +446,7 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
       </ul>
       <p class="note" style="margin-top:12px">מציגים רק בתוך הכיתה, בלי פרטים אישיים.</p>
     </div>
-    <div class="pcard hl">
+    <div class="pcard hl st">
       <h3>כרטיס משוב: דוגמה</h3>
       <p><b>מה עובד טוב:</b> התנועה של הסירה חלקה והניקוד ברור.</p>
       <p><b>פרומפט לשיפור:</b></p>
@@ -455,9 +460,9 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
   <p class="badge" dir="ltr">82-90 | רפלקציה וגשר</p>
   <h2>מה למדנו</h2>
   <ul class="big" style="font-size:clamp(1.4rem,3.2vw,2.4rem)">
-    <li>איזה שינוי בניסוח שינה הכי הרבה?</li>
-    <li>איפה ה-AI נתקע?</li>
-    <li>איפה VibeCoding נעצר, ומה עדיין צריך לדעת בעצמנו?</li>
+    <li class="st">איזה שינוי בניסוח שינה הכי הרבה?</li>
+    <li class="st">איפה ה-AI נתקע?</li>
+    <li class="st">איפה VibeCoding נעצר, ומה עדיין צריך לדעת בעצמנו?</li>
   </ul>
 </section>
 
@@ -469,9 +474,9 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
     <div class="pcard hl">
       <h3>כל זוג כותב פרומפט אחד</h3>
       <p>לרעיון שיכול לשרת את פרויקט הסיום, ושומר אותו ב-Classroom. בשבוע 12 מתחילים אב-טיפוס ופיץ'.</p>
-      <div class="pr">אנחנו קבוצה שמפתחת אפליקציה לצמצום בזבוז אוכל בבית הספר. תבנה דף נחיתה בעברית, מיושר לימין, עם כותרת, שלושה יתרונות וכפתור "אני רוצה להצטרף". סגנון ירוק ונקי. קובץ HTML יחיד.</div>
+      <div class="pr st">אנחנו קבוצה שמפתחת אפליקציה לצמצום בזבוז אוכל בבית הספר. תבנה דף נחיתה בעברית, מיושר לימין, עם כותרת, שלושה יתרונות וכפתור "אני רוצה להצטרף". סגנון ירוק ונקי. קובץ HTML יחיד.</div>
     </div>
-    <div class="pcard">
+    <div class="pcard st">
       <h3>כרטיס יציאה</h3>
       <ul>
         <li>מה למדתי על ניסוח פרומפט?</li>
@@ -523,50 +528,70 @@ pre.prompt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--
 
 <script>
 (function(){
-  /* slide navigation */
+  /* slide navigation with step-by-step reveal */
   var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));
   var total=slides.length;
-  var cur=1;
+  var cur=1,rev=0,arrive='start';
   var count=document.getElementById('count');
+  var nextBtn=document.getElementById('next');
+  var prevBtn=document.getElementById('prev');
   var segBtns=Array.prototype.slice.call(document.querySelectorAll('#segbar button'));
   var starts=segBtns.map(function(b){return parseInt(b.getAttribute('data-go'),10);});
-
-  function show(n){
+  function steps(n){return Array.prototype.slice.call(slides[n-1].querySelectorAll('.st'));}
+  function apply(){
+    var st=steps(cur);
+    st.forEach(function(el,i){el.hidden=i>=rev;});
+    var left=st.length-rev;
+    nextBtn.textContent=left>0?'הצג עוד':'הבא';
+    count.textContent=cur+' מתוך '+total+(left>0?' | עוד '+left:'');
+    prevBtn.disabled=(cur===1&&rev===0);
+    nextBtn.disabled=(cur===total&&left===0);
+  }
+  function show(n,full){
     n=Math.max(1,Math.min(total,n));
     cur=n;
     slides.forEach(function(s,i){s.hidden=(i+1)!==n;});
-    count.textContent=n+' מתוך '+total;
+    rev=full?steps(n).length:0;
     var seg=-1;
     starts.forEach(function(s,i){if(n>=s)seg=i;});
     segBtns.forEach(function(b,i){b.className=(i===seg)?'on':'';});
-    document.getElementById('prev').disabled=(n===1);
-    document.getElementById('next').disabled=(n===total);
+    apply();
     window.scrollTo(0,0);
   }
-  function go(n){
+  function go(n,how){
+    arrive=how||'start';
     var h='#s-'+n;
-    if(location.hash!==h){location.hash=h;}else{show(n);}
+    if(location.hash!==h){location.hash=h;}else{show(n,arrive==='full');}
   }
   function fromHash(){
     var m=/^#s-(\d+)$/.exec(location.hash||'');
-    show(m?parseInt(m[1],10):1);
+    show(m?parseInt(m[1],10):1,arrive==='full');
+    arrive='start';
+  }
+  function next(){
+    if(rev<steps(cur).length){rev++;apply();}
+    else if(cur<total){go(cur+1,'start');}
+  }
+  function prev(){
+    if(rev>0){rev--;apply();}
+    else if(cur>1){go(cur-1,'full');}
   }
   window.addEventListener('hashchange',fromHash);
-  document.getElementById('next').addEventListener('click',function(){go(cur+1);});
-  document.getElementById('prev').addEventListener('click',function(){go(cur-1);});
+  nextBtn.addEventListener('click',next);
+  prevBtn.addEventListener('click',prev);
   document.getElementById('segbar').addEventListener('click',function(e){
     var b=e.target.closest('button[data-go]');
-    if(b)go(parseInt(b.getAttribute('data-go'),10));
+    if(b)go(parseInt(b.getAttribute('data-go'),10),'start');
   });
   document.addEventListener('keydown',function(e){
     var t=e.target;
     var tag=t&&t.tagName?t.tagName.toLowerCase():'';
     if(tag==='textarea'||tag==='input')return;
-    if(e.key==='ArrowLeft'||e.key==='PageDown'){e.preventDefault();go(cur+1);}
-    else if(e.key==='ArrowRight'||e.key==='PageUp'){e.preventDefault();go(cur-1);}
-    else if(e.key==='Home'){go(1);}
-    else if(e.key==='End'){go(total);}
-    else if(e.key===' '&&tag!=='button'&&tag!=='a'&&tag!=='summary'){e.preventDefault();go(cur+1);}
+    if(e.key==='ArrowLeft'||e.key==='PageDown'){e.preventDefault();next();}
+    else if(e.key==='ArrowRight'||e.key==='PageUp'){e.preventDefault();prev();}
+    else if(e.key==='Home'){go(1,'start');}
+    else if(e.key==='End'){go(total,'full');}
+    else if(e.key===' '&&tag!=='button'&&tag!=='a'&&tag!=='summary'){e.preventDefault();next();}
   });
   document.getElementById('fs').addEventListener('click',function(){
     try{
